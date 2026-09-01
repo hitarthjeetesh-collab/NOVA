@@ -1,0 +1,30 @@
+"use client";
+
+import { useState } from "react";
+import Sidebar from "@/components/layout/Sidebar";
+import Header from "@/components/layout/Header";
+import Workspace from "@/components/layout/Workspace";
+
+export default function Home() {
+  const [activeProject, setActiveProject] = useState("ORION");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  return (
+    <main className="flex h-screen overflow-hidden bg-[#0b0d10] text-white">
+      <Sidebar
+        open={sidebarOpen}
+        activeProject={activeProject}
+        onProjectChange={setActiveProject}
+      />
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <Header
+          projectName={activeProject}
+          onMenuClick={() => setSidebarOpen((open) => !open)}
+        />
+
+        <Workspace projectName={activeProject} />
+      </div>
+    </main>
+  );
+}
