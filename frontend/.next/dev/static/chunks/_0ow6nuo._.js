@@ -22,6 +22,7 @@ function Home() {
     _s();
     const [activeProject, setActiveProject] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("ORION");
     const [sidebarOpen, setSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [stage, setStage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("chat");
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "flex h-screen overflow-hidden bg-[#0b0d10] text-white",
         children: [
@@ -31,7 +32,7 @@ function Home() {
                 onProjectChange: setActiveProject
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 14,
+                lineNumber: 28,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -42,30 +43,32 @@ function Home() {
                         onMenuClick: ()=>setSidebarOpen((open)=>!open)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 21,
+                        lineNumber: 35,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$layout$2f$Workspace$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                        projectName: activeProject
+                        projectName: activeProject,
+                        stage: stage,
+                        onStageChange: setStage
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 26,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 20,
+                lineNumber: 34,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 13,
+        lineNumber: 27,
         columnNumber: 5
     }, this);
 }
-_s(Home, "8o5uN6ailbTG9o6T917Xo33JdH8=");
+_s(Home, "NK89eaFOO691nU7W5S2C1bE3t1s=");
 _c = Home;
 var _c;
 __turbopack_context__.k.register(_c, "Home");
@@ -275,41 +278,41 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 const stages = [
     {
-        name: "Requirements",
-        status: "active"
+        id: "requirements",
+        name: "Requirements"
     },
     {
-        name: "Architecture",
-        status: "pending"
+        id: "architecture",
+        name: "Architecture"
     },
     {
-        name: "Components",
-        status: "pending"
+        id: "components",
+        name: "Components"
     },
     {
-        name: "Calculations",
-        status: "pending"
+        id: "calculations",
+        name: "Calculations"
     },
     {
-        name: "CAD",
-        status: "pending"
+        id: "cad",
+        name: "CAD"
     },
     {
-        name: "Simulation",
-        status: "pending"
+        id: "simulation",
+        name: "Simulation"
     },
     {
-        name: "Optimization",
-        status: "pending"
+        id: "optimization",
+        name: "Optimization"
     },
     {
-        name: "Manufacturing",
-        status: "pending"
+        id: "manufacturing",
+        name: "Manufacturing"
     }
 ];
-function EngineeringProcess() {
+function EngineeringProcess({ activeStage, onStageChange }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-        className: "hidden w-72 shrink-0 overflow-y-auto bg-[#0f1115] xl:block",
+        className: "hidden w-72 shrink-0 border-l border-white/10 bg-[#0f1115] xl:block",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "border-b border-white/10 px-5 py-4",
@@ -319,7 +322,7 @@ function EngineeringProcess() {
                         children: "Engineering Process"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                        lineNumber: 40,
+                        lineNumber: 29,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -327,61 +330,66 @@ function EngineeringProcess() {
                         children: "Project development"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                        lineNumber: 44,
+                        lineNumber: 33,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                lineNumber: 39,
+                lineNumber: 28,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "p-4",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "space-y-1",
-                    children: stages.map((stage, index)=>{
-                        const active = stage.status === "active";
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: `flex items-center gap-3 rounded-lg px-3 py-3 ${active ? "bg-white/10" : "text-white/40"}`,
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: `flex h-6 w-6 items-center justify-center rounded-full border text-xs ${active ? "border-white bg-white text-black" : "border-white/20"}`,
-                                    children: index + 1
-                                }, void 0, false, {
-                                    fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                                    lineNumber: 63,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-sm",
-                                    children: stage.name
-                                }, void 0, false, {
-                                    fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                                    lineNumber: 73,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, stage.name, true, {
-                            fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                            lineNumber: 55,
-                            columnNumber: 15
-                        }, this);
-                    })
-                }, void 0, false, {
-                    fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                    lineNumber: 50,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>onStageChange("chat"),
+                        className: `mb-2 w-full rounded-lg px-3 py-3 text-left text-sm transition ${activeStage === "chat" ? "bg-white/10 text-white" : "text-white/50 hover:bg-white/5 hover:text-white"}`,
+                        children: "AI Assistant"
+                    }, void 0, false, {
+                        fileName: "[project]/components/engineering/EngineeringProcess.tsx",
+                        lineNumber: 39,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "space-y-1",
+                        children: stages.map((stage, index)=>{
+                            const active = activeStage === stage.id;
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>onStageChange(stage.id),
+                                className: `flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition ${active ? "bg-white/10 text-white" : "text-white/50 hover:bg-white/5 hover:text-white"}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: `flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs ${active ? "border-white bg-white text-black" : "border-white/20"}`,
+                                        children: index + 1
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/engineering/EngineeringProcess.tsx",
+                                        lineNumber: 64,
+                                        columnNumber: 17
+                                    }, this),
+                                    stage.name
+                                ]
+                            }, stage.id, true, {
+                                fileName: "[project]/components/engineering/EngineeringProcess.tsx",
+                                lineNumber: 55,
+                                columnNumber: 15
+                            }, this);
+                        })
+                    }, void 0, false, {
+                        fileName: "[project]/components/engineering/EngineeringProcess.tsx",
+                        lineNumber: 50,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-                lineNumber: 49,
+                lineNumber: 38,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/engineering/EngineeringProcess.tsx",
-        lineNumber: 38,
+        lineNumber: 27,
         columnNumber: 5
     }, this);
 }
@@ -609,12 +617,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f
 ;
 ;
 ;
-function Workspace({ projectName }) {
+function Workspace({ projectName, stage, onStageChange }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-0 flex-1",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "flex min-w-0 flex-1 flex-col border-r border-white/10",
+                className: "flex min-w-0 flex-1 flex-col",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "border-b border-white/10 px-6 py-4",
@@ -624,49 +632,191 @@ function Workspace({ projectName }) {
                                 children: projectName
                             }, void 0, false, {
                                 fileName: "[project]/components/layout/Workspace.tsx",
-                                lineNumber: 17,
+                                lineNumber: 23,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "mt-1 text-sm text-white/40",
-                                children: "AI engineering workspace"
+                                children: getStageDescription(stage)
                             }, void 0, false, {
                                 fileName: "[project]/components/layout/Workspace.tsx",
-                                lineNumber: 21,
+                                lineNumber: 27,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/layout/Workspace.tsx",
-                        lineNumber: 16,
+                        lineNumber: 22,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$chat$2f$Chat$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "min-h-0 flex-1",
+                        children: [
+                            stage === "chat" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$chat$2f$Chat$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 33,
+                                columnNumber: 32
+                            }, this),
+                            stage === "requirements" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Requirements",
+                                description: "Define what the system needs to accomplish."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 36,
+                                columnNumber: 13
+                            }, this),
+                            stage === "architecture" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Architecture",
+                                description: "Define the system architecture and major subsystems."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 43,
+                                columnNumber: 13
+                            }, this),
+                            stage === "components" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Components",
+                                description: "Select and manage the physical and electronic components."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 50,
+                                columnNumber: 13
+                            }, this),
+                            stage === "calculations" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Calculations",
+                                description: "Run and review engineering calculations."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 57,
+                                columnNumber: 13
+                            }, this),
+                            stage === "cad" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "CAD",
+                                description: "Create and manage mechanical designs."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 64,
+                                columnNumber: 13
+                            }, this),
+                            stage === "simulation" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Simulation",
+                                description: "Simulate system behavior and performance."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 71,
+                                columnNumber: 13
+                            }, this),
+                            stage === "optimization" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Optimization",
+                                description: "Optimize the design against project constraints."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 78,
+                                columnNumber: 13
+                            }, this),
+                            stage === "manufacturing" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Placeholder, {
+                                title: "Manufacturing",
+                                description: "Prepare the design for manufacturing."
+                            }, void 0, false, {
+                                fileName: "[project]/components/layout/Workspace.tsx",
+                                lineNumber: 85,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/components/layout/Workspace.tsx",
-                        lineNumber: 26,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/layout/Workspace.tsx",
-                lineNumber: 15,
+                lineNumber: 21,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$EngineeringProcess$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$EngineeringProcess$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                activeStage: stage,
+                onStageChange: onStageChange
+            }, void 0, false, {
                 fileName: "[project]/components/layout/Workspace.tsx",
-                lineNumber: 29,
+                lineNumber: 93,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/layout/Workspace.tsx",
-        lineNumber: 14,
+        lineNumber: 20,
         columnNumber: 5
     }, this);
 }
 _c = Workspace;
-var _c;
+function getStageDescription(stage) {
+    switch(stage){
+        case "chat":
+            return "AI engineering assistant";
+        case "requirements":
+            return "System requirements";
+        case "architecture":
+            return "System architecture";
+        case "components":
+            return "Components and parts";
+        case "calculations":
+            return "Engineering calculations";
+        case "cad":
+            return "Computer-aided design";
+        case "simulation":
+            return "Engineering simulation";
+        case "optimization":
+            return "Design optimization";
+        case "manufacturing":
+            return "Manufacturing preparation";
+    }
+}
+function Placeholder({ title, description }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex h-full items-center justify-center",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "max-w-md text-center",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                    className: "text-2xl font-semibold",
+                    children: title
+                }, void 0, false, {
+                    fileName: "[project]/components/layout/Workspace.tsx",
+                    lineNumber: 144,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "mt-3 text-sm leading-6 text-white/40",
+                    children: description
+                }, void 0, false, {
+                    fileName: "[project]/components/layout/Workspace.tsx",
+                    lineNumber: 148,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    className: "mt-6 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90",
+                    children: "Get Started"
+                }, void 0, false, {
+                    fileName: "[project]/components/layout/Workspace.tsx",
+                    lineNumber: 152,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/components/layout/Workspace.tsx",
+            lineNumber: 143,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/components/layout/Workspace.tsx",
+        lineNumber: 142,
+        columnNumber: 5
+    }, this);
+}
+_c1 = Placeholder;
+var _c, _c1;
 __turbopack_context__.k.register(_c, "Workspace");
+__turbopack_context__.k.register(_c1, "Placeholder");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
