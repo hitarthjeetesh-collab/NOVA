@@ -1,9 +1,17 @@
 "use client";
 
-import Architecture from "@/components/engineering/architecture/Architecture";
+import { useState } from "react";
+
+import Architecture, {
+  initialArchitectureNodes,
+  type ArchitectureNode,
+} from "@/components/engineering/architecture/Architecture";
+
 import Requirements from "@/components/engineering/requirements/Requirements";
 import Chat from "@/components/chat/Chat";
 import EngineeringProcess from "@/components/engineering/EngineeringProcess";
+import Components from "@/components/engineering/components/Components";
+
 import type { WorkspaceStage } from "@/app/page";
 
 interface WorkspaceProps {
@@ -17,6 +25,13 @@ export default function Workspace({
   stage,
   onStageChange,
 }: WorkspaceProps) {
+  const [
+    architectureNodes,
+    setArchitectureNodes,
+  ] = useState<ArchitectureNode[]>(
+    initialArchitectureNodes
+  );
+
   return (
     <div className="flex min-h-0 flex-1">
       <section className="flex min-w-0 flex-1 flex-col">
@@ -31,16 +46,26 @@ export default function Workspace({
         </div>
 
         <div className="min-h-0 flex-1">
-          {stage === "chat" && <Chat />}
+          {stage === "chat" && (
+            <Chat />
+          )}
 
-          {stage === "requirements" && <Requirements />}
+          {stage === "requirements" && (
+            <Requirements />
+          )}
 
-          {stage === "architecture" && <Architecture />}
+          {stage === "architecture" && (
+            <Architecture
+              nodes={architectureNodes}
+              setNodes={setArchitectureNodes}
+            />
+          )}
 
           {stage === "components" && (
-            <Placeholder
-              title="Components"
-              description="Select and manage the physical and electronic components."
+            <Components
+              architectureNodes={
+                architectureNodes
+              }
             />
           )}
 
@@ -96,7 +121,9 @@ export default function Workspace({
   );
 }
 
-function getStageDescription(stage: WorkspaceStage) {
+function getStageDescription(
+  stage: WorkspaceStage
+) {
   switch (stage) {
     case "chat":
       return "AI engineering assistant";
