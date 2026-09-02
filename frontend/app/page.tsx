@@ -8,6 +8,7 @@ import Workspace from "@/components/layout/Workspace";
 export type WorkspaceStage =
   | "chat"
   | "requirements"
+  | "planning"
   | "architecture"
   | "components"
   | "calculations"

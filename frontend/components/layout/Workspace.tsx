@@ -7,6 +7,7 @@ import Architecture, {
   type ArchitectureNode,
 } from "@/components/engineering/architecture/Architecture";
 
+import Planning from "@/components/engineering/planning/planning";
 import Requirements from "@/components/engineering/requirements/Requirements";
 import Chat from "@/components/chat/Chat";
 import EngineeringProcess from "@/components/engineering/EngineeringProcess";
@@ -52,6 +53,11 @@ export default function Workspace({
 
           {stage === "requirements" && (
             <Requirements />
+          )}
+
+          {stage === "planning" && (
+            <Planning />
+            
           )}
 
           {stage === "architecture" && (
@@ -131,6 +137,9 @@ function getStageDescription(
     case "requirements":
       return "System requirements";
 
+    case "planning":
+      return "Design priorities and concept exploration";
+    
     case "architecture":
       return "System architecture";
 

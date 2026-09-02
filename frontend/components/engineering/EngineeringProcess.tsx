@@ -10,6 +10,7 @@ const stages: {
   name: string;
 }[] = [
   { id: "requirements", name: "Requirements" },
+  { id: "planning", name: "Planning" },
   { id: "architecture", name: "Architecture" },
   { id: "components", name: "Components" },
   { id: "calculations", name: "Calculations" },
