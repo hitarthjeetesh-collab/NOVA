@@ -87,7 +87,7 @@ export default function Calculations({
       )}
 
       {/* WORKSPACE */}
-      <main className="min-w-0 flex-1 overflow-hidden">
+      <main className="min-h-0 min-w-0 flex-1 overflow-hidden">
         <CalculationWorkspace
           calculation={selectedCalculation}
           projectName={projectName}
