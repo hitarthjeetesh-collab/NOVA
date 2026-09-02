@@ -219,67 +219,6 @@ export function PriorityMap({
           a priority to increase its
           importance.
         </p>
-
-        {/* Manual sliders */}
-
-        <div className="mt-5 w-full max-w-xl">
-          <p className="mb-3 text-xs font-medium text-white/50">
-            Adjust priorities
-          </p>
-
-          <div className="space-y-3">
-            {priorities.map(
-              (
-                priority,
-                index
-              ) => (
-                <div
-                  key={
-                    priority.id
-                  }
-                  className="grid grid-cols-[10px_1fr_auto] items-center gap-3"
-                >
-                  <span
-                    className={`h-2 w-2 rounded-full border ${
-                      priorityColors[
-                        index %
-                          priorityColors.length
-                      ]
-                    }`}
-                  />
-
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={Math.round(
-                      priority.weight
-                    )}
-                    onChange={(
-                      event
-                    ) =>
-                      onUpdateWeight(
-                        priority.id,
-                        Number(
-                          event.target
-                            .value
-                        )
-                      )
-                    }
-                    className="w-full accent-white"
-                  />
-
-                  <span className="w-10 text-right text-xs text-white/40">
-                    {Math.round(
-                      priority.weight
-                    )}
-                    %
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );
