@@ -1,84 +1,122 @@
+"use client";
+
+import { useState } from "react";
 import type { WorkspaceStage } from "@/app/page";
 
-interface EngineeringProcessProps {
-  activeStage: WorkspaceStage;
+type Props = {
+  stage: WorkspaceStage;
   onStageChange: (stage: WorkspaceStage) => void;
-}
+};
 
 const stages: {
   id: WorkspaceStage;
-  name: string;
+  label: string;
 }[] = [
-  { id: "requirements", name: "Requirements" },
-  { id: "planning", name: "Planning" },
-  { id: "architecture", name: "Architecture" },
-  { id: "components", name: "Components" },
-  { id: "calculations", name: "Calculations" },
-  { id: "code", name: "Code" },
-  { id: "cad", name: "CAD" },
-  { id: "simulation", name: "Simulation" },
-  { id: "optimization", name: "Optimization" },
-  { id: "manufacturing", name: "Manufacturing" },
+  { id: "requirements", label: "Requirements" },
+  { id: "planning", label: "Planning" },
+  { id: "architecture", label: "Architecture" },
+  { id: "components", label: "Components" },
+  { id: "calculations", label: "Calculations" },
+  { id: "code", label: "Code" },
+  { id: "cad", label: "CAD" },
+  { id: "simulation", label: "Simulation" },
+  { id: "optimization", label: "Optimization" },
+  { id: "manufacturing", label: "Manufacturing" },
 ];
 
 export default function EngineeringProcess({
-  activeStage,
+  stage,
   onStageChange,
-}: EngineeringProcessProps) {
+}: Props) {
+  const [open, setOpen] = useState(true);
+
   return (
-    <aside className="hidden w-72 shrink-0 border-l border-white/10 bg-[#0f1115] xl:block">
-      <div className="border-b border-white/10 px-5 py-4">
-        <p className="text-sm font-semibold">
-          Engineering Process
-        </p>
+    <aside
+      className={`hidden shrink-0 border-l border-white/10 bg-[#0e1115] transition-all duration-200 xl:flex ${
+        open ? "w-60" : "w-12"
+      }`}
+    >
+      {open ? (
+        <div className="flex min-h-0 w-full flex-col">
+          {/* Header */}
+          <div className="flex h-12 items-center justify-between border-b border-white/10 px-4">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-white/40">
+              Engineering Process
+            </span>
 
-        <p className="mt-1 text-xs text-white/40">
-          Project development
-        </p>
-      </div>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              title="Hide engineering process"
+              className="flex h-7 w-7 items-center justify-center rounded-md text-white/35 transition hover:bg-white/[0.06] hover:text-white"
+            >
+              ‹
+            </button>
+          </div>
 
-      <div className="p-4">
-        <button
-          onClick={() => onStageChange("chat")}
-          className={`mb-2 w-full rounded-lg px-3 py-3 text-left text-sm transition ${
-            activeStage === "chat"
-              ? "bg-white/10 text-white"
-              : "text-white/50 hover:bg-white/5 hover:text-white"
-          }`}
-        >
-          AI Assistant
-        </button>
+          {/* Stages */}
+          <div className="flex-1 overflow-y-auto p-2">
+            {stages.map((item, index) => {
+              const active = stage === item.id;
 
-        <div className="space-y-1">
-          {stages.map((stage, index) => {
-            const active = activeStage === stage.id;
-
-            return (
-              <button
-                key={stage.id}
-                onClick={() => onStageChange(stage.id)}
-                className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-sm transition ${
-                  active
-                    ? "bg-white/10 text-white"
-                    : "text-white/50 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                <span
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs ${
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => onStageChange(item.id)}
+                  className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition ${
                     active
-                      ? "border-white bg-white text-black"
-                      : "border-white/20"
+                      ? "bg-white/[0.08] text-white"
+                      : "text-white/45 hover:bg-white/[0.04] hover:text-white/80"
                   }`}
                 >
-                  {index + 1}
-                </span>
+                  <span
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-[10px] font-medium ${
+                      active
+                        ? "border-white/20 bg-white/[0.08] text-white"
+                        : "border-white/10 text-white/30"
+                    }`}
+                  >
+                    {index + 1}
+                  </span>
 
-                {stage.name}
-              </button>
-            );
-          })}
+                  <span className="truncate text-xs">
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* AI Assistant */}
+          <div className="border-t border-white/10 p-3">
+            <button
+              type="button"
+              className="flex w-full items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 text-left transition hover:bg-white/[0.06]"
+            >
+              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/[0.08] text-[10px] text-white/60">
+                AI
+              </span>
+
+              <span className="text-xs text-white/55">
+                AI Assistant
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        /* Collapsed */
+        <div className="flex w-full flex-col items-center py-3">
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            title="Show engineering process"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-white/35 transition hover:bg-white/[0.06] hover:text-white"
+          >
+            ›
+          </button>
+        </div>
+      )}
     </aside>
   );
 }

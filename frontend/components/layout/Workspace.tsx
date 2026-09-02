@@ -6,7 +6,7 @@ import Architecture, {
   initialArchitectureNodes,
   type ArchitectureNode,
 } from "@/components/engineering/architecture/Architecture";
-
+import Code from "@/components/engineering/code/Code";
 import Calculations from "@/components/engineering/calculations/Calculations";
 import Planning from "@/components/engineering/planning/planning";
 import Requirements from "@/components/engineering/requirements/Requirements";
@@ -81,11 +81,8 @@ export default function Workspace({
 )}
 
           {stage === "code" && (
-            <Placeholder
-              title="Code"
-              description="Develop, manage, and validate the software for the system."
-            />
-          )}
+  <Code projectName={projectName} />
+)}
 
           {stage === "cad" && (
             <Placeholder
@@ -118,7 +115,7 @@ export default function Workspace({
       </section>
 
       <EngineeringProcess
-        activeStage={stage}
+        stage={stage}
         onStageChange={onStageChange}
       />
     </div>
