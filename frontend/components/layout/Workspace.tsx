@@ -1,7 +1,7 @@
 "use client";
 
-import Architecture from "@/components/engineering/Architecture";
-import Requirements from "@/components/engineering/Requirements";
+import Architecture from "@/components/engineering/architecture/Architecture";
+import Requirements from "@/components/engineering/requirements/Requirements";
 import Chat from "@/components/chat/Chat";
 import EngineeringProcess from "@/components/engineering/EngineeringProcess";
 import type { WorkspaceStage } from "@/app/page";

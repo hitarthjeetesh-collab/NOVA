@@ -878,9 +878,7 @@ function Architecture() {
                     if (node.id !== editingNodeId) {
                         return node;
                     }
-                    /**
-           * Preserve the existing parent.
-           */ return {
+                    return {
                         ...node,
                         data: {
                             ...data,
@@ -1026,7 +1024,7 @@ function Architecture() {
                         children: "← Back"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1448,
+                        lineNumber: 1423,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1039,7 +1037,7 @@ function Architecture() {
                                 children: "ORION"
                             }, void 0, false, {
                                 fileName: "[project]/components/engineering/Architecture.tsx",
-                                lineNumber: 1459,
+                                lineNumber: 1434,
                                 columnNumber: 11
                             }, this),
                             breadcrumbs.map((node)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1050,7 +1048,7 @@ function Architecture() {
                                             children: "/"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/Architecture.tsx",
-                                            lineNumber: 1481,
+                                            lineNumber: 1456,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1060,19 +1058,19 @@ function Architecture() {
                                             children: node.data.label
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/Architecture.tsx",
-                                            lineNumber: 1485,
+                                            lineNumber: 1460,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, node.id, true, {
                                     fileName: "[project]/components/engineering/Architecture.tsx",
-                                    lineNumber: 1477,
+                                    lineNumber: 1452,
                                     columnNumber: 15
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1458,
+                        lineNumber: 1433,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1082,7 +1080,7 @@ function Architecture() {
                         children: "+ Add System"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1510,
+                        lineNumber: 1485,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1090,13 +1088,13 @@ function Architecture() {
                         children: "Double-click a system to enter"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1521,
+                        lineNumber: 1496,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 1445,
+                lineNumber: 1420,
                 columnNumber: 7
             }, this),
             currentSystem && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1108,7 +1106,7 @@ function Architecture() {
                         children: "·"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1535,
+                        lineNumber: 1510,
                         columnNumber: 11
                     }, this),
                     visibleNodes.length,
@@ -1117,7 +1115,7 @@ function Architecture() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 1532,
+                lineNumber: 1507,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["ReactFlow"], {
@@ -1149,18 +1147,15 @@ function Architecture() {
                     animated: false
                 },
                 colorMode: "dark",
-                proOptions: {
-                    hideAttribution: true
-                },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Background"], {}, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1608,
+                        lineNumber: 1579,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Controls"], {}, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1610,
+                        lineNumber: 1581,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["MiniMap"], {
@@ -1169,13 +1164,13 @@ function Architecture() {
                         nodeColor: "#3a424d"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 1612,
+                        lineNumber: 1583,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 1553,
+                lineNumber: 1528,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$SystemModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1189,7 +1184,7 @@ function Architecture() {
                 onSubmit: handleSystemSubmit
             }, void 0, false, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 1623,
+                lineNumber: 1594,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$ConnectionModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1210,13 +1205,13 @@ function Architecture() {
                 onSubmit: handleConnectionSubmit
             }, void 0, false, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 1651,
+                lineNumber: 1622,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/engineering/Architecture.tsx",
-        lineNumber: 1440,
+        lineNumber: 1415,
         columnNumber: 5
     }, this);
 }
