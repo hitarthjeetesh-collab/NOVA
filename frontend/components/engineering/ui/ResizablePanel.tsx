@@ -1,147 +1,221 @@
 "use client";
 
 import {
-  type CSSProperties,
-  type ReactNode,
   useEffect,
   useRef,
-  useState,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
 } from "react";
 
-type Direction = "horizontal" | "vertical";
+type Props = {
+  direction: "horizontal" | "vertical";
+  edge: "start" | "end";
 
-interface ResizablePanelProps {
-  children: ReactNode;
-  direction: Direction;
   size: number;
   minSize: number;
   maxSize: number;
-  onSizeChange: (size: number) => void;
+
   collapsed?: boolean;
+  onSizeChange: (size: number) => void;
   onToggleCollapse?: () => void;
+
+  collapseButtonPosition?: string;
+
+  children: ReactNode;
   className?: string;
-  collapseButtonPosition?: "start" | "end";
-}
+};
 
 export default function ResizablePanel({
-  children,
   direction,
+  edge,
   size,
   minSize,
   maxSize,
-  onSizeChange,
   collapsed = false,
+  onSizeChange,
   onToggleCollapse,
+  collapseButtonPosition,
+  children,
   className = "",
-  collapseButtonPosition = "end",
-}: ResizablePanelProps) {
-  const [dragging, setDragging] = useState(false);
+}: Props) {
+  const dragging = useRef(false);
   const startPosition = useRef(0);
   const startSize = useRef(size);
 
+  const horizontal = direction === "horizontal";
+
+  const handlePointerDown = (
+    event: ReactPointerEvent<HTMLDivElement>,
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    dragging.current = true;
+
+    startPosition.current = horizontal
+      ? event.clientX
+      : event.clientY;
+
+    startSize.current = size;
+
+    document.body.style.userSelect = "none";
+    document.body.style.cursor = horizontal
+      ? "col-resize"
+      : "row-resize";
+  };
+
   useEffect(() => {
-    if (!dragging) return;
+    const handlePointerMove = (event: PointerEvent) => {
+      if (!dragging.current) return;
 
-    const handleMove = (event: PointerEvent) => {
+      const currentPosition = horizontal
+        ? event.clientX
+        : event.clientY;
+
       const delta =
-        direction === "horizontal"
-          ? event.clientX - startPosition.current
-          : event.clientY - startPosition.current;
+        currentPosition - startPosition.current;
 
-      const nextSize =
-        direction === "horizontal"
-          ? startSize.current + delta
-          : startSize.current + delta;
+      const signedDelta =
+        edge === "end" ? delta : -delta;
 
-      onSizeChange(
-        Math.min(maxSize, Math.max(minSize, nextSize)),
+      const nextSize = Math.min(
+        maxSize,
+        Math.max(
+          minSize,
+          startSize.current + signedDelta,
+        ),
       );
+
+      onSizeChange(nextSize);
     };
 
-    const handleUp = () => {
-      setDragging(false);
-      document.body.style.cursor = "";
+    const handlePointerUp = () => {
+      if (!dragging.current) return;
+
+      dragging.current = false;
+
       document.body.style.userSelect = "";
+      document.body.style.cursor = "";
     };
 
-    window.addEventListener("pointermove", handleMove);
-    window.addEventListener("pointerup", handleUp);
+    window.addEventListener(
+      "pointermove",
+      handlePointerMove,
+    );
+
+    window.addEventListener(
+      "pointerup",
+      handlePointerUp,
+    );
 
     return () => {
-      window.removeEventListener("pointermove", handleMove);
-      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener(
+        "pointermove",
+        handlePointerMove,
+      );
 
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
+      window.removeEventListener(
+        "pointerup",
+        handlePointerUp,
+      );
     };
   }, [
-    direction,
-    dragging,
+    edge,
+    horizontal,
     maxSize,
     minSize,
     onSizeChange,
   ]);
 
-  const beginResize = (
-    event: React.PointerEvent<HTMLDivElement>,
-  ) => {
-    event.preventDefault();
+  const sizeStyle = horizontal
+    ? {
+        width: collapsed ? 0 : size,
+      }
+    : {
+        height: collapsed ? 0 : size,
+      };
 
-    startPosition.current =
-      direction === "horizontal"
-        ? event.clientX
-        : event.clientY;
-
-    startSize.current = size;
-
-    setDragging(true);
-
-    document.body.style.cursor =
-      direction === "horizontal"
-        ? "col-resize"
-        : "row-resize";
-
-    document.body.style.userSelect = "none";
-  };
-
-  const style: CSSProperties = {
-    [direction === "horizontal" ? "width" : "height"]:
-      collapsed ? 0 : size,
-  };
+  if (collapsed) {
+    return (
+      <div
+        style={sizeStyle}
+        className={`relative shrink-0 ${className}`}
+      />
+    );
+  }
 
   return (
     <div
-      className={`relative shrink-0 overflow-hidden ${
-        direction === "horizontal"
-          ? "h-full"
-          : "w-full"
-      } ${className}`}
-      style={style}
+      style={sizeStyle}
+      className={`group relative shrink-0 ${className}`}
     >
-      <div className="h-full w-full">
+      <div className="h-full w-full overflow-hidden">
         {children}
       </div>
 
+      {/* Collapse button */}
       {onToggleCollapse && (
         <button
           type="button"
+          onPointerDown={(event) => {
+            event.stopPropagation();
+          }}
           onClick={onToggleCollapse}
-          title={collapsed ? "Expand panel" : "Collapse panel"}
-          className={`absolute z-20 flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-[#111419]/95 text-xs text-white/35 opacity-0 backdrop-blur transition hover:bg-white/[0.08] hover:text-white group-hover:opacity-100 ${
-            collapseButtonPosition === "start"
-              ? "left-2 top-2"
-              : "right-2 top-2"
+          title="Collapse panel"
+          className={`absolute z-50 flex h-6 w-6 items-center justify-center rounded-md border border-white/10 bg-[#111419]/95 text-xs text-white/35 opacity-0 shadow-lg transition-all hover:border-white/20 hover:bg-[#181c22] hover:text-white group-hover:opacity-100 ${
+            collapseButtonPosition ??
+            (horizontal
+              ? edge === "end"
+                ? "right-2 top-2"
+                : "left-2 top-2"
+              : edge === "end"
+                ? "right-2 top-2"
+                : "right-2 bottom-2")
           }`}
         >
-          {direction === "horizontal"
-            ? collapsed
-              ? "›"
-              : "‹"
-            : collapsed
+          {horizontal
+            ? edge === "end"
+              ? "‹"
+              : "›"
+            : edge === "end"
               ? "⌃"
               : "⌄"}
         </button>
       )}
+
+      {/* Resize handle */}
+      <div
+        onPointerDown={handlePointerDown}
+        className={`absolute z-40 flex items-center justify-center transition-opacity ${
+          horizontal
+            ? `
+              top-0 h-full w-3
+              cursor-col-resize
+              ${
+                edge === "end"
+                  ? "-right-1"
+                  : "-left-1"
+              }
+            `
+            : `
+              left-0 h-3 w-full
+              cursor-row-resize
+              ${
+                edge === "end"
+                  ? "-bottom-1"
+                  : "-top-1"
+              }
+            `
+        } opacity-0 group-hover:opacity-100`}
+      >
+        <div
+          className={`rounded-full bg-white/30 transition-colors hover:bg-white/60 ${
+            horizontal
+              ? "h-10 w-0.5"
+              : "h-0.5 w-10"
+          }`}
+        />
+      </div>
     </div>
   );
 }
