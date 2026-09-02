@@ -14,7 +14,7 @@ import Chat from "@/components/chat/Chat";
 import EngineeringProcess from "@/components/engineering/EngineeringProcess";
 import Components from "@/components/engineering/components/Components";
 
-import type { WorkspaceStage } from "@/app/page";
+import type { WorkspaceStage } from "@/app/engineeringapp/page";
 
 interface WorkspaceProps {
   projectName: string;

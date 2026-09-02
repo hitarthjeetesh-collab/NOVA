@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { WorkspaceStage } from "@/app/page";
+import type { WorkspaceStage } from "@/app/engineeringapp/page";
 
 type Props = {
   stage: WorkspaceStage;
