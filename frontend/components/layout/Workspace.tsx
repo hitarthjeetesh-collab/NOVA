@@ -7,6 +7,7 @@ import Architecture, {
   type ArchitectureNode,
 } from "@/components/engineering/architecture/Architecture";
 
+import Calculations from "@/components/engineering/calculations/Calculations";
 import Planning from "@/components/engineering/planning/planning";
 import Requirements from "@/components/engineering/requirements/Requirements";
 import Chat from "@/components/chat/Chat";
@@ -76,11 +77,8 @@ export default function Workspace({
           )}
 
           {stage === "calculations" && (
-            <Placeholder
-              title="Calculations"
-              description="Run and review engineering calculations."
-            />
-          )}
+  <Calculations projectName={projectName} />
+)}
 
           {stage === "code" && (
             <Placeholder
