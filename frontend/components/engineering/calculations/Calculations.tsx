@@ -32,7 +32,9 @@ export default function Calculations({
   const [newCalculationOpen, setNewCalculationOpen] =
     useState(false);
 
-  const [libraryWidth, setLibraryWidth] = useState(300);
+  const [libraryWidth, setLibraryWidth] =
+    useState(300);
+
   const [libraryCollapsed, setLibraryCollapsed] =
     useState(false);
 
@@ -41,19 +43,20 @@ export default function Calculations({
   }
 
   return (
-    <>
-      <div className="flex h-full min-h-0 bg-[#0b0d10]">
+    <div className="relative flex h-full min-h-0 overflow-hidden">
+      {/* CALCULATION LIBRARY */}
+      {!libraryCollapsed ? (
         <ResizablePanel
           direction="horizontal"
           size={libraryWidth}
-          minSize={240}
+          minSize={220}
           maxSize={500}
           onSizeChange={setLibraryWidth}
-          collapsed={libraryCollapsed}
+          collapsed={false}
           onToggleCollapse={() =>
-            setLibraryCollapsed((value) => !value)
+            setLibraryCollapsed(true)
           }
-          className="border-r border-white/10"
+          className="h-full"
         >
           <CalculationList
             calculations={filteredCalculations}
@@ -68,7 +71,23 @@ export default function Calculations({
             }
           />
         </ResizablePanel>
+      ) : (
+        <div className="flex w-9 shrink-0 items-start justify-center border-r border-white/10 bg-[#0e1115] pt-3">
+          <button
+            type="button"
+            onClick={() =>
+              setLibraryCollapsed(false)
+            }
+            title="Show Calculation Library"
+            className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-xs text-white/40 transition hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+          >
+            ›
+          </button>
+        </div>
+      )}
 
+      {/* WORKSPACE */}
+      <main className="min-w-0 flex-1 overflow-hidden">
         <CalculationWorkspace
           calculation={selectedCalculation}
           projectName={projectName}
@@ -82,24 +101,15 @@ export default function Calculations({
             )
           }
         />
-
-        {libraryCollapsed && (
-          <button
-            type="button"
-            onClick={() => setLibraryCollapsed(false)}
-            title="Show calculation library"
-            className="absolute left-2 top-2 z-30 flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-[#111419] text-white/40 transition hover:bg-white/[0.08] hover:text-white"
-          >
-            ›
-          </button>
-        )}
-      </div>
+      </main>
 
       <NewCalculationModal
         open={newCalculationOpen}
-        onClose={() => setNewCalculationOpen(false)}
+        onClose={() =>
+          setNewCalculationOpen(false)
+        }
         onCreate={handleCreate}
       />
-    </>
+    </div>
   );
 }

@@ -32,6 +32,9 @@ export default function Code({
   const [newFileOpen, setNewFileOpen] =
     useState(false);
 
+  /*
+   * Horizontal panels
+   */
   const [explorerWidth, setExplorerWidth] =
     useState(224);
 
@@ -41,11 +44,16 @@ export default function Code({
   const [explorerCollapsed, setExplorerCollapsed] =
     useState(false);
 
-  const [suggestionsCollapsed, setSuggestionsCollapsed] =
-    useState(false);
+  const [
+    suggestionsCollapsed,
+    setSuggestionsCollapsed,
+  ] = useState(false);
 
+  /*
+   * Vertical panels
+   */
   const [contextHeight, setContextHeight] =
-    useState(120);
+    useState(150);
 
   const [consoleHeight, setConsoleHeight] =
     useState(144);
@@ -58,136 +66,179 @@ export default function Code({
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[#0b0d10]">
-      <div className="relative flex min-h-0 flex-1 overflow-hidden">
-        {/* FILE EXPLORER */}
-        <ResizablePanel
-          direction="horizontal"
-          size={explorerWidth}
-          minSize={180}
-          maxSize={420}
-          onSizeChange={setExplorerWidth}
-          collapsed={explorerCollapsed}
-          onToggleCollapse={() =>
-            setExplorerCollapsed(
-              (value) => !value,
-            )
-          }
-          className="border-r border-white/10"
-        >
-          <CodeExplorer
-            files={files}
-            activeFileId={activeFileId}
-            onSelect={setActiveFileId}
-            onNewFile={() =>
-              setNewFileOpen(true)
-            }
-          />
-        </ResizablePanel>
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        {/* =========================================
+            FILE EXPLORER
+        ========================================= */}
 
-        {/* MAIN EDITOR */}
-        <main className="flex min-w-0 flex-1 flex-col">
+        {!explorerCollapsed ? (
+          <ResizablePanel
+            direction="horizontal"
+            size={explorerWidth}
+            minSize={180}
+            maxSize={420}
+            onSizeChange={setExplorerWidth}
+            collapsed={false}
+            onToggleCollapse={() =>
+              setExplorerCollapsed(true)
+            }
+            className="h-full"
+          >
+            <CodeExplorer
+              files={files}
+              activeFileId={activeFileId}
+              onSelect={setActiveFileId}
+              onNewFile={() =>
+                setNewFileOpen(true)
+              }
+            />
+          </ResizablePanel>
+        ) : (
+          <div className="flex w-9 shrink-0 items-start justify-center border-r border-white/10 bg-[#0e1115] pt-3">
+            <button
+              type="button"
+              onClick={() =>
+                setExplorerCollapsed(false)
+              }
+              title="Show File Explorer"
+              className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-xs text-white/40 transition hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+            >
+              ›
+            </button>
+          </div>
+        )}
+
+        {/* =========================================
+            MAIN EDITOR
+        ========================================= */}
+
+        <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
           <CodeHeader file={activeFile} />
 
           <CodeToolbar />
 
-          {activeFile ? (
-            <CodeEditor
-              value={activeFile.content}
-              onChange={updateContent}
-            />
+          {/* EDITOR */}
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+            {activeFile ? (
+              <CodeEditor
+                value={activeFile.content}
+                onChange={updateContent}
+              />
+            ) : (
+              <div className="flex flex-1 items-center justify-center text-sm text-white/25">
+                Select a file to begin editing.
+              </div>
+            )}
+          </div>
+
+          {/* =========================================
+              ENGINEERING CONTEXT
+          ========================================= */}
+
+          {!contextCollapsed ? (
+            <ResizablePanel
+              direction="vertical"
+              size={contextHeight}
+              minSize={90}
+              maxSize={320}
+              onSizeChange={setContextHeight}
+              collapsed={false}
+              onToggleCollapse={() =>
+                setContextCollapsed(true)
+              }
+              className="w-full"
+            >
+              <CodeContext />
+            </ResizablePanel>
           ) : (
-            <div className="flex min-h-0 flex-1 items-center justify-center text-sm text-white/25">
-              Select a file to begin editing.
+            <div className="flex h-8 shrink-0 items-center justify-center border-t border-white/10 bg-[#0f1216]">
+              <button
+                type="button"
+                onClick={() =>
+                  setContextCollapsed(false)
+                }
+                title="Show Engineering Context"
+                className="rounded-md border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] text-white/40 transition hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+              >
+                Show Engineering Context
+              </button>
             </div>
           )}
 
-          {/* ENGINEERING CONTEXT */}
-          <ResizablePanel
-            direction="vertical"
-            size={contextHeight}
-            minSize={70}
-            maxSize={260}
-            onSizeChange={setContextHeight}
-            collapsed={contextCollapsed}
-            onToggleCollapse={() =>
-              setContextCollapsed(
-                (value) => !value,
-              )
-            }
-            className="border-t border-white/10"
-          >
-            <CodeContext />
-          </ResizablePanel>
+          {/* =========================================
+              CONSOLE
+          ========================================= */}
 
-          {/* CONSOLE */}
-          <ResizablePanel
-            direction="vertical"
-            size={consoleHeight}
-            minSize={60}
-            maxSize={400}
-            onSizeChange={setConsoleHeight}
-            collapsed={consoleCollapsed}
-            onToggleCollapse={() =>
-              setConsoleCollapsed(
-                (value) => !value,
-              )
-            }
-            className="border-t border-white/10"
-          >
-            <CodeConsole />
-          </ResizablePanel>
+          {!consoleCollapsed ? (
+            <ResizablePanel
+              direction="vertical"
+              size={consoleHeight}
+              minSize={80}
+              maxSize={320}
+              onSizeChange={setConsoleHeight}
+              collapsed={false}
+              onToggleCollapse={() =>
+                setConsoleCollapsed(true)
+              }
+              className="w-full"
+            >
+              <CodeConsole />
+            </ResizablePanel>
+          ) : (
+            <div className="flex h-8 shrink-0 items-center justify-center border-t border-white/10 bg-[#090c0f]">
+              <button
+                type="button"
+                onClick={() =>
+                  setConsoleCollapsed(false)
+                }
+                title="Show Console"
+                className="rounded-md border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] text-white/40 transition hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+              >
+                Show Console
+              </button>
+            </div>
+          )}
 
+          {/* STATUS BAR */}
           <CodeStatusBar file={activeFile} />
         </main>
 
-        {/* AI SUGGESTIONS */}
-        <ResizablePanel
-          direction="horizontal"
-          size={suggestionsWidth}
-          minSize={200}
-          maxSize={420}
-          onSizeChange={setSuggestionsWidth}
-          collapsed={suggestionsCollapsed}
-          onToggleCollapse={() =>
-            setSuggestionsCollapsed(
-              (value) => !value,
-            )
-          }
-          className="border-l border-white/10"
-          collapseButtonPosition="start"
-        >
-          <CodeSuggestions />
-        </ResizablePanel>
+        {/* =========================================
+            AI SUGGESTIONS
+        ========================================= */}
 
-        {/* Collapsed explorer button */}
-        {explorerCollapsed && (
-          <button
-            type="button"
-            onClick={() =>
-              setExplorerCollapsed(false)
+        {!suggestionsCollapsed ? (
+          <ResizablePanel
+            direction="horizontal"
+            size={suggestionsWidth}
+            minSize={200}
+            maxSize={420}
+            onSizeChange={setSuggestionsWidth}
+            collapsed={false}
+            onToggleCollapse={() =>
+              setSuggestionsCollapsed(true)
             }
-            title="Show files"
-            className="absolute left-2 top-2 z-30 flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-[#111419] text-white/40 transition hover:bg-white/[0.08] hover:text-white"
+            className="h-full"
           >
-            ›
-          </button>
-        )}
-
-        {/* Collapsed suggestions button */}
-        {suggestionsCollapsed && (
-          <button
-            type="button"
-            onClick={() =>
-              setSuggestionsCollapsed(false)
-            }
-            title="Show AI suggestions"
-            className="absolute right-2 top-2 z-30 flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-[#111419] text-white/40 transition hover:bg-white/[0.08] hover:text-white"
-          >
-            ‹
-          </button>
+            <CodeSuggestions />
+          </ResizablePanel>
+        ) : (
+          <div className="flex w-9 shrink-0 items-start justify-center border-l border-white/10 bg-[#0e1115] pt-3">
+            <button
+              type="button"
+              onClick={() =>
+                setSuggestionsCollapsed(false)
+              }
+              title="Show AI Suggestions"
+              className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-xs text-white/40 transition hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+            >
+              ‹
+            </button>
+          </div>
         )}
       </div>
 
+      {/* NEW FILE MODAL */}
       <NewFileModal
         open={newFileOpen}
         onClose={() =>
