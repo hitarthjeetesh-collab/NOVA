@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 interface HeaderProps {
   projectName: string;
   onMenuClick: () => void;
@@ -9,6 +11,8 @@ export default function Header({
   projectName,
   onMenuClick,
 }: HeaderProps) {
+  const router = useRouter();
+
   return (
     <header className="flex h-14 shrink-0 items-center justify-between border-b border-white/10 bg-[#0f1115] px-4">
       <div className="flex items-center gap-3">
@@ -35,7 +39,11 @@ export default function Header({
           {projectName}
         </span>
 
-        <button className="rounded-md p-2 text-white/60 hover:bg-white/5 hover:text-white">
+        <button
+          onClick={() => router.push("/settings")}
+          className="rounded-md p-2 text-white/60 hover:bg-white/5 hover:text-white"
+          aria-label="Settings"
+        >
           ⚙
         </button>
 

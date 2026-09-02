@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 interface SidebarProps {
   open: boolean;
   activeProject: string;
@@ -17,6 +19,8 @@ export default function Sidebar({
   activeProject,
   onProjectChange,
 }: SidebarProps) {
+  const router = useRouter();
+
   if (!open) {
     return null;
   }
@@ -52,7 +56,10 @@ export default function Sidebar({
       </div>
 
       <div className="border-t border-white/10 p-3">
-        <button className="w-full rounded-lg px-3 py-2 text-left text-sm text-white/50 hover:bg-white/5 hover:text-white">
+        <button
+          onClick={() => router.push("/settings")}
+          className="w-full rounded-lg px-3 py-2 text-left text-sm text-white/50 hover:bg-white/5 hover:text-white"
+        >
           Settings
         </button>
       </div>
