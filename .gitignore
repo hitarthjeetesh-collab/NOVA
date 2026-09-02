@@ -37,8 +37,8 @@ pnpm-debug.log*
 next-env.d.ts
 
 # editor / IDE
-.vscode/
-.idea/
+.vscode
+.idea
 *.iml
 
 # OS / temporary files
