@@ -47,9 +47,14 @@ export default function Header({
           ⚙
         </button>
 
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs">
-          H
-        </div>
+        <button
+  type="button"
+  onClick={() => router.push("/account")}
+  className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs transition hover:bg-white/15"
+  aria-label="Account"
+>
+  H
+</button>
       </div>
     </header>
   );

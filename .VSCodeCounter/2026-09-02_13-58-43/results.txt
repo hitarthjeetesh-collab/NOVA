@@ -1,0 +1,198 @@
+Date : 2026-09-02 13:58:43
+Directory : c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform
+Total : 113 files,  10232 codes, 155 comments, 1105 blanks, all 11492 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript JSX     |         49 |      7,228 |        152 |        915 |      8,295 |
+| JSON               |          2 |      2,299 |          0 |          2 |      2,301 |
+| TypeScript         |         12 |        648 |          3 |        137 |        788 |
+| JSON with Comments |          1 |         41 |          0 |          1 |         42 |
+| PostCSS            |          1 |          8 |          0 |          2 |         10 |
+| JavaScript         |          1 |          6 |          0 |          1 |          7 |
+| Markdown           |          1 |          2 |          0 |          1 |          3 |
+| Python             |         45 |          0 |          0 |         45 |         45 |
+| pip requirements   |          1 |          0 |          0 |          1 |          1 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                 | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                    |        113 |     10,232 |        155 |      1,105 |     11,492 |
+| . (Files)                                                                                                                            |          1 |          2 |          0 |          1 |          3 |
+| backend                                                                                                                              |         42 |          0 |          0 |         42 |         42 |
+| backend (Files)                                                                                                                      |          2 |          0 |          0 |          2 |          2 |
+| backend\agent                                                                                                                        |          4 |          0 |          0 |          4 |          4 |
+| backend\api                                                                                                                          |          6 |          0 |          0 |          6 |          6 |
+| backend\components                                                                                                                   |          3 |          0 |          0 |          3 |          3 |
+| backend\config                                                                                                                       |          2 |          0 |          0 |          2 |          2 |
+| backend\database                                                                                                                     |          3 |          0 |          0 |          3 |          3 |
+| backend\engineering                                                                                                                  |         11 |          0 |          0 |         11 |         11 |
+| backend\engineering (Files)                                                                                                          |          4 |          0 |          0 |          4 |          4 |
+| backend\engineering\calculators                                                                                                      |          7 |          0 |          0 |          7 |          7 |
+| backend\projects                                                                                                                     |          2 |          0 |          0 |          2 |          2 |
+| backend\rag                                                                                                                          |          4 |          0 |          0 |          4 |          4 |
+| backend\tools                                                                                                                        |          5 |          0 |          0 |          5 |          5 |
+| frontend                                                                                                                             |         66 |     10,230 |        155 |      1,058 |     11,443 |
+| frontend (Files)                                                                                                                     |          5 |      2,349 |          0 |          6 |      2,355 |
+| frontend\app                                                                                                                         |          6 |        709 |          7 |         89 |        805 |
+| frontend\app (Files)                                                                                                                 |          3 |         70 |          0 |         11 |         81 |
+| frontend\app\account                                                                                                                 |          1 |        223 |          5 |         33 |        261 |
+| frontend\app\projects                                                                                                                |          1 |          0 |          0 |          1 |          1 |
+| frontend\app\settings                                                                                                                |          1 |        416 |          2 |         44 |        462 |
+| frontend\components                                                                                                                  |         51 |      6,916 |        145 |        935 |      7,996 |
+| frontend\components\chat                                                                                                             |          3 |        117 |          0 |         18 |        135 |
+| frontend\components\engineering                                                                                                      |         39 |      6,394 |        145 |        841 |      7,380 |
+| frontend\components\engineering (Files)                                                                                              |          1 |         76 |          0 |          8 |         84 |
+| frontend\components\engineering\architecture                                                                                         |          6 |      2,961 |        133 |        371 |      3,465 |
+| frontend\components\engineering\cad                                                                                                  |          1 |          0 |          0 |          1 |          1 |
+| frontend\components\engineering\calculations                                                                                         |          3 |          0 |          0 |          3 |          3 |
+| frontend\components\engineering\calculations (Files)                                                                                 |          2 |          0 |          0 |          2 |          2 |
+| frontend\components\engineering\calculations\types                                                                                   |          1 |          0 |          0 |          1 |          1 |
+| frontend\components\engineering\code                                                                                                 |          1 |          0 |          0 |          1 |          1 |
+| frontend\components\engineering\components                                                                                           |          3 |      1,408 |          0 |        159 |      1,567 |
+| frontend\components\engineering\manufacturing                                                                                        |          1 |          0 |          0 |          1 |          1 |
+| frontend\components\engineering\optimization                                                                                         |          1 |          0 |          0 |          1 |          1 |
+| frontend\components\engineering\planning                                                                                             |         18 |      1,557 |         12 |        242 |      1,811 |
+| frontend\components\engineering\planning (Files)                                                                                     |          2 |        242 |          0 |         34 |        276 |
+| frontend\components\engineering\planning\components                                                                                  |         12 |        979 |         12 |        111 |      1,102 |
+| frontend\components\engineering\planning\components (Files)                                                                          |          4 |        559 |         12 |         56 |        627 |
+| frontend\components\engineering\planning\components\modals                                                                           |          3 |        316 |          0 |         41 |        357 |
+| frontend\components\engineering\planning\components\ui                                                                               |          5 |        104 |          0 |         14 |        118 |
+| frontend\components\engineering\planning\hooks                                                                                       |          1 |        108 |          0 |         28 |        136 |
+| frontend\components\engineering\planning\types                                                                                       |          1 |         34 |          0 |          7 |         41 |
+| frontend\components\engineering\planning\utils                                                                                       |          2 |        194 |          0 |         62 |        256 |
+| frontend\components\engineering\requirements                                                                                         |          3 |        392 |          0 |         53 |        445 |
+| frontend\components\engineering\simulation                                                                                           |          1 |          0 |          0 |          1 |          1 |
+| frontend\components\layout                                                                                                           |          3 |        270 |          0 |         54 |        324 |
+| frontend\components\projects                                                                                                         |          2 |          0 |          0 |          2 |          2 |
+| frontend\components\ui                                                                                                               |          4 |        135 |          0 |         20 |        155 |
+| frontend\lib                                                                                                                         |          4 |        256 |          3 |         28 |        287 |
+| frontend\lib (Files)                                                                                                                 |          2 |          0 |          0 |          2 |          2 |
+| frontend\lib\engineering                                                                                                             |          2 |        256 |          3 |         26 |        285 |
+| tests                                                                                                                                |          4 |          0 |          0 |          4 |          4 |
+| tests\backend                                                                                                                        |          4 |          0 |          0 |          4 |          4 |
++--------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                             | language           | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\README.md                                                                      | Markdown           |          2 |          0 |          1 |          3 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\agent\__init__.py                                                      | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\agent\agent.py                                                         | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\agent\planner.py                                                       | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\agent\tools.py                                                         | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\api\__init__.py                                                        | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\api\calculations.py                                                    | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\api\chat.py                                                            | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\api\components.py                                                      | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\api\documents.py                                                       | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\api\projects.py                                                        | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\components\__init__.py                                                 | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\components\database.py                                                 | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\components\search.py                                                   | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\config\__init__.py                                                     | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\config\settings.py                                                     | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\database\__init__.py                                                   | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\database\connection.py                                                 | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\database\models.py                                                     | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\__init__.py                                                | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\__init__.py                                    | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\batteries.py                                   | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\drivetrain.py                                  | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\electrical.py                                  | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\mechanical.py                                  | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\motors.py                                      | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\calculators\thermal.py                                     | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\constants.py                                               | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\formulas.py                                                | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\engineering\units.py                                                   | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\main.py                                                                | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\projects\__init__.py                                                   | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\projects\manager.py                                                    | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\rag\__init__.py                                                        | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\rag\embeddings.py                                                      | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\rag\ingestion.py                                                       | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\rag\retrieval.py                                                       | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\requirements.txt                                                       | pip requirements   |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\tools\__init__.py                                                      | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\tools\calculator_tools.py                                              | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\tools\component_tools.py                                               | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\tools\document_tools.py                                                | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\backend\tools\project_tools.py                                                 | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\app\account\page.tsx                                                  | TypeScript JSX     |        223 |          5 |         33 |        261 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\app\globals.css                                                       | PostCSS            |          8 |          0 |          2 |         10 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\app\layout.tsx                                                        | TypeScript JSX     |         17 |          0 |          2 |         19 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\app\page.tsx                                                          | TypeScript JSX     |         45 |          0 |          7 |         52 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\app\projects\page.tsx                                                 | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\app\settings\page.tsx                                                 | TypeScript JSX     |        416 |          2 |         44 |        462 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\chat\Chat.tsx                                              | TypeScript JSX     |         49 |          0 |          7 |         56 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\chat\ChatInput.tsx                                         | TypeScript JSX     |         41 |          0 |          9 |         50 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\chat\Message.tsx                                           | TypeScript JSX     |         27 |          0 |          2 |         29 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\EngineeringProcess.tsx                         | TypeScript JSX     |         76 |          0 |          8 |         84 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\architecture\Architecture.tsx                  | TypeScript JSX     |      1,154 |         87 |        156 |      1,397 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\architecture\ConnectionModal.tsx               | TypeScript JSX     |        369 |          9 |         55 |        433 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\architecture\SubsystemCard.tsx                 | TypeScript JSX     |         78 |          0 |          9 |         87 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\architecture\SubsystemModal.tsx                | TypeScript JSX     |        207 |          0 |         29 |        236 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\architecture\SystemModal.tsx                   | TypeScript JSX     |        898 |         26 |         89 |      1,013 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\architecture\SystemNode.tsx                    | TypeScript JSX     |        255 |         11 |         33 |        299 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\cad\CAD.tsx                                    | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\calculations\Calculations.tsx                  | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\calculations\constants.ts                      | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\calculations\types\calculations.ts             | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\code\Code.tsx                                  | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\components\ComponentCard.tsx                   | TypeScript JSX     |        113 |          0 |         19 |        132 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\components\ComponentModal.tsx                  | TypeScript JSX     |        767 |          0 |         82 |        849 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\components\Components.tsx                      | TypeScript JSX     |        528 |          0 |         58 |        586 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\manufacturing\Manufacturing.tsx                | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\optimization\Optimization.tsx                  | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\ApproachCard.tsx           | TypeScript JSX     |        109 |          0 |         11 |        120 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\Brainstorming.tsx          | TypeScript JSX     |         61 |          0 |          3 |         64 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\PriorityMap.tsx            | TypeScript JSX     |        189 |         12 |         24 |        225 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\Survey.tsx                 | TypeScript JSX     |        200 |          0 |         18 |        218 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\modals\ApproachModal.tsx   | TypeScript JSX     |        182 |          0 |         25 |        207 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\modals\ConstraintModal.tsx | TypeScript JSX     |         65 |          0 |          8 |         73 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\modals\PriorityModal.tsx   | TypeScript JSX     |         69 |          0 |          8 |         77 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\ui\EmptyState.tsx          | TypeScript JSX     |          7 |          0 |          1 |          8 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\ui\Field.tsx               | TypeScript JSX     |         15 |          0 |          3 |         18 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\ui\Modal.tsx               | TypeScript JSX     |         35 |          0 |          5 |         40 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\ui\ModalActions.tsx        | TypeScript JSX     |         33 |          0 |          4 |         37 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\components\ui\SectionHeading.tsx      | TypeScript JSX     |         14 |          0 |          1 |         15 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\constants.ts                          | TypeScript         |         53 |          0 |          8 |         61 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\hooks\usePriorityMap.ts               | TypeScript         |        108 |          0 |         28 |        136 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\planning.tsx                          | TypeScript JSX     |        189 |          0 |         26 |        215 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\types\planning.ts                     | TypeScript         |         34 |          0 |          7 |         41 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\utils\priorityMapGeometry.ts          | TypeScript         |        157 |          0 |         50 |        207 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\planning\utils\priorityWeights.ts              | TypeScript         |         37 |          0 |         12 |         49 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\requirements\RequirementCard.tsx               | TypeScript JSX     |         64 |          0 |          8 |         72 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\requirements\RequirementModal.tsx              | TypeScript JSX     |        187 |          0 |         26 |        213 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\requirements\Requirements.tsx                  | TypeScript JSX     |        141 |          0 |         19 |        160 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\engineering\simulation\Simulation.tsx                      | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\layout\Header.tsx                                          | TypeScript JSX     |         52 |          0 |          9 |         61 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\layout\Sidebar.tsx                                         | TypeScript JSX     |         59 |          0 |          9 |         68 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\layout\Workspace.tsx                                       | TypeScript JSX     |        159 |          0 |         36 |        195 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\projects\ProjectCard.tsx                                   | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\projects\ProjectList.tsx                                   | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\ui\Button.tsx                                              | TypeScript JSX     |         39 |          0 |          4 |         43 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\ui\Input.tsx                                               | TypeScript JSX     |         27 |          0 |          4 |         31 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\ui\Modal.tsx                                               | TypeScript JSX     |         69 |          0 |         11 |         80 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\components\ui\Panel.tsx                                               | TypeScript JSX     |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\lib\api.ts                                                            | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\lib\engineering\data.ts                                               | TypeScript         |        221 |          0 |         18 |        239 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\lib\engineering\types.ts                                              | TypeScript         |         35 |          3 |          8 |         46 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\lib\utils.ts                                                          | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\next.config.ts                                                        | TypeScript         |          3 |          0 |          2 |          5 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\package-lock.json                                                     | JSON               |      2,266 |          0 |          1 |      2,267 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\package.json                                                          | JSON               |         33 |          0 |          1 |         34 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\postcss.config.mjs                                                    | JavaScript         |          6 |          0 |          1 |          7 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\frontend\tsconfig.json                                                         | JSON with Comments |         41 |          0 |          1 |         42 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\tests\backend\test_batteries.py                                                | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\tests\backend\test_drivetrain.py                                               | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\tests\backend\test_electrical.py                                               | Python             |          0 |          0 |          1 |          1 |
+| c:\Users\Hitarth\Code\AI-engi\ai-engineering-platform\tests\backend\test_motors.py                                                   | Python             |          0 |          0 |          1 |          1 |
+| Total                                                                                                                                |                    |     10,232 |        155 |      1,105 |     11,492 |
++--------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
