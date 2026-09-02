@@ -1,6 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import {
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 
 import {
   Background,
@@ -31,26 +35,53 @@ import ConnectionModal, {
 import SystemModal from "./SystemModal";
 
 type ArchitectureNode = Node<SystemNodeData>;
-type ArchitectureEdge = Edge;
+
+type ArchitectureEdge = Edge<ConnectionData>;
+
+/* -------------------------------------------------------------------------- */
+/* Initial Architecture                                                       */
+/* -------------------------------------------------------------------------- */
 
 const initialNodes: ArchitectureNode[] = [
   {
     id: "power",
     type: "system",
-    position: { x: 50, y: 150 },
+    position: {
+      x: 50,
+      y: 150,
+    },
     data: {
       label: "Power System",
       category: "Power",
       description:
         "Provides and distributes electrical power.",
       status: "Designed",
+
+      interfaces: [
+        {
+          id: "power-output",
+          name: "24V Output",
+          direction: "output",
+          type: "power",
+          standard: "24V DC",
+          protocol: "DC",
+          dataRate: "",
+          voltage: "24 V",
+          maxCurrent: "20 A",
+          description:
+            "Main 24V DC power output.",
+        },
+      ],
+
       parameters: [
         {
+          id: "power-voltage",
           name: "Voltage",
           value: "24",
           unit: "V",
         },
         {
+          id: "power-max-power",
           name: "Max Power",
           value: "500",
           unit: "W",
@@ -62,19 +93,56 @@ const initialNodes: ArchitectureNode[] = [
   {
     id: "sensors",
     type: "system",
-    position: { x: 400, y: 50 },
+    position: {
+      x: 400,
+      y: 50,
+    },
     data: {
       label: "Sensor System",
       category: "Sensors",
       description:
         "Perception hardware for the vehicle.",
       status: "Concept",
+
+      interfaces: [
+        {
+          id: "sensor-usb",
+          name: "USB-C",
+          direction: "output",
+          type: "usb_c",
+          standard:
+            "USB 3.2 Gen 2",
+          protocol: "USB",
+          dataRate: "10 Gb/s",
+          voltage: "5 V",
+          maxCurrent: "3 A",
+          description:
+            "Sensor data connection.",
+        },
+
+        {
+          id: "sensor-ethernet",
+          name: "Ethernet",
+          direction: "output",
+          type: "ethernet",
+          standard: "1 GbE",
+          protocol: "Ethernet",
+          dataRate: "1 Gb/s",
+          voltage: "",
+          maxCurrent: "",
+          description:
+            "High-speed sensor networking.",
+        },
+      ],
+
       parameters: [
         {
+          id: "sensor-cameras",
           name: "Cameras",
           value: "2",
         },
         {
+          id: "sensor-lidar",
           name: "LiDAR",
           value: "1",
         },
@@ -85,19 +153,72 @@ const initialNodes: ArchitectureNode[] = [
   {
     id: "computing",
     type: "system",
-    position: { x: 400, y: 300 },
+    position: {
+      x: 400,
+      y: 300,
+    },
     data: {
       label: "Computing System",
       category: "Computing",
       description:
         "Main onboard computing and AI system.",
       status: "Designed",
+
+      interfaces: [
+        {
+          id: "computing-power",
+          name: "Power IN",
+          direction: "input",
+          type: "power",
+          standard: "24V DC",
+          protocol: "DC",
+          dataRate: "",
+          voltage: "24 V",
+          maxCurrent: "20 A",
+          description:
+            "Main system power input.",
+        },
+
+        {
+          id: "computing-can",
+          name: "CAN",
+          direction:
+            "bidirectional",
+          type: "can",
+          standard: "CAN FD",
+          protocol: "CAN",
+          dataRate: "8 Mb/s",
+          voltage: "5 V",
+          maxCurrent: "",
+          description:
+            "Vehicle CAN interface.",
+        },
+
+        {
+          id: "computing-ethernet",
+          name: "Ethernet",
+          direction:
+            "bidirectional",
+          type: "ethernet",
+          standard: "1 GbE",
+          protocol: "Ethernet",
+          dataRate: "1 Gb/s",
+          voltage: "",
+          maxCurrent: "",
+          description:
+            "Network interface.",
+        },
+      ],
+
       parameters: [
         {
+          id: "computing-platform",
           name: "Platform",
-          value: "Jetson Orin NX",
+          value:
+            "Jetson Orin NX",
         },
         {
+          id: "computing-memory",
           name: "Memory",
           value: "16",
           unit: "GB",
@@ -109,38 +230,155 @@ const initialNodes: ArchitectureNode[] = [
   {
     id: "control",
     type: "system",
-    position: { x: 800, y: 200 },
+    position: {
+      x: 800,
+      y: 200,
+    },
     data: {
       label: "Control System",
       category: "Control",
       description:
         "Controls actuators and system behavior.",
       status: "Concept",
+
+      interfaces: [
+        {
+          id: "control-can",
+          name: "CAN",
+          direction:
+            "bidirectional",
+          type: "can",
+          standard: "CAN FD",
+          protocol: "CAN",
+          dataRate: "8 Mb/s",
+          voltage: "5 V",
+          maxCurrent: "",
+          description:
+            "Control communication interface.",
+        },
+      ],
+
       parameters: [],
     },
   },
 
-  /*
-   * Example nested systems
-   */
   {
     id: "jetson",
     type: "system",
-    position: { x: 50, y: 100 },
+    position: {
+      x: 50,
+      y: 100,
+    },
     data: {
       label: "Jetson Orin NX",
       category: "Computing",
       description:
         "Primary onboard compute platform.",
       status: "Designed",
+
       parentId: "computing",
+
+      interfaces: [
+        {
+          id: "jetson-power",
+          name: "Power IN",
+          direction: "input",
+          type: "dc_power",
+          standard: "DC",
+          protocol: "DC",
+          dataRate: "",
+          voltage: "12–20 V",
+          maxCurrent: "10 A",
+          description:
+            "Power input for the compute module.",
+        },
+
+        {
+          id: "jetson-usbc-1",
+          name: "USB-C 1",
+          direction:
+            "bidirectional",
+          type: "usb_c",
+          standard:
+            "USB 3.2 Gen 2",
+          protocol: "USB",
+          dataRate: "10 Gb/s",
+          voltage: "5 V",
+          maxCurrent: "3 A",
+          description:
+            "High-speed USB-C interface.",
+        },
+
+        {
+          id: "jetson-usbc-2",
+          name: "USB-C 2",
+          direction:
+            "bidirectional",
+          type: "usb_c",
+          standard:
+            "USB 3.2 Gen 2",
+          protocol: "USB",
+          dataRate: "10 Gb/s",
+          voltage: "5 V",
+          maxCurrent: "3 A",
+          description:
+            "High-speed USB-C interface.",
+        },
+
+        {
+          id: "jetson-ethernet",
+          name: "Ethernet",
+          direction:
+            "bidirectional",
+          type: "ethernet",
+          standard: "1 GbE",
+          protocol: "Ethernet",
+          dataRate: "1 Gb/s",
+          voltage: "",
+          maxCurrent: "",
+          description:
+            "Gigabit Ethernet interface.",
+        },
+
+        {
+          id: "jetson-hdmi",
+          name: "HDMI",
+          direction: "output",
+          type: "hdmi",
+          standard: "HDMI 2.1",
+          protocol: "HDMI",
+          dataRate: "48 Gb/s",
+          voltage: "",
+          maxCurrent: "",
+          description:
+            "Display output.",
+        },
+
+        {
+          id: "jetson-can",
+          name: "CAN",
+          direction:
+            "bidirectional",
+          type: "can",
+          standard: "CAN FD",
+          protocol: "CAN",
+          dataRate: "8 Mb/s",
+          voltage: "5 V",
+          maxCurrent: "",
+          description:
+            "CAN bus interface.",
+        },
+      ],
+
       parameters: [
         {
+          id: "jetson-memory",
           name: "Memory",
           value: "16",
           unit: "GB",
         },
         {
+          id: "jetson-architecture",
           name: "Architecture",
           value: "Ampere",
         },
@@ -151,30 +389,70 @@ const initialNodes: ArchitectureNode[] = [
   {
     id: "ai",
     type: "system",
-    position: { x: 400, y: 100 },
+    position: {
+      x: 400,
+      y: 100,
+    },
     data: {
       label: "AI System",
       category: "Software",
       description:
         "Perception, reasoning, and AI workloads.",
       status: "Concept",
+
       parentId: "computing",
+
+      interfaces: [
+        {
+          id: "ai-data",
+          name: "Data",
+          direction:
+            "bidirectional",
+          type: "custom",
+          standard: "",
+          protocol: "Internal",
+          dataRate: "",
+          voltage: "",
+          maxCurrent: "",
+          description:
+            "Internal data interface.",
+        },
+      ],
+
       parameters: [],
     },
   },
 ];
+
+/* -------------------------------------------------------------------------- */
+/* Initial Connections                                                        */
+/* -------------------------------------------------------------------------- */
 
 const initialEdges: ArchitectureEdge[] = [
   {
     id: "power-computing",
     source: "power",
     target: "computing",
+
+    sourceHandle:
+      "power-output",
+
+    targetHandle:
+      "computing-power",
+
     label: "Power · 24V DC",
+
     data: {
       type: "power",
       protocol: "24V DC",
       description:
         "Electrical power from the power system.",
+
+      sourceInterfaceId:
+        "power-output",
+
+      targetInterfaceId:
+        "computing-power",
     },
   },
 
@@ -182,12 +460,28 @@ const initialEdges: ArchitectureEdge[] = [
     id: "sensors-computing",
     source: "sensors",
     target: "computing",
-    label: "Sensor Data · USB / Ethernet",
+
+    sourceHandle:
+      "sensor-usb",
+
+    targetHandle:
+      "computing-ethernet",
+
+    label:
+      "Sensor Data · USB / Ethernet",
+
     data: {
       type: "sensor_data",
-      protocol: "USB / Ethernet",
+      protocol:
+        "USB / Ethernet",
       description:
         "Sensor measurements and camera feeds.",
+
+      sourceInterfaceId:
+        "sensor-usb",
+
+      targetInterfaceId:
+        "computing-ethernet",
     },
   },
 
@@ -195,12 +489,26 @@ const initialEdges: ArchitectureEdge[] = [
     id: "computing-control",
     source: "computing",
     target: "control",
+
+    sourceHandle:
+      "computing-can",
+
+    targetHandle:
+      "control-can",
+
     label: "Control · CAN",
+
     data: {
       type: "control",
       protocol: "CAN",
       description:
         "Control commands sent to the control system.",
+
+      sourceInterfaceId:
+        "computing-can",
+
+      targetInterfaceId:
+        "control-can",
     },
   },
 
@@ -208,47 +516,147 @@ const initialEdges: ArchitectureEdge[] = [
     id: "jetson-ai",
     source: "jetson",
     target: "ai",
-    label: "Data · Internal",
+
+    sourceHandle:
+      "jetson-ethernet",
+
+    targetHandle: "ai-data",
+
+    label:
+      "Communication · Internal",
+
     data: {
       type: "communication",
       protocol: "Internal",
       description:
         "Communication between compute platform and AI system.",
+
+      sourceInterfaceId:
+        "jetson-ethernet",
+
+      targetInterfaceId:
+        "ai-data",
     },
   },
 ];
 
+/* -------------------------------------------------------------------------- */
+/* Helpers                                                                    */
+/* -------------------------------------------------------------------------- */
+
+function getInterfaceOptions(
+  node:
+    | ArchitectureNode
+    | undefined
+) {
+  if (!node) {
+    return [];
+  }
+
+  return (
+    node.data.interfaces ?? []
+  ).map((item) => ({
+    id: item.id,
+    name: item.name,
+    type: item.type,
+  }));
+}
+
+/* -------------------------------------------------------------------------- */
+/* Component                                                                  */
+/* -------------------------------------------------------------------------- */
+
 export default function Architecture() {
+  /* ------------------------------------------------------------------------ */
+  /* State                                                                    */
+  /* ------------------------------------------------------------------------ */
+
   const [nodes, setNodes] =
-    useState<ArchitectureNode[]>(initialNodes);
+    useState<ArchitectureNode[]>(
+      initialNodes
+    );
 
   const [edges, setEdges] =
-    useState<ArchitectureEdge[]>(initialEdges);
+    useState<ArchitectureEdge[]>(
+      initialEdges
+    );
 
-  /*
-   * null = ORION root
-   * otherwise = system currently being viewed
-   */
-  const [currentParentId, setCurrentParentId] =
-    useState<string | null>(null);
+  const [
+    currentParentId,
+    setCurrentParentId,
+  ] =
+    useState<string | null>(
+      null
+    );
 
-  const [systemModalOpen, setSystemModalOpen] =
-    useState(false);
+  const [
+    systemModalOpen,
+    setSystemModalOpen,
+  ] = useState(false);
 
-  const [editingNodeId, setEditingNodeId] =
-    useState<string | null>(null);
+  const [
+    editingNodeId,
+    setEditingNodeId,
+  ] =
+    useState<string | null>(
+      null
+    );
 
-  const [connectionModalOpen, setConnectionModalOpen] =
-    useState(false);
+  const [
+    connectionModalOpen,
+    setConnectionModalOpen,
+  ] = useState(false);
 
-  const [pendingConnection, setPendingConnection] =
-    useState<Connection | null>(null);
+  const [
+    pendingConnection,
+    setPendingConnection,
+  ] =
+    useState<Connection | null>(
+      null
+    );
 
-  /*
-   * ---------------------------------------------------------
-   * NODE TYPES
-   * ---------------------------------------------------------
-   */
+  const [
+    editingEdgeId,
+    setEditingEdgeId,
+  ] =
+    useState<string | null>(
+      null
+    );
+
+  /* ------------------------------------------------------------------------ */
+  /* Connected interface IDs                                                  */
+  /* ------------------------------------------------------------------------ */
+
+  const connectedInterfaceIds =
+    useMemo(() => {
+      const ids = new Set<string>();
+
+      for (const edge of edges) {
+        if (
+          edge.data?.sourceInterfaceId
+        ) {
+          ids.add(
+            edge.data
+              .sourceInterfaceId
+          );
+        }
+
+        if (
+          edge.data?.targetInterfaceId
+        ) {
+          ids.add(
+            edge.data
+              .targetInterfaceId
+          );
+        }
+      }
+
+      return ids;
+    }, [edges]);
+
+  /* ------------------------------------------------------------------------ */
+  /* Node types                                                               */
+  /* ------------------------------------------------------------------------ */
 
   const nodeTypes = useMemo(
     () => ({
@@ -257,292 +665,353 @@ export default function Architecture() {
     []
   );
 
-  /*
-   * ---------------------------------------------------------
-   * NODE CHANGES
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* React Flow node changes                                                  */
+  /* ------------------------------------------------------------------------ */
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) => {
-      setNodes((current) =>
-        applyNodeChanges(
-          changes,
-          current
-        ) as ArchitectureNode[]
-      );
-    },
-    []
-  );
-
-  /*
-   * ---------------------------------------------------------
-   * EDGE CHANGES
-   * ---------------------------------------------------------
-   */
-
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) => {
-      setEdges((current) =>
-        applyEdgeChanges(changes, current)
-      );
-    },
-    []
-  );
-
-  /*
-   * ---------------------------------------------------------
-   * ENTER SYSTEM
-   * ---------------------------------------------------------
-   */
-
-  const enterSystem = useCallback(
-    (nodeId: string) => {
-      setCurrentParentId(nodeId);
-    },
-    []
-  );
-
-  /*
-   * ---------------------------------------------------------
-   * GO BACK
-   * ---------------------------------------------------------
-   */
-
-  const goBack = useCallback(() => {
-    if (!currentParentId) {
-      return;
-    }
-
-    const currentNode = nodes.find(
-      (node) => node.id === currentParentId
+  const onNodesChange =
+    useCallback(
+      (
+        changes: NodeChange[]
+      ) => {
+        setNodes((current) =>
+          applyNodeChanges(
+            changes,
+            current
+          ) as ArchitectureNode[]
+        );
+      },
+      []
     );
 
-    if (!currentNode) {
-      setCurrentParentId(null);
-      return;
-    }
+  /* ------------------------------------------------------------------------ */
+  /* React Flow edge changes                                                  */
+  /* ------------------------------------------------------------------------ */
 
-    setCurrentParentId(
-      currentNode.data.parentId ?? null
+  const onEdgesChange =
+    useCallback(
+      (
+        changes: EdgeChange[]
+      ) => {
+        setEdges((current) =>
+          applyEdgeChanges(
+            changes,
+            current
+          ) as ArchitectureEdge[]
+        );
+      },
+      []
     );
-  }, [currentParentId, nodes]);
 
-  /*
-   * ---------------------------------------------------------
-   * BUILD BREADCRUMB
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* Enter subsystem                                                          */
+  /* ------------------------------------------------------------------------ */
 
-  const breadcrumbs = useMemo(() => {
-    const result: ArchitectureNode[] = [];
+  const enterSystem =
+    useCallback(
+      (nodeId: string) => {
+        setCurrentParentId(
+          nodeId
+        );
+      },
+      []
+    );
 
-    let id = currentParentId;
+  /* ------------------------------------------------------------------------ */
+  /* Go back                                                                  */
+  /* ------------------------------------------------------------------------ */
 
-    while (id) {
-      const node = nodes.find(
-        (item) => item.id === id
-      );
-
-      if (!node) {
-        break;
-      }
-
-      result.unshift(node);
-
-      id = node.data.parentId;
-    }
-
-    return result;
-  }, [currentParentId, nodes]);
-
-  /*
-   * ---------------------------------------------------------
-   * CURRENT SYSTEM
-   * ---------------------------------------------------------
-   */
-
-  const currentSystem = currentParentId
-    ? nodes.find(
-        (node) => node.id === currentParentId
-      )
-    : undefined;
-
-  /*
-   * ---------------------------------------------------------
-   * OPEN SYSTEM EDITOR
-   * ---------------------------------------------------------
-   */
-
-  const openSystemEditor = useCallback(
-    (nodeId: string) => {
-      setEditingNodeId(nodeId);
-      setSystemModalOpen(true);
-    },
-    []
-  );
-
-  /*
-   * ---------------------------------------------------------
-   * DELETE SYSTEM
-   * ---------------------------------------------------------
-   */
-
-  const deleteSystem = useCallback(
-    (nodeId: string) => {
-      const node = nodes.find(
-        (item) => item.id === nodeId
-      );
-
-      if (!node) {
+  const goBack =
+    useCallback(() => {
+      if (!currentParentId) {
         return;
       }
 
-      const confirmed = window.confirm(
-        `Delete "${node.data.label}"?`
-      );
+      const currentNode =
+        nodes.find(
+          (node) =>
+            node.id ===
+            currentParentId
+        );
 
-      if (!confirmed) {
+      if (!currentNode) {
+        setCurrentParentId(
+          null
+        );
+
         return;
       }
 
-      /*
-       * Delete the system and all descendants.
-       */
+      setCurrentParentId(
+        currentNode.data.parentId ??
+          null
+      );
+    }, [
+      currentParentId,
+      nodes,
+    ]);
 
-      const idsToDelete = new Set<string>([
-        nodeId,
-      ]);
+  /* ------------------------------------------------------------------------ */
+  /* Breadcrumbs                                                              */
+  /* ------------------------------------------------------------------------ */
 
-      let foundChild = true;
+  const breadcrumbs =
+    useMemo(() => {
+      const result: ArchitectureNode[] =
+        [];
 
-      while (foundChild) {
-        foundChild = false;
+      let id =
+        currentParentId;
 
-        for (const item of nodes) {
-          if (
-            item.data.parentId &&
-            idsToDelete.has(item.data.parentId) &&
-            !idsToDelete.has(item.id)
-          ) {
-            idsToDelete.add(item.id);
-            foundChild = true;
+      while (id) {
+        const node =
+          nodes.find(
+            (item) =>
+              item.id === id
+          );
+
+        if (!node) {
+          break;
+        }
+
+        result.unshift(node);
+
+        id =
+          node.data.parentId ??
+          null;
+      }
+
+      return result;
+    }, [
+      currentParentId,
+      nodes,
+    ]);
+
+  /* ------------------------------------------------------------------------ */
+  /* Current system                                                           */
+  /* ------------------------------------------------------------------------ */
+
+  const currentSystem =
+    currentParentId
+      ? nodes.find(
+          (node) =>
+            node.id ===
+            currentParentId
+        )
+      : undefined;
+
+  /* ------------------------------------------------------------------------ */
+  /* System editor                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  const openSystemEditor =
+    useCallback(
+      (nodeId: string) => {
+        setEditingNodeId(
+          nodeId
+        );
+
+        setSystemModalOpen(
+          true
+        );
+      },
+      []
+    );
+
+  /* ------------------------------------------------------------------------ */
+  /* Delete system                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  const deleteSystem =
+    useCallback(
+      (nodeId: string) => {
+        const node =
+          nodes.find(
+            (item) =>
+              item.id === nodeId
+          );
+
+        if (!node) {
+          return;
+        }
+
+        const confirmed =
+          window.confirm(
+            `Delete "${node.data.label}"? This will also delete all of its subsystems and their connections.`
+          );
+
+        if (!confirmed) {
+          return;
+        }
+
+        const idsToDelete =
+          new Set<string>([
+            nodeId,
+          ]);
+
+        let foundChild = true;
+
+        while (foundChild) {
+          foundChild = false;
+
+          for (const item of nodes) {
+            if (
+              item.data.parentId &&
+              idsToDelete.has(
+                item.data.parentId
+              ) &&
+              !idsToDelete.has(
+                item.id
+              )
+            ) {
+              idsToDelete.add(
+                item.id
+              );
+
+              foundChild = true;
+            }
           }
         }
-      }
 
-      setNodes((current) =>
-        current.filter(
-          (item) => !idsToDelete.has(item.id)
-        )
-      );
+        setNodes((current) =>
+          current.filter(
+            (item) =>
+              !idsToDelete.has(
+                item.id
+              )
+          )
+        );
 
-      setEdges((current) =>
-        current.filter(
-          (edge) =>
-            !idsToDelete.has(edge.source) &&
-            !idsToDelete.has(edge.target)
-        )
-      );
+        setEdges((current) =>
+          current.filter(
+            (edge) =>
+              !idsToDelete.has(
+                edge.source
+              ) &&
+              !idsToDelete.has(
+                edge.target
+              )
+          )
+        );
 
-      if (
-        idsToDelete.has(
-          currentParentId ?? ""
-        )
-      ) {
-        setCurrentParentId(null);
-      }
+        if (
+          idsToDelete.has(
+            currentParentId ?? ""
+          )
+        ) {
+          setCurrentParentId(
+            null
+          );
+        }
 
-      if (editingNodeId === nodeId) {
-        setEditingNodeId(null);
-        setSystemModalOpen(false);
-      }
-    },
-    [
-      currentParentId,
-      editingNodeId,
-      nodes,
-    ]
-  );
+        if (
+          editingNodeId ===
+          nodeId
+        ) {
+          setEditingNodeId(
+            null
+          );
 
-  /*
-   * ---------------------------------------------------------
-   * VISIBLE NODES
-   * ---------------------------------------------------------
-   *
-   * Only show children of the system we're inside.
-   *
-   * IMPORTANT:
-   * Attach edit/delete callbacks here so existing systems
-   * also have working edit buttons.
-   */
-
-  const visibleNodes = useMemo(() => {
-    return nodes
-      .filter(
-        (node) =>
-          (node.data.parentId ?? null) ===
-          currentParentId
-      )
-      .map((node) => ({
-        ...node,
-        data: {
-          ...node.data,
-
-          onEdit: () =>
-            openSystemEditor(node.id),
-
-          onDelete: () =>
-            deleteSystem(node.id),
-        },
-      }));
-  }, [
-    nodes,
-    currentParentId,
-    openSystemEditor,
-    deleteSystem,
-  ]);
-
-  /*
-   * ---------------------------------------------------------
-   * VISIBLE EDGES
-   * ---------------------------------------------------------
-   */
-
-  const visibleNodeIds = useMemo(
-    () =>
-      new Set(
-        visibleNodes.map(
-          (node) => node.id
-        )
-      ),
-    [visibleNodes]
-  );
-
-  const visibleEdges = useMemo(() => {
-    return edges.filter(
-      (edge) =>
-        visibleNodeIds.has(edge.source) &&
-        visibleNodeIds.has(edge.target)
+          setSystemModalOpen(
+            false
+          );
+        }
+      },
+      [
+        currentParentId,
+        editingNodeId,
+        nodes,
+      ]
     );
-  }, [edges, visibleNodeIds]);
 
-  /*
-   * ---------------------------------------------------------
-   * ADD SYSTEM
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* Visible nodes                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  const visibleNodes =
+    useMemo(() => {
+      return nodes
+        .filter(
+          (node) =>
+            (node.data.parentId ??
+              null) ===
+            currentParentId
+        )
+        .map((node) => ({
+          ...node,
+
+          data: {
+            ...node.data,
+
+            onEdit: () =>
+              openSystemEditor(
+                node.id
+              ),
+
+            onDelete: () =>
+              deleteSystem(
+                node.id
+              ),
+          },
+        }));
+    }, [
+      nodes,
+      currentParentId,
+      openSystemEditor,
+      deleteSystem,
+    ]);
+
+  /* ------------------------------------------------------------------------ */
+  /* Visible node IDs                                                         */
+  /* ------------------------------------------------------------------------ */
+
+  const visibleNodeIds =
+    useMemo(
+      () =>
+        new Set(
+          visibleNodes.map(
+            (node) =>
+              node.id
+          )
+        ),
+      [visibleNodes]
+    );
+
+  /* ------------------------------------------------------------------------ */
+  /* Visible edges                                                            */
+  /* ------------------------------------------------------------------------ */
+
+  const visibleEdges =
+    useMemo(() => {
+      return edges.filter(
+        (edge) =>
+          visibleNodeIds.has(
+            edge.source
+          ) &&
+          visibleNodeIds.has(
+            edge.target
+          )
+      );
+    }, [
+      edges,
+      visibleNodeIds,
+    ]);
+
+  /* ------------------------------------------------------------------------ */
+  /* Add system                                                               */
+  /* ------------------------------------------------------------------------ */
 
   function handleAddSystem() {
     setEditingNodeId(null);
-    setSystemModalOpen(true);
+
+    setSystemModalOpen(
+      true
+    );
   }
 
-  /*
-   * ---------------------------------------------------------
-   * SAVE SYSTEM
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* System submit                                                             */
+  /* ------------------------------------------------------------------------ */
 
   function handleSystemSubmit(
     data: SystemNodeData
@@ -550,46 +1019,56 @@ export default function Architecture() {
     if (editingNodeId) {
       setNodes((current) =>
         current.map((node) => {
-          if (node.id !== editingNodeId) {
+          if (
+            node.id !==
+            editingNodeId
+          ) {
             return node;
           }
 
+          /**
+           * Preserve the existing parent.
+           */
           return {
             ...node,
+
             data: {
               ...data,
 
-              /*
-               * Preserve hierarchy.
-               */
-              parentId: node.data.parentId,
+              parentId:
+                node.data.parentId ??
+                null,
             },
           };
         })
       );
     } else {
-      const id = crypto.randomUUID();
+      const id =
+        crypto.randomUUID();
 
-      const newNode: ArchitectureNode = {
-        id,
-        type: "system",
+      const newNode: ArchitectureNode =
+        {
+          id,
+          type: "system",
 
-        position: {
-          x: 100 + Math.random() * 500,
-          y: 100 + Math.random() * 300,
-        },
+          position: {
+            x:
+              100 +
+              Math.random() * 500,
 
-        data: {
-          ...data,
+            y:
+              100 +
+              Math.random() * 300,
+          },
 
-          /*
-           * New systems belong to the system
-           * currently being viewed.
-           */
-          parentId:
-            currentParentId ?? undefined,
-        },
-      };
+          data: {
+            ...data,
+
+            parentId:
+              currentParentId ??
+              null,
+          },
+        };
 
       setNodes((current) => [
         ...current,
@@ -597,36 +1076,43 @@ export default function Architecture() {
       ]);
     }
 
-    setSystemModalOpen(false);
+    setSystemModalOpen(
+      false
+    );
+
     setEditingNodeId(null);
   }
 
-  /*
-   * ---------------------------------------------------------
-   * CONNECTION START
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* New connection                                                           */
+  /* ------------------------------------------------------------------------ */
 
-  const onConnect: OnConnect = useCallback(
-    (connection) => {
-      if (
-        !connection.source ||
-        !connection.target
-      ) {
-        return;
-      }
+  const onConnect: OnConnect =
+    useCallback(
+      (connection) => {
+        if (
+          !connection.source ||
+          !connection.target
+        ) {
+          return;
+        }
 
-      setPendingConnection(connection);
-      setConnectionModalOpen(true);
-    },
-    []
-  );
+        setPendingConnection(
+          connection
+        );
 
-  /*
-   * ---------------------------------------------------------
-   * CONNECTION LABEL
-   * ---------------------------------------------------------
-   */
+        setEditingEdgeId(null);
+
+        setConnectionModalOpen(
+          true
+        );
+      },
+      []
+    );
+
+  /* ------------------------------------------------------------------------ */
+  /* Connection label                                                         */
+  /* ------------------------------------------------------------------------ */
 
   function getConnectionLabel(
     data: ConnectionData
@@ -636,10 +1122,18 @@ export default function Architecture() {
       string
     > = {
       power: "Power",
-      communication: "Communication",
-      sensor_data: "Sensor Data",
+
+      communication:
+        "Communication",
+
+      sensor_data:
+        "Sensor Data",
+
       control: "Control",
-      mechanical: "Mechanical",
+
+      mechanical:
+        "Mechanical",
+
       thermal: "Thermal",
     };
 
@@ -651,15 +1145,152 @@ export default function Architecture() {
       : typeLabel;
   }
 
-  /*
-   * ---------------------------------------------------------
-   * SAVE CONNECTION
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* Open connection editor                                                   */
+  /* ------------------------------------------------------------------------ */
+
+  const openConnectionEditor =
+    useCallback(
+      (edgeId: string) => {
+        setEditingEdgeId(
+          edgeId
+        );
+
+        setPendingConnection(
+          null
+        );
+
+        setConnectionModalOpen(
+          true
+        );
+      },
+      []
+    );
+
+  /* ------------------------------------------------------------------------ */
+  /* Delete connection                                                        */
+  /* ------------------------------------------------------------------------ */
+
+  const deleteConnection =
+    useCallback(
+      (edgeId: string) => {
+        const edge =
+          edges.find(
+            (item) =>
+              item.id === edgeId
+          );
+
+        if (!edge) {
+          return;
+        }
+
+        const source =
+          nodes.find(
+            (node) =>
+              node.id ===
+              edge.source
+          );
+
+        const target =
+          nodes.find(
+            (node) =>
+              node.id ===
+              edge.target
+          );
+
+        const confirmed =
+          window.confirm(
+            `Delete connection "${source?.data.label ?? edge.source} → ${target?.data.label ?? edge.target}"?`
+          );
+
+        if (!confirmed) {
+          return;
+        }
+
+        setEdges((current) =>
+          current.filter(
+            (item) =>
+              item.id !== edgeId
+          )
+        );
+
+        if (
+          editingEdgeId ===
+          edgeId
+        ) {
+          setEditingEdgeId(
+            null
+          );
+
+          setConnectionModalOpen(
+            false
+          );
+        }
+      },
+      [
+        edges,
+        nodes,
+        editingEdgeId,
+      ]
+    );
+
+  /* ------------------------------------------------------------------------ */
+  /* Connection submit                                                        */
+  /* ------------------------------------------------------------------------ */
 
   function handleConnectionSubmit(
     data: ConnectionData
   ) {
+    /* ---------------------------------------------------------------------- */
+    /* Editing existing connection                                            */
+    /* ---------------------------------------------------------------------- */
+
+    if (editingEdgeId) {
+      setEdges((current) =>
+        current.map((edge) => {
+          if (
+            edge.id !==
+            editingEdgeId
+          ) {
+            return edge;
+          }
+
+          return {
+            ...edge,
+
+            sourceHandle:
+              data.sourceInterfaceId ??
+              edge.sourceHandle,
+
+            targetHandle:
+              data.targetInterfaceId ??
+              edge.targetHandle,
+
+            label:
+              getConnectionLabel(
+                data
+              ),
+
+            data,
+          };
+        })
+      );
+
+      setEditingEdgeId(
+        null
+      );
+
+      setConnectionModalOpen(
+        false
+      );
+
+      return;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* Creating new connection                                                */
+    /* ---------------------------------------------------------------------- */
+
     if (
       !pendingConnection ||
       !pendingConnection.source ||
@@ -668,50 +1299,77 @@ export default function Architecture() {
       return;
     }
 
-    const newEdge: ArchitectureEdge = {
-      id: crypto.randomUUID(),
+    const newEdge: ArchitectureEdge =
+      {
+        id: crypto.randomUUID(),
 
-      source: pendingConnection.source,
+        source:
+          pendingConnection.source,
 
-      target: pendingConnection.target,
+        target:
+          pendingConnection.target,
 
-      sourceHandle:
-        pendingConnection.sourceHandle,
+        sourceHandle:
+          data.sourceInterfaceId ??
+          pendingConnection.sourceHandle,
 
-      targetHandle:
-        pendingConnection.targetHandle,
+        targetHandle:
+          data.targetInterfaceId ??
+          pendingConnection.targetHandle,
 
-      label: getConnectionLabel(data),
+        label:
+          getConnectionLabel(
+            data
+          ),
 
-      data,
-    };
+        data,
+      };
 
     setEdges((current) =>
-      addEdge(newEdge, current)
+      addEdge(
+        newEdge,
+        current
+      ) as ArchitectureEdge[]
     );
 
-    setPendingConnection(null);
-    setConnectionModalOpen(false);
+    setPendingConnection(
+      null
+    );
+
+    setConnectionModalOpen(
+      false
+    );
   }
 
-  /*
-   * ---------------------------------------------------------
-   * CURRENT EDITING NODE
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* Editing node                                                             */
+  /* ------------------------------------------------------------------------ */
 
-  const editingNode = editingNodeId
-    ? nodes.find(
-        (node) =>
-          node.id === editingNodeId
-      )
-    : undefined;
+  const editingNode =
+    editingNodeId
+      ? nodes.find(
+          (node) =>
+            node.id ===
+            editingNodeId
+        )
+      : undefined;
 
-  /*
-   * ---------------------------------------------------------
-   * CONNECTION NODES
-   * ---------------------------------------------------------
-   */
+  /* ------------------------------------------------------------------------ */
+  /* Editing edge                                                             */
+  /* ------------------------------------------------------------------------ */
+
+  const editingEdge =
+    editingEdgeId
+      ? edges.find(
+          (edge) =>
+            edge.id ===
+            editingEdgeId
+        )
+      : undefined;
+
+  /* ------------------------------------------------------------------------ */
+  /* Connection source node                                                   */
+  /* ------------------------------------------------------------------------ */
 
   const sourceNode =
     pendingConnection?.source
@@ -720,7 +1378,17 @@ export default function Architecture() {
             node.id ===
             pendingConnection.source
         )
-      : undefined;
+      : editingEdge
+        ? nodes.find(
+            (node) =>
+              node.id ===
+              editingEdge.source
+          )
+        : undefined;
+
+  /* ------------------------------------------------------------------------ */
+  /* Connection target node                                                   */
+  /* ------------------------------------------------------------------------ */
 
   const targetNode =
     pendingConnection?.target
@@ -729,17 +1397,53 @@ export default function Architecture() {
             node.id ===
             pendingConnection.target
         )
-      : undefined;
+      : editingEdge
+        ? nodes.find(
+            (node) =>
+              node.id ===
+              editingEdge.target
+          )
+        : undefined;
+
+  /* ------------------------------------------------------------------------ */
+  /* Initial connection data                                                  */
+  /* ------------------------------------------------------------------------ */
+
+  const connectionInitialData =
+    editingEdge?.data;
+
+  /* ------------------------------------------------------------------------ */
+  /* Initial source interface                                                 */
+  /* ------------------------------------------------------------------------ */
+
+  const initialSourceInterfaceId =
+    pendingConnection
+      ?.sourceHandle ??
+    editingEdge?.sourceHandle ??
+    null;
+
+  /* ------------------------------------------------------------------------ */
+  /* Initial target interface                                                 */
+  /* ------------------------------------------------------------------------ */
+
+  const initialTargetInterfaceId =
+    pendingConnection
+      ?.targetHandle ??
+    editingEdge?.targetHandle ??
+    null;
+
+  /* ------------------------------------------------------------------------ */
+  /* Render                                                                   */
+  /* ------------------------------------------------------------------------ */
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#0b0d10]">
-
-      {/* =====================================================
-          TOP NAVIGATION
-      ====================================================== */}
+      {/* ------------------------------------------------------------------ */}
+      {/* Top toolbar                                                         */}
+      {/* ------------------------------------------------------------------ */}
 
       <div className="absolute left-4 top-4 z-20 flex items-center gap-2">
-
+        {/* Back */}
         {currentParentId && (
           <button
             type="button"
@@ -750,12 +1454,14 @@ export default function Architecture() {
           </button>
         )}
 
+        {/* Breadcrumb */}
         <div className="flex items-center rounded-lg border border-white/10 bg-[#15191f]/95 px-3 py-2 text-sm shadow-lg backdrop-blur">
-
           <button
             type="button"
             onClick={() =>
-              setCurrentParentId(null)
+              setCurrentParentId(
+                null
+              )
             }
             className={
               currentParentId
@@ -766,51 +1472,61 @@ export default function Architecture() {
             ORION
           </button>
 
-          {breadcrumbs.map((node) => (
-            <div
-              key={node.id}
-              className="flex items-center"
-            >
-              <span className="mx-2 text-white/20">
-                /
-              </span>
-
-              <button
-                type="button"
-                onClick={() =>
-                  setCurrentParentId(
-                    node.id
-                  )
-                }
-                className={
-                  node.id ===
-                  currentParentId
-                    ? "text-white"
-                    : "text-white/40 hover:text-white"
-                }
+          {breadcrumbs.map(
+            (node) => (
+              <div
+                key={node.id}
+                className="flex items-center"
               >
-                {node.data.label}
-              </button>
-            </div>
-          ))}
+                <span className="mx-2 text-white/20">
+                  /
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCurrentParentId(
+                      node.id
+                    )
+                  }
+                  className={
+                    node.id ===
+                    currentParentId
+                      ? "text-white"
+                      : "text-white/40 hover:text-white"
+                  }
+                >
+                  {
+                    node.data
+                      .label
+                  }
+                </button>
+              </div>
+            )
+          )}
         </div>
 
+        {/* Add system */}
         <button
           type="button"
-          onClick={handleAddSystem}
+          onClick={
+            handleAddSystem
+          }
           className="rounded-lg border border-white/10 bg-[#15191f] px-4 py-2 text-sm font-medium text-white shadow-lg transition hover:bg-[#1c2128]"
         >
           + Add System
         </button>
 
+        {/* Help */}
         <div className="rounded-lg border border-white/10 bg-[#15191f]/90 px-3 py-2 text-xs text-white/40 backdrop-blur">
-          Double-click a system to enter
+          Double-click a system
+          to enter
         </div>
       </div>
 
-      {/* =====================================================
-          CURRENT SYSTEM INFO
-      ====================================================== */}
+      {/* ------------------------------------------------------------------ */}
+      {/* Bottom status                                                       */}
+      {/* ------------------------------------------------------------------ */}
 
       {currentSystem && (
         <div className="absolute bottom-4 left-4 z-10 rounded-lg border border-white/10 bg-[#15191f]/90 px-3 py-2 text-xs text-white/40 backdrop-blur">
@@ -820,26 +1536,59 @@ export default function Architecture() {
             ·
           </span>
 
-          {visibleNodes.length}{" "}
-          {visibleNodes.length === 1
+          {
+            visibleNodes.length
+          }{" "}
+          {visibleNodes.length ===
+          1
             ? "subsystem"
             : "subsystems"}
         </div>
       )}
 
-      {/* =====================================================
-          REACT FLOW
-      ====================================================== */}
+      {/* ------------------------------------------------------------------ */}
+      {/* React Flow                                                          */}
+      {/* ------------------------------------------------------------------ */}
 
       <ReactFlow
         nodes={visibleNodes}
         edges={visibleEdges}
         nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        onNodesChange={
+          onNodesChange
+        }
+        onEdgesChange={
+          onEdgesChange
+        }
         onConnect={onConnect}
-        onNodeDoubleClick={(_, node) => {
-          enterSystem(node.id);
+        onNodeDoubleClick={(
+          _event,
+          node
+        ) => {
+          enterSystem(
+            node.id
+          );
+        }}
+        onEdgeClick={(
+          event,
+          edge
+        ) => {
+          event.stopPropagation();
+
+          openConnectionEditor(
+            edge.id
+          );
+        }}
+        onEdgeContextMenu={(
+          event,
+          edge
+        ) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          deleteConnection(
+            edge.id
+          );
         }}
         fitView
         fitViewOptions={{
@@ -852,7 +1601,8 @@ export default function Architecture() {
         }}
         colorMode="dark"
         proOptions={{
-          hideAttribution: true,
+          hideAttribution:
+            true,
         }}
       >
         <Background />
@@ -866,9 +1616,9 @@ export default function Architecture() {
         />
       </ReactFlow>
 
-      {/* =====================================================
-          SYSTEM EDITOR
-      ====================================================== */}
+      {/* ------------------------------------------------------------------ */}
+      {/* System Modal                                                        */}
+      {/* ------------------------------------------------------------------ */}
 
       <SystemModal
         open={systemModalOpen}
@@ -877,16 +1627,26 @@ export default function Architecture() {
             ? editingNode.data
             : undefined
         }
+        connectedInterfaceIds={
+          connectedInterfaceIds
+        }
         onClose={() => {
-          setSystemModalOpen(false);
-          setEditingNodeId(null);
+          setSystemModalOpen(
+            false
+          );
+
+          setEditingNodeId(
+            null
+          );
         }}
-        onSubmit={handleSystemSubmit}
+        onSubmit={
+          handleSystemSubmit
+        }
       />
 
-      {/* =====================================================
-          CONNECTION EDITOR
-      ====================================================== */}
+      {/* ------------------------------------------------------------------ */}
+      {/* Connection Modal                                                    */}
+      {/* ------------------------------------------------------------------ */}
 
       <ConnectionModal
         open={connectionModalOpen}
@@ -898,11 +1658,47 @@ export default function Architecture() {
           targetNode?.data.label ??
           "Unknown System"
         }
+        sourceInterfaces={
+          getInterfaceOptions(
+            sourceNode
+          )
+        }
+        targetInterfaces={
+          getInterfaceOptions(
+            targetNode
+          )
+        }
+        initialData={
+          connectionInitialData
+        }
+        initialSourceInterfaceId={
+          initialSourceInterfaceId
+        }
+        initialTargetInterfaceId={
+          initialTargetInterfaceId
+        }
+        onDelete={
+          editingEdgeId
+            ? () =>
+                deleteConnection(
+                  editingEdgeId
+                )
+            : undefined
+        }
         onClose={() => {
-          setPendingConnection(null);
-          setConnectionModalOpen(false);
+          setPendingConnection(
+            null
+          );
+          setEditingEdgeId(
+            null
+          );
+          setConnectionModalOpen(
+            false
+          );
         }}
-        onSubmit={handleConnectionSubmit}
+        onSubmit={
+          handleConnectionSubmit
+        }
       />
     </div>
   );

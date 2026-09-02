@@ -255,7 +255,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f
 ;
 ;
 ;
-const initialNodes = [
+/*
+ * ============================================================
+ * INITIAL ARCHITECTURE
+ * ============================================================
+ */ const initialNodes = [
     {
         id: "power",
         type: "system",
@@ -268,6 +272,20 @@ const initialNodes = [
             category: "Power",
             description: "Provides and distributes electrical power.",
             status: "Designed",
+            interfaces: [
+                {
+                    id: "power-output",
+                    name: "24V Output",
+                    direction: "output",
+                    type: "power",
+                    standard: "24V DC",
+                    protocol: "DC",
+                    dataRate: "",
+                    voltage: "24 V",
+                    maxCurrent: "20 A",
+                    description: "Main 24V DC power output."
+                }
+            ],
             parameters: [
                 {
                     name: "Voltage",
@@ -294,6 +312,32 @@ const initialNodes = [
             category: "Sensors",
             description: "Perception hardware for the vehicle.",
             status: "Concept",
+            interfaces: [
+                {
+                    id: "sensor-usb",
+                    name: "USB-C",
+                    direction: "output",
+                    type: "usb_c",
+                    standard: "USB 3.2 Gen 2",
+                    protocol: "USB",
+                    dataRate: "10 Gb/s",
+                    voltage: "5 V",
+                    maxCurrent: "3 A",
+                    description: "Sensor data connection."
+                },
+                {
+                    id: "sensor-ethernet",
+                    name: "Ethernet",
+                    direction: "output",
+                    type: "ethernet",
+                    standard: "1 GbE",
+                    protocol: "Ethernet",
+                    dataRate: "1 Gb/s",
+                    voltage: "",
+                    maxCurrent: "",
+                    description: "High-speed sensor networking."
+                }
+            ],
             parameters: [
                 {
                     name: "Cameras",
@@ -318,6 +362,44 @@ const initialNodes = [
             category: "Computing",
             description: "Main onboard computing and AI system.",
             status: "Designed",
+            interfaces: [
+                {
+                    id: "computing-power",
+                    name: "Power IN",
+                    direction: "input",
+                    type: "power",
+                    standard: "24V DC",
+                    protocol: "DC",
+                    dataRate: "",
+                    voltage: "24 V",
+                    maxCurrent: "20 A",
+                    description: "Main system power input."
+                },
+                {
+                    id: "computing-can",
+                    name: "CAN",
+                    direction: "bidirectional",
+                    type: "can",
+                    standard: "CAN FD",
+                    protocol: "CAN",
+                    dataRate: "8 Mb/s",
+                    voltage: "5 V",
+                    maxCurrent: "",
+                    description: "Vehicle CAN interface."
+                },
+                {
+                    id: "computing-ethernet",
+                    name: "Ethernet",
+                    direction: "bidirectional",
+                    type: "ethernet",
+                    standard: "1 GbE",
+                    protocol: "Ethernet",
+                    dataRate: "1 Gb/s",
+                    voltage: "",
+                    maxCurrent: "",
+                    description: "Network interface."
+                }
+            ],
             parameters: [
                 {
                     name: "Platform",
@@ -343,12 +425,24 @@ const initialNodes = [
             category: "Control",
             description: "Controls actuators and system behavior.",
             status: "Concept",
+            interfaces: [
+                {
+                    id: "control-can",
+                    name: "CAN",
+                    direction: "bidirectional",
+                    type: "can",
+                    standard: "CAN FD",
+                    protocol: "CAN",
+                    dataRate: "8 Mb/s",
+                    voltage: "5 V",
+                    maxCurrent: "",
+                    description: "Control communication interface."
+                }
+            ],
             parameters: []
         }
     },
-    /*
-   * Example nested systems
-   */ {
+    {
         id: "jetson",
         type: "system",
         position: {
@@ -361,6 +455,80 @@ const initialNodes = [
             description: "Primary onboard compute platform.",
             status: "Designed",
             parentId: "computing",
+            interfaces: [
+                {
+                    id: "jetson-power",
+                    name: "Power IN",
+                    direction: "input",
+                    type: "dc_power",
+                    standard: "DC",
+                    protocol: "DC",
+                    dataRate: "",
+                    voltage: "12–20 V",
+                    maxCurrent: "10 A",
+                    description: "Power input for the compute module."
+                },
+                {
+                    id: "jetson-usbc-1",
+                    name: "USB-C 1",
+                    direction: "bidirectional",
+                    type: "usb_c",
+                    standard: "USB 3.2 Gen 2",
+                    protocol: "USB",
+                    dataRate: "10 Gb/s",
+                    voltage: "5 V",
+                    maxCurrent: "3 A",
+                    description: "High-speed USB-C interface."
+                },
+                {
+                    id: "jetson-usbc-2",
+                    name: "USB-C 2",
+                    direction: "bidirectional",
+                    type: "usb_c",
+                    standard: "USB 3.2 Gen 2",
+                    protocol: "USB",
+                    dataRate: "10 Gb/s",
+                    voltage: "5 V",
+                    maxCurrent: "3 A",
+                    description: "High-speed USB-C interface."
+                },
+                {
+                    id: "jetson-ethernet",
+                    name: "Ethernet",
+                    direction: "bidirectional",
+                    type: "ethernet",
+                    standard: "1 GbE",
+                    protocol: "Ethernet",
+                    dataRate: "1 Gb/s",
+                    voltage: "",
+                    maxCurrent: "",
+                    description: "Gigabit Ethernet interface."
+                },
+                {
+                    id: "jetson-hdmi",
+                    name: "HDMI",
+                    direction: "output",
+                    type: "hdmi",
+                    standard: "HDMI 2.1",
+                    protocol: "HDMI",
+                    dataRate: "48 Gb/s",
+                    voltage: "",
+                    maxCurrent: "",
+                    description: "Display output."
+                },
+                {
+                    id: "jetson-can",
+                    name: "CAN",
+                    direction: "bidirectional",
+                    type: "can",
+                    standard: "CAN FD",
+                    protocol: "CAN",
+                    dataRate: "8 Mb/s",
+                    voltage: "5 V",
+                    maxCurrent: "",
+                    description: "CAN bus interface."
+                }
+            ],
             parameters: [
                 {
                     name: "Memory",
@@ -387,99 +555,151 @@ const initialNodes = [
             description: "Perception, reasoning, and AI workloads.",
             status: "Concept",
             parentId: "computing",
+            interfaces: [
+                {
+                    id: "ai-data",
+                    name: "Data",
+                    direction: "bidirectional",
+                    type: "custom",
+                    standard: "",
+                    protocol: "Internal",
+                    dataRate: "",
+                    voltage: "",
+                    maxCurrent: "",
+                    description: "Internal data interface."
+                }
+            ],
             parameters: []
         }
     }
 ];
-const initialEdges = [
+/*
+ * ============================================================
+ * INITIAL CONNECTIONS
+ * ============================================================
+ */ const initialEdges = [
     {
         id: "power-computing",
         source: "power",
         target: "computing",
+        sourceHandle: "power-output",
+        targetHandle: "computing-power",
         label: "Power · 24V DC",
         data: {
             type: "power",
             protocol: "24V DC",
-            description: "Electrical power from the power system."
+            description: "Electrical power from the power system.",
+            sourceInterfaceId: "power-output",
+            targetInterfaceId: "computing-power"
         }
     },
     {
         id: "sensors-computing",
         source: "sensors",
         target: "computing",
+        sourceHandle: "sensor-usb",
+        targetHandle: "computing-ethernet",
         label: "Sensor Data · USB / Ethernet",
         data: {
             type: "sensor_data",
             protocol: "USB / Ethernet",
-            description: "Sensor measurements and camera feeds."
+            description: "Sensor measurements and camera feeds.",
+            sourceInterfaceId: "sensor-usb",
+            targetInterfaceId: "computing-ethernet"
         }
     },
     {
         id: "computing-control",
         source: "computing",
         target: "control",
+        sourceHandle: "computing-can",
+        targetHandle: "control-can",
         label: "Control · CAN",
         data: {
             type: "control",
             protocol: "CAN",
-            description: "Control commands sent to the control system."
+            description: "Control commands sent to the control system.",
+            sourceInterfaceId: "computing-can",
+            targetInterfaceId: "control-can"
         }
     },
     {
         id: "jetson-ai",
         source: "jetson",
         target: "ai",
-        label: "Data · Internal",
+        sourceHandle: "jetson-ethernet",
+        targetHandle: "ai-data",
+        label: "Communication · Internal",
         data: {
             type: "communication",
             protocol: "Internal",
-            description: "Communication between compute platform and AI system."
+            description: "Communication between compute platform and AI system.",
+            sourceInterfaceId: "jetson-ethernet",
+            targetInterfaceId: "ai-data"
         }
     }
 ];
+/*
+ * ============================================================
+ * HELPERS
+ * ============================================================
+ */ function getInterface(node, interfaceId) {
+    if (!node || !interfaceId) {
+        return undefined;
+    }
+    return node.data.interfaces?.find((item)=>item.id === interfaceId);
+}
+function getInterfaceOptions(node) {
+    if (!node) {
+        return [];
+    }
+    return (node.data.interfaces ?? []).map((item)=>({
+            id: item.id,
+            name: item.name,
+            type: item.type
+        }));
+}
 function Architecture() {
     const [nodes, setNodes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialNodes);
     const [edges, setEdges] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialEdges);
-    /*
-   * null = ORION root
-   * otherwise = system currently being viewed
-   */ const [currentParentId, setCurrentParentId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [currentParentId, setCurrentParentId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [systemModalOpen, setSystemModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [editingNodeId, setEditingNodeId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [connectionModalOpen, setConnectionModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [pendingConnection, setPendingConnection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [editingEdgeId, setEditingEdgeId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * NODE TYPES
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const nodeTypes = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>({
             system: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$SystemNode$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"]
         }), []);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * NODE CHANGES
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const onNodesChange = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((changes)=>{
         setNodes((current)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["applyNodeChanges"])(changes, current));
     }, []);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * EDGE CHANGES
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const onEdgesChange = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((changes)=>{
         setEdges((current)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["applyEdgeChanges"])(changes, current));
     }, []);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * ENTER SYSTEM
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const enterSystem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((nodeId)=>{
         setCurrentParentId(nodeId);
     }, []);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * GO BACK
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const goBack = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
         if (!currentParentId) {
             return;
@@ -495,9 +715,9 @@ function Architecture() {
         nodes
     ]);
     /*
-   * ---------------------------------------------------------
-   * BUILD BREADCRUMB
-   * ---------------------------------------------------------
+   * ==========================================================
+   * BREADCRUMBS
+   * ==========================================================
    */ const breadcrumbs = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         const result = [];
         let id = currentParentId;
@@ -515,22 +735,22 @@ function Architecture() {
         nodes
     ]);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * CURRENT SYSTEM
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const currentSystem = currentParentId ? nodes.find((node)=>node.id === currentParentId) : undefined;
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * OPEN SYSTEM EDITOR
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const openSystemEditor = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((nodeId)=>{
         setEditingNodeId(nodeId);
         setSystemModalOpen(true);
     }, []);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * DELETE SYSTEM
-   * ---------------------------------------------------------
+   * ==========================================================
    */ const deleteSystem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((nodeId)=>{
         const node = nodes.find((item)=>item.id === nodeId);
         if (!node) {
@@ -540,9 +760,7 @@ function Architecture() {
         if (!confirmed) {
             return;
         }
-        /*
-       * Delete the system and all descendants.
-       */ const idsToDelete = new Set([
+        const idsToDelete = new Set([
             nodeId
         ]);
         let foundChild = true;
@@ -570,15 +788,9 @@ function Architecture() {
         nodes
     ]);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * VISIBLE NODES
-   * ---------------------------------------------------------
-   *
-   * Only show children of the system we're inside.
-   *
-   * IMPORTANT:
-   * Attach edit/delete callbacks here so existing systems
-   * also have working edit buttons.
+   * ==========================================================
    */ const visibleNodes = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         return nodes.filter((node)=>(node.data.parentId ?? null) === currentParentId).map((node)=>({
                 ...node,
@@ -595,30 +807,34 @@ function Architecture() {
         deleteSystem
     ]);
     /*
-   * ---------------------------------------------------------
-   * VISIBLE EDGES
-   * ---------------------------------------------------------
+   * ==========================================================
+   * VISIBLE NODE IDS
+   * ==========================================================
    */ const visibleNodeIds = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>new Set(visibleNodes.map((node)=>node.id)), [
         visibleNodes
     ]);
-    const visibleEdges = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+    /*
+   * ==========================================================
+   * VISIBLE EDGES
+   * ==========================================================
+   */ const visibleEdges = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         return edges.filter((edge)=>visibleNodeIds.has(edge.source) && visibleNodeIds.has(edge.target));
     }, [
         edges,
         visibleNodeIds
     ]);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * ADD SYSTEM
-   * ---------------------------------------------------------
+   * ==========================================================
    */ function handleAddSystem() {
         setEditingNodeId(null);
         setSystemModalOpen(true);
     }
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * SAVE SYSTEM
-   * ---------------------------------------------------------
+   * ==========================================================
    */ function handleSystemSubmit(data) {
         if (editingNodeId) {
             setNodes((current)=>current.map((node)=>{
@@ -629,9 +845,7 @@ function Architecture() {
                         ...node,
                         data: {
                             ...data,
-                            /*
-               * Preserve hierarchy.
-               */ parentId: node.data.parentId
+                            parentId: node.data.parentId
                         }
                     };
                 }));
@@ -646,10 +860,7 @@ function Architecture() {
                 },
                 data: {
                     ...data,
-                    /*
-           * New systems belong to the system
-           * currently being viewed.
-           */ parentId: currentParentId ?? undefined
+                    parentId: currentParentId ?? undefined
                 }
             };
             setNodes((current)=>[
@@ -661,20 +872,21 @@ function Architecture() {
         setEditingNodeId(null);
     }
     /*
-   * ---------------------------------------------------------
-   * CONNECTION START
-   * ---------------------------------------------------------
+   * ==========================================================
+   * NEW CONNECTION
+   * ==========================================================
    */ const onConnect = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((connection)=>{
         if (!connection.source || !connection.target) {
             return;
         }
         setPendingConnection(connection);
+        setEditingEdgeId(null);
         setConnectionModalOpen(true);
     }, []);
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
    * CONNECTION LABEL
-   * ---------------------------------------------------------
+   * ==========================================================
    */ function getConnectionLabel(data) {
         const typeLabels = {
             power: "Power",
@@ -688,19 +900,78 @@ function Architecture() {
         return data.protocol ? `${typeLabel} · ${data.protocol}` : typeLabel;
     }
     /*
-   * ---------------------------------------------------------
+   * ==========================================================
+   * EDIT CONNECTION
+   * ==========================================================
+   */ const openConnectionEditor = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((edgeId)=>{
+        setEditingEdgeId(edgeId);
+        setPendingConnection(null);
+        setConnectionModalOpen(true);
+    }, []);
+    /*
+   * ==========================================================
+   * DELETE CONNECTION
+   * ==========================================================
+   */ const deleteConnection = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((edgeId)=>{
+        const edge = edges.find((item)=>item.id === edgeId);
+        if (!edge) {
+            return;
+        }
+        const source = nodes.find((node)=>node.id === edge.source);
+        const target = nodes.find((node)=>node.id === edge.target);
+        const confirmed = window.confirm(`Delete connection "${source?.data.label ?? edge.source} → ${target?.data.label ?? edge.target}"?`);
+        if (!confirmed) {
+            return;
+        }
+        setEdges((current)=>current.filter((item)=>item.id !== edgeId));
+        if (editingEdgeId === edgeId) {
+            setEditingEdgeId(null);
+            setConnectionModalOpen(false);
+        }
+    }, [
+        edges,
+        nodes,
+        editingEdgeId
+    ]);
+    /*
+   * ==========================================================
    * SAVE CONNECTION
-   * ---------------------------------------------------------
+   * ==========================================================
    */ function handleConnectionSubmit(data) {
-        if (!pendingConnection || !pendingConnection.source || !pendingConnection.target) {
+        /*
+     * --------------------------------------------------------
+     * EDIT EXISTING CONNECTION
+     * --------------------------------------------------------
+     */ if (editingEdgeId) {
+            setEdges((current)=>current.map((edge)=>{
+                    if (edge.id !== editingEdgeId) {
+                        return edge;
+                    }
+                    return {
+                        ...edge,
+                        sourceHandle: data.sourceInterfaceId ?? edge.sourceHandle,
+                        targetHandle: data.targetInterfaceId ?? edge.targetHandle,
+                        label: getConnectionLabel(data),
+                        data
+                    };
+                }));
+            setEditingEdgeId(null);
+            setConnectionModalOpen(false);
+            return;
+        }
+        /*
+     * --------------------------------------------------------
+     * CREATE NEW CONNECTION
+     * --------------------------------------------------------
+     */ if (!pendingConnection || !pendingConnection.source || !pendingConnection.target) {
             return;
         }
         const newEdge = {
             id: crypto.randomUUID(),
             source: pendingConnection.source,
             target: pendingConnection.target,
-            sourceHandle: pendingConnection.sourceHandle,
-            targetHandle: pendingConnection.targetHandle,
+            sourceHandle: data.sourceInterfaceId ?? pendingConnection.sourceHandle,
+            targetHandle: data.targetInterfaceId ?? pendingConnection.targetHandle,
             label: getConnectionLabel(data),
             data
         };
@@ -709,17 +980,41 @@ function Architecture() {
         setConnectionModalOpen(false);
     }
     /*
-   * ---------------------------------------------------------
-   * CURRENT EDITING NODE
-   * ---------------------------------------------------------
+   * ==========================================================
+   * EDITING SYSTEM
+   * ==========================================================
    */ const editingNode = editingNodeId ? nodes.find((node)=>node.id === editingNodeId) : undefined;
     /*
-   * ---------------------------------------------------------
-   * CONNECTION NODES
-   * ---------------------------------------------------------
-   */ const sourceNode = pendingConnection?.source ? nodes.find((node)=>node.id === pendingConnection.source) : undefined;
-    const targetNode = pendingConnection?.target ? nodes.find((node)=>node.id === pendingConnection.target) : undefined;
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+   * ==========================================================
+   * EDITING EDGE
+   * ==========================================================
+   */ const editingEdge = editingEdgeId ? edges.find((edge)=>edge.id === editingEdgeId) : undefined;
+    /*
+   * ==========================================================
+   * CONNECTION SOURCE
+   * ==========================================================
+   */ const sourceNode = pendingConnection?.source ? nodes.find((node)=>node.id === pendingConnection.source) : editingEdge ? nodes.find((node)=>node.id === editingEdge.source) : undefined;
+    /*
+   * ==========================================================
+   * CONNECTION TARGET
+   * ==========================================================
+   */ const targetNode = pendingConnection?.target ? nodes.find((node)=>node.id === pendingConnection.target) : editingEdge ? nodes.find((node)=>node.id === editingEdge.target) : undefined;
+    /*
+   * ==========================================================
+   * CONNECTION INITIAL DATA
+   * ==========================================================
+   */ const connectionInitialData = editingEdge?.data;
+    /*
+   * ==========================================================
+   * INITIAL INTERFACE IDS
+   * ==========================================================
+   */ const initialSourceInterfaceId = pendingConnection?.sourceHandle ?? editingEdge?.sourceHandle ?? undefined;
+    const initialTargetInterfaceId = pendingConnection?.targetHandle ?? editingEdge?.targetHandle ?? undefined;
+    /*
+   * ==========================================================
+   * RENDER
+   * ==========================================================
+   */ return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative h-full w-full overflow-hidden bg-[#0b0d10]",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -732,7 +1027,7 @@ function Architecture() {
                         children: "← Back"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 744,
+                        lineNumber: 1476,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -745,7 +1040,7 @@ function Architecture() {
                                 children: "ORION"
                             }, void 0, false, {
                                 fileName: "[project]/components/engineering/Architecture.tsx",
-                                lineNumber: 755,
+                                lineNumber: 1487,
                                 columnNumber: 11
                             }, this),
                             breadcrumbs.map((node)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -756,8 +1051,8 @@ function Architecture() {
                                             children: "/"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/Architecture.tsx",
-                                            lineNumber: 774,
-                                            columnNumber: 15
+                                            lineNumber: 1509,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
@@ -766,19 +1061,19 @@ function Architecture() {
                                             children: node.data.label
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/Architecture.tsx",
-                                            lineNumber: 778,
-                                            columnNumber: 15
+                                            lineNumber: 1513,
+                                            columnNumber: 17
                                         }, this)
                                     ]
                                 }, node.id, true, {
                                     fileName: "[project]/components/engineering/Architecture.tsx",
-                                    lineNumber: 770,
-                                    columnNumber: 13
+                                    lineNumber: 1505,
+                                    columnNumber: 15
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 753,
+                        lineNumber: 1485,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -788,7 +1083,7 @@ function Architecture() {
                         children: "+ Add System"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 798,
+                        lineNumber: 1537,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -796,13 +1091,13 @@ function Architecture() {
                         children: "Double-click a system to enter"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 806,
+                        lineNumber: 1547,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 741,
+                lineNumber: 1473,
                 columnNumber: 7
             }, this),
             currentSystem && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -814,7 +1109,7 @@ function Architecture() {
                         children: "·"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 819,
+                        lineNumber: 1564,
                         columnNumber: 11
                     }, this),
                     visibleNodes.length,
@@ -823,7 +1118,7 @@ function Architecture() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 816,
+                lineNumber: 1558,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["ReactFlow"], {
@@ -835,6 +1130,15 @@ function Architecture() {
                 onConnect: onConnect,
                 onNodeDoubleClick: (_, node)=>{
                     enterSystem(node.id);
+                },
+                onEdgeClick: (event, edge)=>{
+                    event.stopPropagation();
+                    openConnectionEditor(edge.id);
+                },
+                onEdgeContextMenu: (event, edge)=>{
+                    event.preventDefault();
+                    event.stopPropagation();
+                    deleteConnection(edge.id);
                 },
                 fitView: true,
                 fitViewOptions: {
@@ -852,12 +1156,12 @@ function Architecture() {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Background"], {}, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 858,
+                        lineNumber: 1637,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Controls"], {}, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 860,
+                        lineNumber: 1639,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["MiniMap"], {
@@ -866,13 +1170,13 @@ function Architecture() {
                         nodeColor: "#3a424d"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/Architecture.tsx",
-                        lineNumber: 862,
+                        lineNumber: 1641,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 834,
+                lineNumber: 1582,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$SystemModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -885,27 +1189,33 @@ function Architecture() {
                 onSubmit: handleSystemSubmit
             }, void 0, false, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 873,
+                lineNumber: 1652,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$engineering$2f$ConnectionModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 open: connectionModalOpen,
                 sourceName: sourceNode?.data.label ?? "Unknown System",
                 targetName: targetNode?.data.label ?? "Unknown System",
+                sourceInterfaces: getInterfaceOptions(sourceNode),
+                targetInterfaces: getInterfaceOptions(targetNode),
+                initialData: connectionInitialData,
+                initialSourceInterfaceId: initialSourceInterfaceId,
+                initialTargetInterfaceId: initialTargetInterfaceId,
                 onClose: ()=>{
                     setPendingConnection(null);
+                    setEditingEdgeId(null);
                     setConnectionModalOpen(false);
                 },
                 onSubmit: handleConnectionSubmit
             }, void 0, false, {
                 fileName: "[project]/components/engineering/Architecture.tsx",
-                lineNumber: 891,
+                lineNumber: 1677,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/engineering/Architecture.tsx",
-        lineNumber: 735,
+        lineNumber: 1467,
         columnNumber: 5
     }, this);
 }
@@ -922,29 +1232,37 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 "use client";
 ;
 ;
-function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
+function ConnectionModal({ open, sourceName, targetName, sourceInterfaces, targetInterfaces, initialData, initialSourceInterfaceId, initialTargetInterfaceId, onClose, onSubmit }) {
     const [type, setType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("communication");
     const [protocol, setProtocol] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [description, setDescription] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [sourceInterfaceId, setSourceInterfaceId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [targetInterfaceId, setTargetInterfaceId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!open) {
-            return;
-        }
-        setType("communication");
-        setProtocol("");
-        setDescription("");
+        if (!open) return;
+        setType(initialData?.type ?? "communication");
+        setProtocol(initialData?.protocol ?? "");
+        setDescription(initialData?.description ?? "");
+        setSourceInterfaceId(initialSourceInterfaceId ?? initialData?.sourceInterfaceId ?? sourceInterfaces[0]?.id ?? "");
+        setTargetInterfaceId(initialTargetInterfaceId ?? initialData?.targetInterfaceId ?? targetInterfaces[0]?.id ?? "");
     }, [
-        open
+        open,
+        initialData,
+        initialSourceInterfaceId,
+        initialTargetInterfaceId,
+        sourceInterfaces,
+        targetInterfaces
     ]);
-    if (!open) {
-        return null;
-    }
+    if (!open) return null;
+    const isEditing = Boolean(initialData);
     function handleSubmit(event) {
         event.preventDefault();
         onSubmit({
             type,
             protocol: protocol.trim(),
-            description: description.trim()
+            description: description.trim(),
+            sourceInterfaceId,
+            targetInterfaceId
         });
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -963,29 +1281,30 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: "text-lg font-semibold",
-                                    children: "Define Connection"
+                                    className: "text-lg font-semibold text-white",
+                                    children: isEditing ? "Edit Connection" : "Define Connection"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 76,
+                                    lineNumber: 161,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "mt-1 text-xs text-white/40",
                                     children: [
                                         sourceName,
-                                        " → ",
+                                        " →",
+                                        " ",
                                         targetName
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 80,
+                                    lineNumber: 167,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                            lineNumber: 75,
+                            lineNumber: 160,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -995,13 +1314,13 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                             children: "×"
                         }, void 0, false, {
                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                            lineNumber: 85,
+                            lineNumber: 173,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                    lineNumber: 74,
+                    lineNumber: 159,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1012,23 +1331,113 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                     className: "mb-2 block text-sm text-white/60",
+                                    children: "Source Interface"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                    lineNumber: 189,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                    value: sourceInterfaceId,
+                                    onChange: (event)=>setSourceInterfaceId(event.target.value),
+                                    className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none",
+                                    children: sourceInterfaces.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                        value: "",
+                                        children: "No interfaces defined"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                        lineNumber: 206,
+                                        columnNumber: 17
+                                    }, this) : sourceInterfaces.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: item.id,
+                                            children: [
+                                                item.name,
+                                                " ·",
+                                                " ",
+                                                item.type
+                                            ]
+                                        }, item.id, true, {
+                                            fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                            lineNumber: 213,
+                                            columnNumber: 21
+                                        }, this))
+                                }, void 0, false, {
+                                    fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                    lineNumber: 193,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                            lineNumber: 188,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "mb-2 block text-sm text-white/60",
+                                    children: "Target Interface"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                    lineNumber: 229,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                    value: targetInterfaceId,
+                                    onChange: (event)=>setTargetInterfaceId(event.target.value),
+                                    className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none",
+                                    children: targetInterfaces.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                        value: "",
+                                        children: "No interfaces defined"
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                        lineNumber: 246,
+                                        columnNumber: 17
+                                    }, this) : targetInterfaces.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: item.id,
+                                            children: [
+                                                item.name,
+                                                " ·",
+                                                " ",
+                                                item.type
+                                            ]
+                                        }, item.id, true, {
+                                            fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                            lineNumber: 253,
+                                            columnNumber: 21
+                                        }, this))
+                                }, void 0, false, {
+                                    fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                                    lineNumber: 233,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/engineering/ConnectionModal.tsx",
+                            lineNumber: 228,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: "mb-2 block text-sm text-white/60",
                                     children: "Connection Type"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 96,
+                                    lineNumber: 269,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                     value: type,
                                     onChange: (event)=>setType(event.target.value),
-                                    className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30",
+                                    className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                             value: "power",
                                             children: "Power"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                            lineNumber: 109,
+                                            lineNumber: 283,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1036,7 +1445,7 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                             children: "Communication"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                            lineNumber: 110,
+                                            lineNumber: 287,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1044,7 +1453,7 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                             children: "Sensor Data"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 291,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1052,7 +1461,7 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                             children: "Control"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                            lineNumber: 116,
+                                            lineNumber: 295,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1060,7 +1469,7 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                             children: "Mechanical"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                            lineNumber: 117,
+                                            lineNumber: 299,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1068,19 +1477,19 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                             children: "Thermal"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                            lineNumber: 118,
+                                            lineNumber: 303,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 100,
+                                    lineNumber: 273,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                            lineNumber: 95,
+                            lineNumber: 268,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1090,23 +1499,23 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                     children: "Protocol / Interface"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 312,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     value: protocol,
                                     onChange: (event)=>setProtocol(event.target.value),
-                                    placeholder: "CAN, USB 3.0, Ethernet, 12V...",
-                                    className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
+                                    placeholder: "USB 3.2, CAN, Ethernet, 24V DC...",
+                                    className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 316,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                            lineNumber: 122,
+                            lineNumber: 311,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1116,7 +1525,7 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                     children: "Description"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 138,
+                                    lineNumber: 331,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1127,13 +1536,13 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                     className: "w-full resize-none rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 142,
+                                    lineNumber: 335,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                            lineNumber: 137,
+                            lineNumber: 330,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1146,39 +1555,39 @@ function ConnectionModal({ open, sourceName, targetName, onClose, onSubmit }) {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 154,
+                                    lineNumber: 349,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     type: "submit",
                                     className: "rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90",
-                                    children: "Create Connection"
+                                    children: isEditing ? "Save Changes" : "Create Connection"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                                    lineNumber: 162,
+                                    lineNumber: 357,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                            lineNumber: 153,
+                            lineNumber: 348,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/engineering/ConnectionModal.tsx",
-                    lineNumber: 94,
+                    lineNumber: 182,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/engineering/ConnectionModal.tsx",
-            lineNumber: 73,
+            lineNumber: 157,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/engineering/ConnectionModal.tsx",
-        lineNumber: 65,
+        lineNumber: 146,
         columnNumber: 5
     }, this);
 }
@@ -2027,12 +2436,105 @@ const statuses = [
     "Validated",
     "Manufacturing"
 ];
+const interfaceTypes = [
+    {
+        value: "usb_c",
+        label: "USB-C"
+    },
+    {
+        value: "usb_a",
+        label: "USB-A"
+    },
+    {
+        value: "thunderbolt_3",
+        label: "Thunderbolt 3"
+    },
+    {
+        value: "thunderbolt_4",
+        label: "Thunderbolt 4"
+    },
+    {
+        value: "thunderbolt_5",
+        label: "Thunderbolt 5"
+    },
+    {
+        value: "ethernet",
+        label: "Ethernet / RJ45"
+    },
+    {
+        value: "hdmi",
+        label: "HDMI"
+    },
+    {
+        value: "displayport",
+        label: "DisplayPort"
+    },
+    {
+        value: "can",
+        label: "CAN"
+    },
+    {
+        value: "gpio",
+        label: "GPIO"
+    },
+    {
+        value: "power",
+        label: "Power"
+    },
+    {
+        value: "dc_power",
+        label: "DC Power"
+    },
+    {
+        value: "sfp",
+        label: "SFP"
+    },
+    {
+        value: "rs232",
+        label: "RS-232"
+    },
+    {
+        value: "rs485",
+        label: "RS-485"
+    },
+    {
+        value: "wifi",
+        label: "Wi-Fi"
+    },
+    {
+        value: "bluetooth",
+        label: "Bluetooth"
+    },
+    {
+        value: "cellular",
+        label: "Cellular"
+    },
+    {
+        value: "custom",
+        label: "Custom"
+    }
+];
+function createInterface() {
+    return {
+        id: crypto.randomUUID(),
+        name: "",
+        direction: "bidirectional",
+        type: "custom",
+        standard: "",
+        protocol: "",
+        dataRate: "",
+        voltage: "",
+        maxCurrent: "",
+        description: ""
+    };
+}
 function SystemModal({ open, initialData, onClose, onSubmit }) {
     const [label, setLabel] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [category, setCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("Subsystem");
     const [description, setDescription] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [status, setStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("Concept");
     const [parameters, setParameters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [interfaces, setInterfaces] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (!open) return;
         setLabel(initialData?.label ?? "");
@@ -2040,6 +2542,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
         setDescription(initialData?.description ?? "");
         setStatus(initialData?.status ?? "Concept");
         setParameters(initialData?.parameters ?? []);
+        setInterfaces(initialData?.interfaces ?? []);
     }, [
         open,
         initialData
@@ -2065,6 +2568,21 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
     function removeParameter(index) {
         setParameters((current)=>current.filter((_, parameterIndex)=>parameterIndex !== index));
     }
+    function addInterface() {
+        setInterfaces((current)=>[
+                ...current,
+                createInterface()
+            ]);
+    }
+    function updateInterface(index, field, value) {
+        setInterfaces((current)=>current.map((interfaceItem, interfaceIndex)=>interfaceIndex === index ? {
+                    ...interfaceItem,
+                    [field]: value
+                } : interfaceItem));
+    }
+    function removeInterface(index) {
+        setInterfaces((current)=>current.filter((_, interfaceIndex)=>interfaceIndex !== index));
+    }
     function handleSubmit(event) {
         event.preventDefault();
         if (!label.trim()) return;
@@ -2074,7 +2592,8 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
             category,
             description: description.trim(),
             status,
-            parameters
+            parameters,
+            interfaces
         });
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2085,7 +2604,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
             }
         },
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-white/10 bg-[#111419] shadow-2xl",
+            className: "max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/10 bg-[#111419] shadow-2xl",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex items-center justify-between border-b border-white/10 px-6 py-4",
@@ -2097,21 +2616,21 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     children: initialData ? "Edit System" : "Add System"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 329,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "mt-1 text-xs text-white/40",
-                                    children: "Define the engineering system and its properties."
+                                    children: "Define the engineering system, interfaces, and properties."
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 128,
+                                    lineNumber: 335,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 123,
+                            lineNumber: 328,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2121,18 +2640,18 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                             children: "×"
                         }, void 0, false, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 133,
+                            lineNumber: 342,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                    lineNumber: 122,
+                    lineNumber: 327,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                     onSubmit: handleSubmit,
-                    className: "space-y-5 p-6",
+                    className: "space-y-6 p-6",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
@@ -2141,24 +2660,24 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     children: "System Name"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 147,
+                                    lineNumber: 358,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     autoFocus: true,
                                     value: label,
                                     onChange: (event)=>setLabel(event.target.value),
-                                    placeholder: "e.g. Power Distribution System",
+                                    placeholder: "e.g. Jetson Orin NX",
                                     className: "w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 151,
+                                    lineNumber: 362,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 146,
+                            lineNumber: 357,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2171,7 +2690,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                             children: "Category"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 164,
+                                            lineNumber: 377,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2183,18 +2702,18 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                                     children: item
                                                 }, item, false, {
                                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                                    lineNumber: 176,
-                                                    columnNumber: 19
+                                                    lineNumber: 392,
+                                                    columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 168,
+                                            lineNumber: 381,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 163,
+                                    lineNumber: 376,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2204,7 +2723,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                             children: "Status"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 404,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2216,24 +2735,24 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                                     children: item
                                                 }, item, false, {
                                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                                    lineNumber: 198,
-                                                    columnNumber: 19
+                                                    lineNumber: 420,
+                                                    columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 408,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 403,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 162,
+                            lineNumber: 375,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2243,7 +2762,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     children: "Description"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 207,
+                                    lineNumber: 433,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -2251,16 +2770,16 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     onChange: (event)=>setDescription(event.target.value),
                                     placeholder: "What does this system do?",
                                     rows: 3,
-                                    className: "w-full resize-none rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
+                                    className: "w-full resize-none rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 211,
+                                    lineNumber: 437,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 206,
+                            lineNumber: 432,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2273,7 +2792,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                             children: "Parameters"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 224,
+                                            lineNumber: 454,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2283,13 +2802,13 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                             children: "+ Add Parameter"
                                         }, void 0, false, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 228,
+                                            lineNumber: 458,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 453,
                                     columnNumber: 13
                                 }, this),
                                 parameters.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2297,7 +2816,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     children: "No parameters defined."
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 238,
+                                    lineNumber: 469,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "space-y-2",
@@ -2311,8 +2830,8 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                                     className: "rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                                    lineNumber: 251,
-                                                    columnNumber: 21
+                                                    lineNumber: 486,
+                                                    columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                     value: parameter.value,
@@ -2321,8 +2840,8 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                                     className: "rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                                    lineNumber: 264,
-                                                    columnNumber: 21
+                                                    lineNumber: 504,
+                                                    columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                     value: parameter.unit ?? "",
@@ -2331,8 +2850,8 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                                     className: "rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                                    lineNumber: 277,
-                                                    columnNumber: 21
+                                                    lineNumber: 522,
+                                                    columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     type: "button",
@@ -2341,24 +2860,260 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                                     children: "×"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                                    lineNumber: 290,
-                                                    columnNumber: 21
+                                                    lineNumber: 541,
+                                                    columnNumber: 23
                                                 }, this)
                                             ]
                                         }, parameter.id ?? `parameter-${index}`, true, {
                                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                                            lineNumber: 244,
-                                            columnNumber: 19
+                                            lineNumber: 479,
+                                            columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 242,
+                                    lineNumber: 473,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 222,
+                            lineNumber: 452,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mb-3 flex items-center justify-between",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "text-sm text-white/60",
+                                                    children: "Interfaces"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                    lineNumber: 564,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "mt-1 text-xs text-white/30",
+                                                    children: "Define the physical and logical interfaces available on this system."
+                                                }, void 0, false, {
+                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                    lineNumber: 568,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                            lineNumber: 563,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            type: "button",
+                                            onClick: addInterface,
+                                            className: "rounded-md px-2 py-1 text-xs text-white/50 hover:bg-white/10 hover:text-white",
+                                            children: "+ Add Interface"
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                            lineNumber: 575,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                    lineNumber: 562,
+                                    columnNumber: 13
+                                }, this),
+                                interfaces.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "rounded-lg border border-dashed border-white/10 px-4 py-6 text-center text-xs text-white/30",
+                                    children: "No interfaces defined."
+                                }, void 0, false, {
+                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                    lineNumber: 586,
+                                    columnNumber: 15
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "space-y-3",
+                                    children: interfaces.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "rounded-xl border border-white/10 bg-[#0b0d10] p-4",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "mb-3 flex items-center justify-between",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-xs font-medium text-white/50",
+                                                            children: [
+                                                                "Interface",
+                                                                " ",
+                                                                index + 1
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 601,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            type: "button",
+                                                            onClick: ()=>removeInterface(index),
+                                                            className: "rounded-md px-2 py-1 text-xs text-white/30 hover:bg-white/10 hover:text-white",
+                                                            children: "Remove"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 606,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                    lineNumber: 600,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "grid grid-cols-2 gap-3",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.name,
+                                                            onChange: (event)=>updateInterface(index, "name", event.target.value),
+                                                            placeholder: "Interface name",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 620,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                            value: item.direction,
+                                                            onChange: (event)=>updateInterface(index, "direction", event.target.value),
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                    value: "input",
+                                                                    children: "Input"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                                    lineNumber: 654,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                    value: "output",
+                                                                    children: "Output"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                                    lineNumber: 658,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                    value: "bidirectional",
+                                                                    children: "Bidirectional"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                                    lineNumber: 662,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 638,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                            value: item.type,
+                                                            onChange: (event)=>updateInterface(index, "type", event.target.value),
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none",
+                                                            children: interfaceTypes.map((type)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                    value: type.value,
+                                                                    children: type.label
+                                                                }, type.value, false, {
+                                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                                    lineNumber: 687,
+                                                                    columnNumber: 31
+                                                                }, this))
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 667,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.standard,
+                                                            onChange: (event)=>updateInterface(index, "standard", event.target.value),
+                                                            placeholder: "Standard e.g. USB 3.2 Gen 2",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 703,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.protocol,
+                                                            onChange: (event)=>updateInterface(index, "protocol", event.target.value),
+                                                            placeholder: "Protocol e.g. USB",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 721,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.dataRate,
+                                                            onChange: (event)=>updateInterface(index, "dataRate", event.target.value),
+                                                            placeholder: "Data rate e.g. 10 Gb/s",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 739,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.voltage,
+                                                            onChange: (event)=>updateInterface(index, "voltage", event.target.value),
+                                                            placeholder: "Voltage e.g. 5 V",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 757,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.maxCurrent,
+                                                            onChange: (event)=>updateInterface(index, "maxCurrent", event.target.value),
+                                                            placeholder: "Max current e.g. 3 A",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 775,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            value: item.description,
+                                                            onChange: (event)=>updateInterface(index, "description", event.target.value),
+                                                            placeholder: "Description",
+                                                            className: "rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-xs text-white outline-none placeholder:text-white/25"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                            lineNumber: 793,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                                    lineNumber: 619,
+                                                    columnNumber: 23
+                                                }, this)
+                                            ]
+                                        }, item.id, true, {
+                                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                                            lineNumber: 596,
+                                            columnNumber: 21
+                                        }, this))
+                                }, void 0, false, {
+                                    fileName: "[project]/components/engineering/SystemModal.tsx",
+                                    lineNumber: 590,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/engineering/SystemModal.tsx",
+                            lineNumber: 561,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2371,7 +3126,7 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 306,
+                                    lineNumber: 819,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2380,30 +3135,30 @@ function SystemModal({ open, initialData, onClose, onSubmit }) {
                                     children: initialData ? "Save Changes" : "Create System"
                                 }, void 0, false, {
                                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                                    lineNumber: 314,
+                                    lineNumber: 827,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/engineering/SystemModal.tsx",
-                            lineNumber: 305,
+                            lineNumber: 818,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/engineering/SystemModal.tsx",
-                    lineNumber: 142,
+                    lineNumber: 351,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/engineering/SystemModal.tsx",
-            lineNumber: 121,
+            lineNumber: 325,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/engineering/SystemModal.tsx",
-        lineNumber: 113,
+        lineNumber: 314,
         columnNumber: 5
     }, this);
 }
@@ -2421,22 +3176,53 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$
 "use client";
 ;
 ;
+function getInterfaceTypeLabel(type) {
+    const labels = {
+        power: "Power",
+        dc_power: "DC Power",
+        usb_a: "USB-A",
+        usb_c: "USB-C",
+        thunderbolt_4: "Thunderbolt 4",
+        thunderbolt_5: "Thunderbolt 5",
+        ethernet: "Ethernet",
+        can: "CAN",
+        uart: "UART",
+        i2c: "I²C",
+        spi: "SPI",
+        hdmi: "HDMI",
+        displayport: "DisplayPort",
+        pcie: "PCIe",
+        custom: "Custom"
+    };
+    return labels[type];
+}
+function getDirectionSymbol(direction) {
+    if (direction === "input") {
+        return "←";
+    }
+    if (direction === "output") {
+        return "→";
+    }
+    return "↔";
+}
 function SystemNode({ data }) {
     const parameters = Array.isArray(data.parameters) ? data.parameters : [];
+    const interfaces = Array.isArray(data.interfaces) ? data.interfaces : [];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "min-w-[240px] overflow-hidden rounded-xl border border-white/15 bg-[#15191f] shadow-xl",
+        className: "min-w-[280px] max-w-[340px] overflow-hidden rounded-xl border border-white/15 bg-[#15191f] shadow-xl",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex items-start justify-between border-b border-white/10 px-4 py-3",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "min-w-0",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "text-sm font-semibold text-white",
+                                className: "truncate text-sm font-semibold text-white",
                                 children: data.label
                             }, void 0, false, {
                                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                                lineNumber: 41,
+                                lineNumber: 138,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2444,13 +3230,13 @@ function SystemNode({ data }) {
                                 children: data.category
                             }, void 0, false, {
                                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                                lineNumber: 45,
+                                lineNumber: 142,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/engineering/SystemNode.tsx",
-                        lineNumber: 40,
+                        lineNumber: 137,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2459,17 +3245,17 @@ function SystemNode({ data }) {
                             event.stopPropagation();
                             data.onEdit?.();
                         },
-                        className: "rounded-md px-2 py-1 text-white/30 hover:bg-white/10 hover:text-white",
+                        className: "ml-3 shrink-0 rounded-md px-2 py-1 text-white/30 transition hover:bg-white/10 hover:text-white",
                         children: "⋯"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/SystemNode.tsx",
-                        lineNumber: 50,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                lineNumber: 39,
+                lineNumber: 136,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2479,31 +3265,142 @@ function SystemNode({ data }) {
                     children: data.status
                 }, void 0, false, {
                     fileName: "[project]/components/engineering/SystemNode.tsx",
-                    lineNumber: 63,
+                    lineNumber: 161,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                lineNumber: 62,
+                lineNumber: 160,
                 columnNumber: 7
             }, this),
             data.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "px-4 py-3 text-xs leading-5 text-white/50",
+                className: "border-b border-white/10 px-4 py-3 text-xs leading-5 text-white/50",
                 children: data.description
             }, void 0, false, {
                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                lineNumber: 69,
+                lineNumber: 168,
+                columnNumber: 9
+            }, this),
+            interfaces.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "border-b border-white/10",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "px-4 pt-3",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-[10px] font-medium uppercase tracking-wider text-white/30",
+                            children: "Interfaces"
+                        }, void 0, false, {
+                            fileName: "[project]/components/engineering/SystemNode.tsx",
+                            lineNumber: 177,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                        lineNumber: 176,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-2 space-y-1 pb-2",
+                        children: interfaces.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "relative mx-2 rounded-md px-2 py-2 transition hover:bg-white/5",
+                                children: [
+                                    (item.direction === "input" || item.direction === "bidirectional") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Handle"], {
+                                        id: item.id,
+                                        type: "target",
+                                        position: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$system$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Position"].Left,
+                                        className: "!h-3 !w-3 !border-2 !border-[#15191f] !bg-white",
+                                        style: {
+                                            top: "50%"
+                                        }
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                                        lineNumber: 193,
+                                        columnNumber: 19
+                                    }, this),
+                                    (item.direction === "output" || item.direction === "bidirectional") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Handle"], {
+                                        id: item.id,
+                                        type: "source",
+                                        position: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$system$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Position"].Right,
+                                        className: "!h-3 !w-3 !border-2 !border-[#15191f] !bg-white",
+                                        style: {
+                                            top: "50%"
+                                        }
+                                    }, void 0, false, {
+                                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                                        lineNumber: 211,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center justify-between gap-3",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "min-w-0 pl-1",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "truncate text-xs font-medium text-white/80",
+                                                        children: item.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                                                        lineNumber: 226,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "mt-0.5 truncate text-[10px] text-white/35",
+                                                        children: [
+                                                            getInterfaceTypeLabel(item.type),
+                                                            item.standard ? ` · ${item.standard}` : ""
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                                                        lineNumber: 230,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/components/engineering/SystemNode.tsx",
+                                                lineNumber: 225,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "shrink-0 text-[11px] text-white/30",
+                                                children: getDirectionSymbol(item.direction)
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/engineering/SystemNode.tsx",
+                                                lineNumber: 241,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                                        lineNumber: 224,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, item.id, true, {
+                                fileName: "[project]/components/engineering/SystemNode.tsx",
+                                lineNumber: 184,
+                                columnNumber: 15
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/components/engineering/SystemNode.tsx",
+                        lineNumber: 182,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/engineering/SystemNode.tsx",
+                lineNumber: 175,
                 columnNumber: 9
             }, this),
             parameters.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "border-t border-white/10 px-4 py-3",
+                className: "px-4 py-3",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "mb-2 text-[10px] font-medium uppercase tracking-wider text-white/30",
                         children: "Parameters"
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/SystemNode.tsx",
-                        lineNumber: 76,
+                        lineNumber: 256,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2516,59 +3413,41 @@ function SystemNode({ data }) {
                                         children: parameter.name
                                     }, void 0, false, {
                                         fileName: "[project]/components/engineering/SystemNode.tsx",
-                                        lineNumber: 89,
-                                        columnNumber: 17
+                                        lineNumber: 275,
+                                        columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-white/70",
+                                        className: "text-right text-white/70",
                                         children: [
                                             parameter.value,
                                             parameter.unit ? ` ${parameter.unit}` : ""
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/engineering/SystemNode.tsx",
-                                        lineNumber: 93,
-                                        columnNumber: 17
+                                        lineNumber: 281,
+                                        columnNumber: 21
                                     }, this)
                                 ]
                             }, parameter.id ?? `${parameter.name}-${index}`, true, {
                                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                                lineNumber: 82,
-                                columnNumber: 15
+                                lineNumber: 268,
+                                columnNumber: 19
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/engineering/SystemNode.tsx",
-                        lineNumber: 80,
+                        lineNumber: 260,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/engineering/SystemNode.tsx",
-                lineNumber: 75,
+                lineNumber: 255,
                 columnNumber: 9
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Handle"], {
-                type: "target",
-                position: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$system$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Position"].Left,
-                className: "!h-3 !w-3 !border-2 !border-[#15191f] !bg-white"
-            }, void 0, false, {
-                fileName: "[project]/components/engineering/SystemNode.tsx",
-                lineNumber: 106,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$react$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Handle"], {
-                type: "source",
-                position: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$xyflow$2f$system$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Position"].Right,
-                className: "!h-3 !w-3 !border-2 !border-[#15191f] !bg-white"
-            }, void 0, false, {
-                fileName: "[project]/components/engineering/SystemNode.tsx",
-                lineNumber: 113,
-                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/engineering/SystemNode.tsx",
-        lineNumber: 36,
+        lineNumber: 134,
         columnNumber: 5
     }, this);
 }

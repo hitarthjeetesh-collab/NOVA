@@ -1,4 +1,5 @@
 "use client";
+
 import Architecture from "@/components/engineering/Architecture";
 import Requirements from "@/components/engineering/Requirements";
 import Chat from "@/components/chat/Chat";
@@ -47,6 +48,13 @@ export default function Workspace({
             <Placeholder
               title="Calculations"
               description="Run and review engineering calculations."
+            />
+          )}
+
+          {stage === "code" && (
+            <Placeholder
+              title="Code"
+              description="Develop, manage, and validate the software for the system."
             />
           )}
 
@@ -104,6 +112,9 @@ function getStageDescription(stage: WorkspaceStage) {
 
     case "calculations":
       return "Engineering calculations";
+
+    case "code":
+      return "Software and code";
 
     case "cad":
       return "Computer-aided design";

@@ -1,6 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import Modal from "../ui/Modal";
+import Button from "../ui/Button";
 
 export type ConnectionType =
   | "power"
@@ -10,90 +13,310 @@ export type ConnectionType =
   | "mechanical"
   | "thermal";
 
-export interface ConnectionData {
+export interface ConnectionInterfaceOption {
+  id: string;
+  name: string;
+  type: string;
+}
+
+export interface ConnectionData
+  extends Record<string, unknown> {
   type: ConnectionType;
   protocol: string;
   description: string;
+
+  sourceInterfaceId?: string;
+  targetInterfaceId?: string;
 }
 
 interface ConnectionModalProps {
   open: boolean;
+
   sourceName: string;
   targetName: string;
+
+  sourceInterfaces: ConnectionInterfaceOption[];
+  targetInterfaces: ConnectionInterfaceOption[];
+
+  initialData?: ConnectionData;
+
+  initialSourceInterfaceId?: string | null;
+  initialTargetInterfaceId?: string | null;
+
   onClose: () => void;
-  onSubmit: (data: ConnectionData) => void;
+
+  onSubmit: (
+    data: ConnectionData
+  ) => void;
+
+  onDelete?: () => void;
 }
+
+const connectionTypes: {
+  value: ConnectionType;
+  label: string;
+}[] = [
+  {
+    value: "power",
+    label: "Power",
+  },
+  {
+    value: "communication",
+    label: "Communication",
+  },
+  {
+    value: "sensor_data",
+    label: "Sensor Data",
+  },
+  {
+    value: "control",
+    label: "Control",
+  },
+  {
+    value: "mechanical",
+    label: "Mechanical",
+  },
+  {
+    value: "thermal",
+    label: "Thermal",
+  },
+];
 
 export default function ConnectionModal({
   open,
   sourceName,
   targetName,
+  sourceInterfaces,
+  targetInterfaces,
+  initialData,
+  initialSourceInterfaceId,
+  initialTargetInterfaceId,
   onClose,
   onSubmit,
+  onDelete,
 }: ConnectionModalProps) {
   const [type, setType] =
-    useState<ConnectionType>("communication");
+    useState<ConnectionType>(
+      "communication"
+    );
 
-  const [protocol, setProtocol] = useState("");
-  const [description, setDescription] = useState("");
+  const [protocol, setProtocol] =
+    useState("");
+
+  const [description, setDescription] =
+    useState("");
+
+  const [
+    sourceInterfaceId,
+    setSourceInterfaceId,
+  ] = useState("");
+
+  const [
+    targetInterfaceId,
+    setTargetInterfaceId,
+  ] = useState("");
+
+  const [error, setError] =
+    useState("");
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    setType("communication");
-    setProtocol("");
-    setDescription("");
-  }, [open]);
+    setType(
+      initialData?.type ??
+        "communication"
+    );
 
-  if (!open) {
-    return null;
-  }
+    setProtocol(
+      initialData?.protocol ?? ""
+    );
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+    setDescription(
+      initialData?.description ??
+        ""
+    );
+
+    setSourceInterfaceId(
+      initialSourceInterfaceId ??
+        sourceInterfaces[0]?.id ??
+        ""
+    );
+
+    setTargetInterfaceId(
+      initialTargetInterfaceId ??
+        targetInterfaces[0]?.id ??
+        ""
+    );
+
+    setError("");
+  }, [
+    open,
+    initialData,
+    initialSourceInterfaceId,
+    initialTargetInterfaceId,
+    sourceInterfaces,
+    targetInterfaces,
+  ]);
+
+  function handleSubmit() {
+    if (!sourceInterfaceId) {
+      setError(
+        "Select a source interface."
+      );
+
+      return;
+    }
+
+    if (!targetInterfaceId) {
+      setError(
+        "Select a target interface."
+      );
+
+      return;
+    }
 
     onSubmit({
       type,
       protocol: protocol.trim(),
-      description: description.trim(),
+      description:
+        description.trim(),
+
+      sourceInterfaceId,
+      targetInterfaceId,
     });
   }
 
+  function handleDelete() {
+  onDelete?.();
+}
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) {
-          onClose();
-        }
-      }}
+    <Modal
+      open={open}
+      onClose={onClose}
     >
-      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#111419] shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-          <div>
-            <h2 className="text-lg font-semibold">
-              Define Connection
-            </h2>
+      <div className="w-[650px] max-w-[95vw]">
+        {/* Header */}
+        <div className="border-b border-white/10 px-6 py-5">
+          <h2 className="text-lg font-semibold text-white">
+            Connection
+          </h2>
 
-            <p className="mt-1 text-xs text-white/40">
-              {sourceName} → {targetName}
-            </p>
+          <div className="mt-2 flex items-center gap-2 text-xs">
+            <span className="rounded-md bg-white/5 px-2 py-1 text-white/60">
+              {sourceName}
+            </span>
+
+            <span className="text-white/20">
+              →
+            </span>
+
+            <span className="rounded-md bg-white/5 px-2 py-1 text-white/60">
+              {targetName}
+            </span>
           </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg px-2 py-1 text-white/40 hover:bg-white/10 hover:text-white"
-          >
-            ×
-          </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 p-6">
+        {/* Body */}
+        <div className="space-y-5 px-6 py-5">
+          {/* Interfaces */}
+          <div className="grid grid-cols-2 gap-4">
+            {/* Source */}
+            <div>
+              <label className="mb-2 block text-xs font-medium text-white/50">
+                Source Interface
+              </label>
+
+              <select
+                value={
+                  sourceInterfaceId
+                }
+                onChange={(event) =>
+                  setSourceInterfaceId(
+                    event.target
+                      .value
+                  )
+                }
+                className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              >
+                <option
+                  value=""
+                  className="bg-[#101419]"
+                >
+                  Select interface
+                </option>
+
+                {sourceInterfaces.map(
+                  (item) => (
+                    <option
+                      key={
+                        item.id
+                      }
+                      value={
+                        item.id
+                      }
+                      className="bg-[#101419]"
+                    >
+                      {item.name}
+                      {" · "}
+                      {item.type}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+
+            {/* Target */}
+            <div>
+              <label className="mb-2 block text-xs font-medium text-white/50">
+                Target Interface
+              </label>
+
+              <select
+                value={
+                  targetInterfaceId
+                }
+                onChange={(event) =>
+                  setTargetInterfaceId(
+                    event.target
+                      .value
+                  )
+                }
+                className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              >
+                <option
+                  value=""
+                  className="bg-[#101419]"
+                >
+                  Select interface
+                </option>
+
+                {targetInterfaces.map(
+                  (item) => (
+                    <option
+                      key={
+                        item.id
+                      }
+                      value={
+                        item.id
+                      }
+                      className="bg-[#101419]"
+                    >
+                      {item.name}
+                      {" · "}
+                      {item.type}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          </div>
+
+          {/* Type */}
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-xs font-medium text-white/50">
               Connection Type
             </label>
 
@@ -101,73 +324,110 @@ export default function ConnectionModal({
               value={type}
               onChange={(event) =>
                 setType(
-                  event.target.value as ConnectionType
+                  event.target
+                    .value as ConnectionType
                 )
               }
-              className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
             >
-              <option value="power">Power</option>
-              <option value="communication">
-                Communication
-              </option>
-              <option value="sensor_data">
-                Sensor Data
-              </option>
-              <option value="control">Control</option>
-              <option value="mechanical">Mechanical</option>
-              <option value="thermal">Thermal</option>
+              {connectionTypes.map(
+                (item) => (
+                  <option
+                    key={
+                      item.value
+                    }
+                    value={
+                      item.value
+                    }
+                    className="bg-[#101419]"
+                  >
+                    {item.label}
+                  </option>
+                )
+              )}
             </select>
           </div>
 
+          {/* Protocol */}
           <div>
-            <label className="mb-2 block text-sm text-white/60">
-              Protocol / Interface
+            <label className="mb-2 block text-xs font-medium text-white/50">
+              Protocol / Specification
             </label>
 
             <input
               value={protocol}
               onChange={(event) =>
-                setProtocol(event.target.value)
+                setProtocol(
+                  event.target.value
+                )
               }
-              placeholder="CAN, USB 3.0, Ethernet, 12V..."
-              className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
+              placeholder="e.g. USB 3.2 Gen 2, CAN FD, 24V DC"
+              className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-white/30"
             />
           </div>
 
+          {/* Description */}
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-xs font-medium text-white/50">
               Description
             </label>
 
             <textarea
               value={description}
               onChange={(event) =>
-                setDescription(event.target.value)
+                setDescription(
+                  event.target.value
+                )
               }
-              placeholder="What information, energy, or force flows through this connection?"
-              rows={3}
-              className="w-full resize-none rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25"
+              rows={4}
+              placeholder="What does this connection carry or provide?"
+              className="w-full resize-none rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-white/30"
             />
           </div>
 
-          <div className="flex justify-end gap-2 border-t border-white/10 pt-5">
-            <button
+          {error && (
+            <div className="rounded-lg border border-red-400/20 bg-red-400/5 px-3 py-2 text-xs text-red-300">
+              {error}
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between border-t border-white/10 px-6 py-4">
+          <div>
+            {onDelete && (
+              <Button
+                type="button"
+                variant="danger"
+                onClick={
+                  handleDelete
+                }
+              >
+                Delete Connection
+              </Button>
+            )}
+          </div>
+
+          <div className="flex gap-2">
+            <Button
               type="button"
               onClick={onClose}
-              className="rounded-lg px-4 py-2 text-sm text-white/50 hover:bg-white/5 hover:text-white"
             >
               Cancel
-            </button>
+            </Button>
 
-            <button
-              type="submit"
-              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90"
+            <Button
+              type="button"
+              variant="primary"
+              onClick={
+                handleSubmit
+              }
             >
-              Create Connection
-            </button>
+              Save Connection
+            </Button>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 }

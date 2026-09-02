@@ -13,6 +13,7 @@ const stages: {
   { id: "architecture", name: "Architecture" },
   { id: "components", name: "Components" },
   { id: "calculations", name: "Calculations" },
+  { id: "code", name: "Code" },
   { id: "cad", name: "CAD" },
   { id: "simulation", name: "Simulation" },
   { id: "optimization", name: "Optimization" },

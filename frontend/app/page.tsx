@@ -11,6 +11,7 @@ export type WorkspaceStage =
   | "architecture"
   | "components"
   | "calculations"
+  | "code"
   | "cad"
   | "simulation"
   | "optimization"
