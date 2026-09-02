@@ -42,6 +42,9 @@ const statuses: ComponentStatus[] = [
   "Installed",
 ];
 
+const controlClassName =
+  "w-full rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/20";
+
 function numberValue(
   value: string
 ): number | null {
@@ -248,6 +251,7 @@ export default function ComponentModal({
                   required
                 >
                   <input
+                    className={controlClassName}
                     value={form.name}
                     onChange={(event) =>
                       updateField(
@@ -262,6 +266,7 @@ export default function ComponentModal({
 
                 <Field label="Manufacturer">
                   <input
+                    className={controlClassName}
                     value={
                       form.manufacturer
                     }
@@ -277,6 +282,7 @@ export default function ComponentModal({
 
                 <Field label="Part Number">
                   <input
+                    className={controlClassName}
                     value={
                       form.partNumber
                     }
@@ -370,7 +376,7 @@ export default function ComponentModal({
                         null
                     )
                   }
-                  className="w-full rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white outline-none focus:border-white/20"
+                  className={controlClassName}
                 >
                   <option value="">
                     Unassigned
@@ -528,6 +534,7 @@ export default function ComponentModal({
 
                 <Field label="Currency">
                   <input
+                    className={controlClassName}
                     value={form.currency}
                     onChange={(event) =>
                       updateField(
@@ -542,33 +549,103 @@ export default function ComponentModal({
             </section>
 
             <section>
-              <SectionTitle>
-                Interfaces
-              </SectionTitle>
+  <SectionTitle>
+    Interfaces
+  </SectionTitle>
 
-              <Field label="Interfaces">
-                <input
-                  value={
-                    form.interfaces.join(
-                      ", "
-                    )
-                  }
-                  onChange={(event) =>
-                    updateField(
-                      "interfaces",
-                      event.target.value.split(
-                        ","
-                      )
-                    )
-                  }
-                  placeholder="USB-C, Ethernet, CAN"
-                />
-              </Field>
+  <Field label="Interfaces">
+    <div className="space-y-3">
+      {form.interfaces.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {form.interfaces.map(
+            (interfaceName, index) => {
+              const trimmed =
+                interfaceName.trim();
 
-              <p className="mt-2 text-xs text-white/30">
-                Separate interfaces with commas.
-              </p>
+              if (!trimmed) {
+                return null;
+              }
+
+              return (
+                <div
+                  key={`${trimmed}-${index}`}
+                  className="flex items-center gap-2 rounded-lg border border-white/10 bg-[#15191f] px-3 py-1.5 text-xs text-white/70"
+                >
+                  <span>
+                    {trimmed}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setForm((current) => ({
+                        ...current,
+                        interfaces:
+                          current.interfaces.filter(
+                            (_, itemIndex) =>
+                              itemIndex !==
+                              index
+                          ),
+                      }))
+                    }
+                    className="text-white/30 transition hover:text-white"
+                    aria-label={`Remove ${trimmed}`}
+                  >
+                    ×
+                  </button>
+                </div>
+              );
+            }
+          )}
+        </div>
+      )}
+
+      <input
+        className={controlClassName}
+        placeholder="Add interface, e.g. USB-C"
+        onKeyDown={(event) => {
+          if (
+            event.key !== "Enter" &&
+            event.key !== ","
+          ) {
+            return;
+          }
+
+          event.preventDefault();
+
+          const value =
+            event.currentTarget.value.trim();
+
+          if (!value) {
+            return;
+          }
+
+          const newInterfaces =
+            value
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean);
+
+          setForm((current) => ({
+            ...current,
+            interfaces: [
+              ...current.interfaces,
+              ...newInterfaces,
+            ],
+          }));
+
+          event.currentTarget.value = "";
+        }}
+      />
+    </div>
+  </Field>
+
+  <p className="mt-2 text-xs text-white/30">
+    Press Enter or comma to add an interface.
+  </p>
             </section>
+
+
 
             <section>
               <SectionTitle>
@@ -578,6 +655,7 @@ export default function ComponentModal({
               <div className="space-y-4">
                 <Field label="Datasheet URL">
                   <input
+                    className={controlClassName}
                     value={
                       form.datasheet
                     }
@@ -682,6 +760,7 @@ function NumberField({
   return (
     <Field label={label}>
       <input
+        className={controlClassName}
         type="number"
         step="any"
         value={
@@ -718,6 +797,7 @@ function SelectField({
   return (
     <Field label={label}>
       <select
+        className={controlClassName}
         value={value}
         onChange={(event) =>
           onChange(
@@ -754,6 +834,7 @@ function TextAreaField({
   return (
     <Field label={label}>
       <textarea
+        className={controlClassName}
         rows={4}
         value={value}
         onChange={(event) =>
