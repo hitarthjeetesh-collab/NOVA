@@ -13,6 +13,7 @@ import Requirements from "@/components/Engineering/engineering/requirements/Requ
 import Chat from "@/components/Engineering/chat/Chat";
 import EngineeringProcess from "@/components/Engineering/engineering/EngineeringProcess";
 import Components from "@/components/Engineering/engineering/components/Components";
+import CAD from "@/components/Engineering/engineering/cad/CAD";
 
 import type { WorkspaceStage } from "@/types/workspace";
 
@@ -27,12 +28,8 @@ export default function Workspace({
   stage,
   onStageChange,
 }: WorkspaceProps) {
-  const [
-    architectureNodes,
-    setArchitectureNodes,
-  ] = useState<ArchitectureNode[]>(
-    initialArchitectureNodes
-  );
+  const [architectureNodes, setArchitectureNodes] =
+    useState<ArchitectureNode[]>(initialArchitectureNodes);
 
   return (
     <div className="flex min-h-0 flex-1">
@@ -48,18 +45,11 @@ export default function Workspace({
         </div>
 
         <div className="min-h-0 flex-1">
-          {stage === "chat" && (
-            <Chat />
-          )}
+          {stage === "chat" && <Chat />}
 
-          {stage === "requirements" && (
-            <Requirements />
-          )}
+          {stage === "requirements" && <Requirements />}
 
-          {stage === "planning" && (
-            <Planning />
-            
-          )}
+          {stage === "planning" && <Planning />}
 
           {stage === "architecture" && (
             <Architecture
@@ -70,26 +60,19 @@ export default function Workspace({
 
           {stage === "components" && (
             <Components
-              architectureNodes={
-                architectureNodes
-              }
+              architectureNodes={architectureNodes}
             />
           )}
 
           {stage === "calculations" && (
-  <Calculations projectName={projectName} />
-)}
+            <Calculations projectName={projectName} />
+          )}
 
           {stage === "code" && (
-  <Code projectName={projectName} />
-)}
-
-          {stage === "cad" && (
-            <Placeholder
-              title="CAD"
-              description="Create and manage mechanical designs."
-            />
+            <Code projectName={projectName} />
           )}
+
+          {stage === "cad" && <CAD />}
 
           {stage === "simulation" && (
             <Placeholder
@@ -122,9 +105,7 @@ export default function Workspace({
   );
 }
 
-function getStageDescription(
-  stage: WorkspaceStage
-) {
+function getStageDescription(stage: WorkspaceStage) {
   switch (stage) {
     case "chat":
       return "AI engineering assistant";
@@ -134,7 +115,7 @@ function getStageDescription(
 
     case "planning":
       return "Design priorities and concept exploration";
-    
+
     case "architecture":
       return "System architecture";
 
