@@ -15,6 +15,7 @@ import EngineeringProcess from "@/components/Engineering/engineering/Engineering
 import Components from "@/components/Engineering/engineering/components/Components";
 import CAD from "@/components/Engineering/engineering/cad/CAD";
 import Simulation from "@/components/Engineering/engineering/simulation/Simulation";
+import Optimization from "@/components/Engineering/engineering/optimization/Optimization";
 
 import type { WorkspaceStage } from "@/types/workspace";
 
@@ -77,12 +78,7 @@ export default function Workspace({
 
           {stage === "simulation" && <Simulation />}
 
-          {stage === "optimization" && (
-            <Placeholder
-              title="Optimization"
-              description="Optimize the design against project constraints."
-            />
-          )}
+          {stage === "optimization" && <Optimization />}
 
           {stage === "manufacturing" && (
             <Placeholder
