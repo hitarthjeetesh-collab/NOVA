@@ -1,51 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { apiFetch } from "@/lib/api";
+import { useState } from "react";
 
-type ApiStatus = {
+type Project = {
+  id: string;
   name: string;
-  status: string;
-  version: string;
-};
-
-type ChatResponse = {
-  message: string;
-  response: string;
-};
-
-type Message = {
-  role: "user" | "assistant";
-  content: string;
+  created_at: string;
+  updated_at: string;
 };
 
 type UploadedFile = {
   id: string;
+  project_id: string;
   filename: string;
   storage_key: string;
   content_type: string;
   size: number;
+  category: string;
   bucket: string;
+  created_at: string;
+  updated_at: string;
   status: string;
 };
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://127.0.0.1:8000";
+
+
 export default function ApiTestPage() {
-  const [apiStatus, setApiStatus] =
-    useState<ApiStatus | null>(null);
+  const [apiStatus, setApiStatus] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const [apiError, setApiError] =
+  const [projectName, setProjectName] =
+    useState("AEVRA Test Project");
+
+  const [project, setProject] =
+    useState<Project | null>(null);
+
+  const [projectError, setProjectError] =
     useState<string | null>(null);
-
-  const [messages, setMessages] =
-    useState<Message[]>([]);
-
-  const [input, setInput] = useState("");
-
-  const [sending, setSending] =
-    useState(false);
 
   const [selectedFile, setSelectedFile] =
     useState<File | null>(null);
+
+  const [category, setCategory] =
+    useState("documents");
 
   const [uploading, setUploading] =
     useState(false);
@@ -56,80 +56,99 @@ export default function ApiTestPage() {
   const [uploadError, setUploadError] =
     useState<string | null>(null);
 
-  useEffect(() => {
-    apiFetch<ApiStatus>("/")
-      .then(setApiStatus)
-      .catch((err) => {
-        setApiError(
-          err instanceof Error
-            ? err.message
-            : "Unknown error"
-        );
-      });
-  }, []);
+  const [projectFiles, setProjectFiles] =
+    useState<UploadedFile[]>([]);
 
-  async function sendMessage() {
-    const message = input.trim();
+  const [filesError, setFilesError] =
+    useState<string | null>(null);
 
-    if (!message || sending) {
-      return;
-    }
 
-    setInput("");
+  // ---------------------------------------------------------------
+  // API status
+  // ---------------------------------------------------------------
 
-    setMessages((current) => [
-      ...current,
-      {
-        role: "user",
-        content: message,
-      },
-    ]);
-
-    setSending(true);
+  async function testApi() {
+    setApiStatus(null);
+    setApiError(null);
 
     try {
-      const result =
-        await apiFetch<ChatResponse>("/api/chat", {
+      const response = await fetch(
+        `${API_URL}/health`
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `${response.status} ${response.statusText}`
+        );
+      }
+
+      const result = await response.json();
+
+      setApiStatus(
+        JSON.stringify(result, null, 2)
+      );
+    } catch (error) {
+      setApiError(
+        error instanceof Error
+          ? error.message
+          : "API request failed"
+      );
+    }
+  }
+
+
+  // ---------------------------------------------------------------
+  // Create project
+  // ---------------------------------------------------------------
+
+  async function createProject() {
+    setProject(null);
+    setProjectError(null);
+
+    try {
+      const response = await fetch(
+        `${API_URL}/api/projects`,
+        {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
-            message,
+            name: projectName,
           }),
-        });
+        }
+      );
 
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content: result.response,
-        },
-      ]);
-    } catch (err) {
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content:
-            err instanceof Error
-              ? `API error: ${err.message}`
-              : "API error: Unknown error",
-        },
-      ]);
-    } finally {
-      setSending(false);
+      if (!response.ok) {
+        const errorText =
+          await response.text();
+
+        throw new Error(
+          `${response.status} ${response.statusText}: ${errorText}`
+        );
+      }
+
+      const result: Project =
+        await response.json();
+
+      setProject(result);
+      setProjectFiles([]);
+    } catch (error) {
+      setProjectError(
+        error instanceof Error
+          ? error.message
+          : "Project creation failed"
+      );
     }
   }
 
-  function handleKeyDown(
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      sendMessage();
-    }
-  }
+
+  // ---------------------------------------------------------------
+  // Upload file
+  // ---------------------------------------------------------------
 
   async function uploadFile() {
-    if (!selectedFile || uploading) {
+    if (!selectedFile || !project || uploading) {
       return;
     }
 
@@ -140,14 +159,17 @@ export default function ApiTestPage() {
     try {
       const formData = new FormData();
 
-      formData.append("file", selectedFile);
-
-      const apiUrl =
-        process.env.NEXT_PUBLIC_API_URL ||
-        "http://127.0.0.1:8000";
+      formData.append(
+        "file",
+        selectedFile
+      );
 
       const response = await fetch(
-        `${apiUrl}/api/files/upload`,
+        `${API_URL}/api/files/upload?project_id=${encodeURIComponent(
+          project.id
+        )}&category=${encodeURIComponent(
+          category
+        )}`,
         {
           method: "POST",
           body: formData,
@@ -155,7 +177,8 @@ export default function ApiTestPage() {
       );
 
       if (!response.ok) {
-        const errorText = await response.text();
+        const errorText =
+          await response.text();
 
         throw new Error(
           `${response.status} ${response.statusText}: ${errorText}`
@@ -167,10 +190,12 @@ export default function ApiTestPage() {
 
       setUploadResult(result);
       setSelectedFile(null);
-    } catch (err) {
+
+      await loadProjectFiles(project.id);
+    } catch (error) {
       setUploadError(
-        err instanceof Error
-          ? err.message
+        error instanceof Error
+          ? error.message
           : "File upload failed"
       );
     } finally {
@@ -178,262 +203,377 @@ export default function ApiTestPage() {
     }
   }
 
+
+  // ---------------------------------------------------------------
+  // Load project files
+  // ---------------------------------------------------------------
+
+  async function loadProjectFiles(
+    projectId: string
+  ) {
+    setFilesError(null);
+
+    try {
+      const response = await fetch(
+        `${API_URL}/api/projects/${encodeURIComponent(
+          projectId
+        )}/files`
+      );
+
+      if (!response.ok) {
+        const errorText =
+          await response.text();
+
+        throw new Error(
+          `${response.status} ${response.statusText}: ${errorText}`
+        );
+      }
+
+      const result = await response.json();
+
+      setProjectFiles(
+        result.files || []
+      );
+    } catch (error) {
+      setFilesError(
+        error instanceof Error
+          ? error.message
+          : "Could not load project files"
+      );
+    }
+  }
+
+
   return (
     <main className="min-h-screen bg-[#0b0d10] p-8 text-white">
-      <div className="mx-auto flex max-w-3xl flex-col">
-        <h1 className="text-2xl font-semibold">
-          AEVRA API Test
-        </h1>
+      <div className="mx-auto max-w-4xl space-y-8">
 
-        <p className="mt-2 text-sm text-white/40">
-          Frontend → AEVRA API connection test
-        </p>
+        {/* ------------------------------------------------------- */}
+        {/* Header */}
+        {/* ------------------------------------------------------- */}
 
-        {/* API STATUS */}
+        <div>
+          <h1 className="text-2xl font-semibold">
+            AEVRA API Test
+          </h1>
 
-        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
-          {apiError && (
-            <div>
-              <p className="text-sm font-medium text-red-400">
-                API connection failed
-              </p>
-
-              <p className="mt-2 text-sm text-white/40">
-                {apiError}
-              </p>
-            </div>
-          )}
-
-          {apiStatus && (
-            <div>
-              <p className="text-sm font-medium text-green-400">
-                API connected
-              </p>
-
-              <div className="mt-3 space-y-1 text-sm">
-                <div>
-                  <span className="text-white/40">
-                    Name:{" "}
-                  </span>
-
-                  {apiStatus.name}
-                </div>
-
-                <div>
-                  <span className="text-white/40">
-                    Status:{" "}
-                  </span>
-
-                  {apiStatus.status}
-                </div>
-
-                <div>
-                  <span className="text-white/40">
-                    Version:{" "}
-                  </span>
-
-                  {apiStatus.version}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {!apiStatus && !apiError && (
-            <p className="text-sm text-white/50">
-              Connecting to API...
-            </p>
-          )}
+          <p className="mt-2 text-sm text-white/40">
+            Test the AEVRA backend, Firestore,
+            and Filebase integration.
+          </p>
         </div>
 
-        {/* FILEBASE TEST */}
 
-        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03]">
-          <div className="border-b border-white/10 px-5 py-4">
-            <h2 className="text-sm font-medium">
-              Filebase Test
-            </h2>
+        {/* ------------------------------------------------------- */}
+        {/* API */}
+        {/* ------------------------------------------------------- */}
 
-            <p className="mt-1 text-xs text-white/30">
-              Upload a file through the AEVRA API
-              into Filebase.
-            </p>
-          </div>
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+          <h2 className="text-lg font-medium">
+            API Status
+          </h2>
 
-          <div className="p-5">
+          <button
+            onClick={testApi}
+            className="mt-4 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90"
+          >
+            Test API
+          </button>
+
+          {apiStatus && (
+            <pre className="mt-4 overflow-auto rounded-lg bg-black/30 p-4 text-sm text-green-400">
+              {apiStatus}
+            </pre>
+          )}
+
+          {apiError && (
+            <pre className="mt-4 overflow-auto rounded-lg bg-red-500/10 p-4 text-sm text-red-400">
+              {apiError}
+            </pre>
+          )}
+        </section>
+
+
+        {/* ------------------------------------------------------- */}
+        {/* Project */}
+        {/* ------------------------------------------------------- */}
+
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+          <h2 className="text-lg font-medium">
+            Firestore Project
+          </h2>
+
+          <p className="mt-2 text-sm text-white/40">
+            Create a project in Firestore to
+            associate uploaded files with.
+          </p>
+
+          <div className="mt-4 flex gap-3">
             <input
-              type="file"
-              onChange={(event) => {
-                const file =
-                  event.target.files?.[0] ?? null;
-
-                setSelectedFile(file);
-                setUploadResult(null);
-                setUploadError(null);
-              }}
-              disabled={uploading}
-              className="block w-full text-sm text-white/60 file:mr-4 file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-black hover:file:bg-white/90"
+              value={projectName}
+              onChange={(event) =>
+                setProjectName(
+                  event.target.value
+                )
+              }
+              className="flex-1 rounded-lg border border-white/10 bg-black/30 px-4 py-2 text-sm outline-none focus:border-white/30"
+              placeholder="Project name"
             />
 
-            {selectedFile && (
-              <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                <p className="text-sm">
-                  {selectedFile.name}
-                </p>
+            <button
+              onClick={createProject}
+              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90"
+            >
+              Create Project
+            </button>
+          </div>
 
-                <p className="mt-1 text-xs text-white/30">
-                  {(selectedFile.size / 1024).toFixed(1)} KB
-                </p>
-              </div>
-            )}
+          {project && (
+            <div className="mt-4 rounded-lg bg-black/30 p-4">
+              <p className="text-sm text-white/50">
+                Project created
+              </p>
+
+              <p className="mt-1 font-medium">
+                {project.name}
+              </p>
+
+              <p className="mt-2 break-all text-xs text-white/30">
+                ID: {project.id}
+              </p>
+            </div>
+          )}
+
+          {projectError && (
+            <pre className="mt-4 overflow-auto rounded-lg bg-red-500/10 p-4 text-sm text-red-400">
+              {projectError}
+            </pre>
+          )}
+        </section>
+
+
+        {/* ------------------------------------------------------- */}
+        {/* File upload */}
+        {/* ------------------------------------------------------- */}
+
+        <section className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+          <h2 className="text-lg font-medium">
+            Filebase + Firestore Upload
+          </h2>
+
+          <p className="mt-2 text-sm text-white/40">
+            The actual file goes to Filebase.
+            Its metadata is stored in Firestore.
+          </p>
+
+          {!project && (
+            <p className="mt-4 rounded-lg bg-yellow-500/10 p-4 text-sm text-yellow-400">
+              Create a project first.
+            </p>
+          )}
+
+          <div className="mt-4 space-y-4">
+
+            <div>
+              <label className="mb-2 block text-sm text-white/50">
+                File
+              </label>
+
+              <input
+                type="file"
+                disabled={!project || uploading}
+                onChange={(event) =>
+                  setSelectedFile(
+                    event.target.files?.[0] ||
+                    null
+                  )
+                }
+                className="block w-full text-sm text-white/60 file:mr-4 file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-black"
+              />
+            </div>
+
+
+            <div>
+              <label className="mb-2 block text-sm text-white/50">
+                Category
+              </label>
+
+              <select
+                value={category}
+                onChange={(event) =>
+                  setCategory(
+                    event.target.value
+                  )
+                }
+                disabled={!project || uploading}
+                className="rounded-lg border border-white/10 bg-black/30 px-4 py-2 text-sm text-white outline-none"
+              >
+                <option value="cad">
+                  CAD
+                </option>
+
+                <option value="documents">
+                  Documents
+                </option>
+
+                <option value="images">
+                  Images
+                </option>
+
+                <option value="exports">
+                  Exports
+                </option>
+
+                <option value="other">
+                  Other
+                </option>
+              </select>
+            </div>
+
 
             <button
-              type="button"
               onClick={uploadFile}
-              disabled={!selectedFile || uploading}
-              className="mt-4 rounded-lg bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30"
+              disabled={
+                !project ||
+                !selectedFile ||
+                uploading
+              }
+              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30"
             >
               {uploading
                 ? "Uploading..."
-                : "Upload to Filebase"}
+                : "Upload File"}
             </button>
-
-            {uploadError && (
-              <div className="mt-4 rounded-lg border border-red-400/20 bg-red-400/5 p-4">
-                <p className="text-sm font-medium text-red-400">
-                  Upload failed
-                </p>
-
-                <p className="mt-1 text-xs text-white/40">
-                  {uploadError}
-                </p>
-              </div>
-            )}
-
-            {uploadResult && (
-              <div className="mt-4 rounded-lg border border-green-400/20 bg-green-400/5 p-4">
-                <p className="text-sm font-medium text-green-400">
-                  File uploaded successfully
-                </p>
-
-                <div className="mt-3 space-y-1 text-xs text-white/50">
-                  <p>
-                    <span className="text-white/30">
-                      File:
-                    </span>{" "}
-                    {uploadResult.filename}
-                  </p>
-
-                  <p>
-                    <span className="text-white/30">
-                      Bucket:
-                    </span>{" "}
-                    {uploadResult.bucket}
-                  </p>
-
-                  <p>
-                    <span className="text-white/30">
-                      Storage key:
-                    </span>{" "}
-                    {uploadResult.storage_key}
-                  </p>
-
-                  <p>
-                    <span className="text-white/30">
-                      Size:
-                    </span>{" "}
-                    {(uploadResult.size / 1024).toFixed(1)} KB
-                  </p>
-
-                  <p>
-                    <span className="text-white/30">
-                      Status:
-                    </span>{" "}
-                    {uploadResult.status}
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* CHAT TEST */}
-
-        <div className="mt-6 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03]">
-          <div className="border-b border-white/10 px-5 py-4">
-            <h2 className="text-sm font-medium">
-              Conversation Test
-            </h2>
           </div>
 
-          <div className="min-h-[400px] space-y-4 p-5">
-            {messages.length === 0 && (
-              <div className="flex min-h-[350px] items-center justify-center">
-                <p className="text-sm text-white/30">
-                  Send a message to test the API.
+
+          {uploadResult && (
+            <div className="mt-6 rounded-lg bg-green-500/10 p-4">
+              <p className="font-medium text-green-400">
+                Upload successful
+              </p>
+
+              <div className="mt-3 space-y-1 text-xs text-white/50">
+                <p>
+                  File: {uploadResult.filename}
+                </p>
+
+                <p>
+                  Size:{" "}
+                  {uploadResult.size.toLocaleString()}{" "}
+                  bytes
+                </p>
+
+                <p>
+                  Category:{" "}
+                  {uploadResult.category}
+                </p>
+
+                <p className="break-all">
+                  Filebase key:{" "}
+                  {uploadResult.storage_key}
+                </p>
+
+                <p className="break-all">
+                  Firestore ID:{" "}
+                  {uploadResult.id}
                 </p>
               </div>
-            )}
+            </div>
+          )}
 
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={
-                  message.role === "user"
-                    ? "flex justify-end"
-                    : "flex justify-start"
-                }
-              >
-                <div
-                  className={
-                    message.role === "user"
-                      ? "max-w-[80%] rounded-xl bg-white px-4 py-3 text-sm text-black"
-                      : "max-w-[80%] rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm text-white/80"
-                  }
-                >
-                  <p className="mb-1 text-xs font-medium opacity-40">
-                    {message.role === "user"
-                      ? "You"
-                      : "AEVRA"}
-                  </p>
+          {uploadError && (
+            <pre className="mt-4 overflow-auto rounded-lg bg-red-500/10 p-4 text-sm text-red-400">
+              {uploadError}
+            </pre>
+          )}
+        </section>
 
-                  <p>{message.content}</p>
-                </div>
+
+        {/* ------------------------------------------------------- */}
+        {/* Project files */}
+        {/* ------------------------------------------------------- */}
+
+        {project && (
+          <section className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-medium">
+                  Project Files
+                </h2>
+
+                <p className="mt-1 text-sm text-white/40">
+                  Files recorded in Firestore for
+                  this project.
+                </p>
               </div>
-            ))}
-
-            {sending && (
-              <div className="flex justify-start">
-                <div className="rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm text-white/40">
-                  AEVRA is responding...
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="border-t border-white/10 p-4">
-            <div className="flex gap-3">
-              <input
-                value={input}
-                onChange={(event) =>
-                  setInput(event.target.value)
-                }
-                onKeyDown={handleKeyDown}
-                placeholder="Send a message..."
-                disabled={sending}
-                className="min-w-0 flex-1 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/20 disabled:opacity-50"
-              />
 
               <button
-                type="button"
-                onClick={sendMessage}
-                disabled={!input.trim() || sending}
-                className="rounded-lg bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30"
+                onClick={() =>
+                  loadProjectFiles(
+                    project.id
+                  )
+                }
+                className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/70 hover:bg-white/5"
               >
-                Send
+                Refresh
               </button>
             </div>
-          </div>
-        </div>
+
+
+            {projectFiles.length === 0 ? (
+              <p className="mt-6 text-sm text-white/30">
+                No files uploaded yet.
+              </p>
+            ) : (
+              <div className="mt-6 space-y-2">
+                {projectFiles.map(
+                  (file) => (
+                    <div
+                      key={file.id}
+                      className="rounded-lg border border-white/5 bg-black/20 p-4"
+                    >
+                      <p className="font-medium">
+                        {file.filename}
+                      </p>
+
+                      <div className="mt-2 space-y-1 text-xs text-white/40">
+                        <p>
+                          Category:{" "}
+                          {file.category}
+                        </p>
+
+                        <p>
+                          Size:{" "}
+                          {file.size.toLocaleString()}{" "}
+                          bytes
+                        </p>
+
+                        <p className="break-all">
+                          Filebase:{" "}
+                          {file.storage_key}
+                        </p>
+
+                        <p className="break-all">
+                          Firestore ID:{" "}
+                          {file.id}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            )}
+
+
+            {filesError && (
+              <pre className="mt-4 overflow-auto rounded-lg bg-red-500/10 p-4 text-sm text-red-400">
+                {filesError}
+              </pre>
+            )}
+          </section>
+        )}
+
       </div>
     </main>
   );
