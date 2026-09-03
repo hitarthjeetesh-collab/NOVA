@@ -1,245 +1,267 @@
-# Engineering-AI
+# AEVRA
 
-### AI-Powered Engineering Development Platform
+### Intelligent Workspace for Building What's Next
 
-Engineering-AI is an AI-native engineering platform designed to help engineers **design, analyze, simulate, optimize, manufacture, and validate physical systems**.
+**AEVRA** is an intelligent workspace for building, developing, and managing advanced technical projects.
 
-It combines AI with real engineering tools, technical knowledge, deterministic calculations, component databases, CAD, simulation, and optimization — bringing the engineering development process into one environment.
+It brings together specialized applications for **engineering, robotics, AI, wearable systems, software development, and future technical workflows** into one connected environment.
+
+Instead of building a collection of disconnected tools, AEVRA is designed as a unified platform where projects, knowledge, AI systems, tools, and workflows can work together.
 
 ---
 
 ## The Vision
 
-Turn this:
-
-> **Idea → Requirements → Engineering → Design → Testing**
-
-Into a connected engineering workflow:
+AEVRA is designed to become a platform where an idea can move from an initial concept to a real-world result.
 
 ```text
-┌──────────────┐
-│ Requirements │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│   Planning   │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│ Architecture │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│  Components  │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│ Calculations │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│     Code     │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│     CAD      │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│  Simulation  │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│ Optimization │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│ Manufacturing│
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│   Prototype  │
-└──────┬───────┘
-       ↓
-┌──────────────┐
-│    Testing   │
-└──────┬───────┘
-       ↓
-┌────────────────────┐
-│  Validated Design  │
-└────────────────────┘
-````
-
-The workflow is **adaptive**.
-
-Different projects require different engineering processes, so stages can be enabled, skipped, or added depending on the project.
-
----
-
-## What Makes It Different?
-
-Engineering-AI is **not designed to be another engineering chatbot**.
-
-Instead, AI acts as an **engineering orchestration layer**.
-
-It can reason about the project, determine what needs to happen next, coordinate specialized AI agents, and use engineering tools to perform the actual work.
-
-```text
-                         USER
-                           │
-                           ▼
-                 ┌──────────────────┐
-                 │ Engineering-AI   │
-                 │    Platform      │
-                 └────────┬─────────┘
-                          │
-                          ▼
-                 ┌──────────────────┐
-                 │ Central AI Agent │
-                 └────────┬─────────┘
-                          │
-          ┌───────────────┼───────────────┐
-          ▼               ▼               ▼
-      Specialist      Engineering      Technical
-        Agents           Tools         Knowledge
-          │               │               │
-          ▼               ▼               ▼
-       CAD AI        Calculators         RAG
-       Code AI       Validators        Databases
-       Calc AI       Simulation        Components
-       etc.          Solvers
-          │               │               │
-          └───────────────┼───────────────┘
-                          ▼
-                    ┌───────────┐
-                    │ Validation│
-                    └─────┬─────┘
-                          ▼
-                    Engineering
-                       Result
+                         ┌──────────────┐
+                         │    AEVRA     │
+                         │   Workspace  │
+                         └───────┬──────┘
+                                 │
+          ┌──────────────────────┼──────────────────────┐
+          │                      │                      │
+          ▼                      ▼                      ▼
+   ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
+   │ Engineering │        │  Robotics   │        │    ORION    │
+   └─────────────┘        └─────────────┘        └─────────────┘
+          │                      │                      │
+          └──────────────────────┼──────────────────────┘
+                                 │
+                ┌────────────────┼────────────────┐
+                │                │                │
+                ▼                ▼                ▼
+          ┌──────────┐     ┌──────────┐     ┌──────────┐
+          │ AI Lab   │     │   Work   │     │  Future  │
+          │          │     │          │     │   Apps   │
+          └──────────┘     └──────────┘     └──────────┘
 ```
 
+The goal is to create a connected environment where specialized applications can share project context, tools, knowledge, and AI capabilities.
+
 ---
 
-## Engineering-First AI
+# AEVRA Applications
 
-A core principle of Engineering-AI is:
+## Engineering
 
-> **AI should reason about engineering.
-> Deterministic tools should perform critical engineering calculations.**
+**AEVRA Engineering** is an AI-powered engineering development environment designed to help engineers design, analyze, simulate, optimize, manufacture, and validate physical systems.
+
+Its workflow can include:
+
+```text
+Requirements
+     ↓
+Planning
+     ↓
+Architecture
+     ↓
+Components
+     ↓
+Calculations
+     ↓
+Code
+     ↓
+CAD
+     ↓
+Simulation
+     ↓
+Optimization
+     ↓
+Manufacturing
+     ↓
+Prototype
+     ↓
+Testing
+     ↓
+Validated System
+```
+
+The workflow is adaptive. Projects can enable, skip, reorder, or add stages depending on what they require.
+
+---
+
+## Robotics
+
+**AEVRA Robotics** is intended to provide tools for developing intelligent robotic systems.
+
+Potential capabilities include:
+
+* Robot design
+* Hardware configuration
+* Sensors and actuators
+* Embedded software
+* Robot control
+* Computer vision
+* Autonomous systems
+* Simulation
+* Testing
+* AI-powered robotics development
+
+---
+
+## ORION
+
+**AEVRA ORION** focuses on advanced wearable and human-machine systems.
+
+ORION is intended to provide a dedicated environment for developing systems involving:
+
+* Wearable technology
+* Human-machine interfaces
+* Smart suits
+* Embedded systems
+* Sensors
+* Actuators
+* AI
+* Robotics
+* Advanced materials
+* Human interaction
+
+---
+
+## AI Lab
+
+**AEVRA AI Lab** is the environment for experimenting with intelligent systems.
+
+It is intended for:
+
+* AI models
+* Model experimentation
+* Agents
+* RAG
+* Knowledge systems
+* Evaluation
+* AI workflows
+* Specialized AI systems
+* Model development
+
+---
+
+## Work
+
+**AEVRA Work** is intended to provide general-purpose tools for organizing projects, information, collaboration, and technical work.
+
+---
+
+# Connected Projects
+
+A core idea behind AEVRA is that applications should not exist as completely isolated tools.
+
+A project could potentially connect information across applications:
+
+```text
+                         AEVRA Project
+                              │
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+          ▼                   ▼                   ▼
+     Engineering          Robotics             ORION
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              │
+                              ▼
+                         AI Systems
+                              │
+                              ▼
+                         AI Lab
+```
+
+For example, an engineering project could eventually use robotics components, AI models, simulation tools, and ORION hardware while maintaining shared project context.
+
+---
+
+# AI Across AEVRA
+
+AI is intended to become a foundational capability across the platform rather than a separate chatbot.
+
+```text
+                         AEVRA AI
+                            │
+          ┌─────────────────┼─────────────────┐
+          ▼                 ▼                 ▼
+     Engineering         Robotics           ORION
+          │                 │                 │
+          ▼                 ▼                 ▼
+     CAD AI              Robot AI          Wearable AI
+     Code AI             Vision AI         Control AI
+     Calc AI             Planning AI       Design AI
+          │                 │                 │
+          └─────────────────┼─────────────────┘
+                            ▼
+                       AI Lab
+```
+
+Different applications can use specialized AI systems while sharing common infrastructure and project context.
+
+---
+
+# Engineering-First AI
+
+For engineering applications, AEVRA follows an important principle:
+
+> **AI should reason about engineering. Deterministic tools should perform critical engineering calculations.**
 
 For example:
 
 ```text
 AI
  │
- │  Determines what needs to be calculated
+ │ Determines what needs to happen
  ▼
-Calculation Tool
+Engineering Tool
  │
- │  Performs deterministic calculation
+ │ Performs the actual calculation / operation
  ▼
-Validated Result
+Validation
  │
- │  AI interprets the result
  ▼
-Engineering Decision
-```
-
-This makes the system more reliable, reproducible, and suitable for engineering workflows.
-
----
-
-## Core Capabilities
-
-### Requirements
-
-Define goals, specifications, constraints, interfaces, and acceptance criteria.
-
-### Planning
-
-Explore possible approaches and determine the engineering path forward.
-
-### Architecture
-
-Design systems, subsystems, interfaces, dependencies, and system-level structure.
-
-### Components
-
-Manage real-world engineering components, specifications, interfaces, and costs.
-
-### Calculations
-
-Perform deterministic engineering calculations with validated inputs, units, and assumptions.
-
-### Code
-
-Develop software and embedded systems required by the physical design.
-
-### CAD
-
-Create and manipulate engineering geometry, parts, and assemblies.
-
-### Simulation
-
-Analyze designs using physics-based simulation and engineering solvers.
-
-### Optimization
-
-Explore design alternatives and optimize designs against engineering objectives.
-
-### Manufacturing
-
-Prepare designs for manufacturing and production.
-
-### Prototype & Testing
-
-Build, test, measure, and validate physical systems against their requirements.
-
----
-
-## AI Agent Architecture
-
-Engineering-AI is designed around a **central engineering agent** coordinating specialized agents.
-
-```text
-Central Engineering Agent
-          │
-          ├── Planning Agent
-          ├── Architecture Agent
-          ├── Component Agent
-          ├── Calculation Agent
-          ├── Code Agent
-          ├── CAD Agent
-          ├── Simulation Agent
-          ├── Optimization Agent
-          ├── Manufacturing Agent
-          └── Testing Agent
-```
-
-Each specialist can be given a specific goal, context, constraints, and required output format.
-
-The result can then pass through:
-
-```text
-Specialist AI
-      ↓
-Schema Validation
-      ↓
-Engineering Validation
-      ↓
-Tool Execution
-      ↓
 Result
+ │
+ ▼
+AI interprets the result
 ```
+
+This approach is intended to make technical workflows more reliable, reproducible, and traceable.
 
 ---
 
-## Technology
+# Platform Architecture
 
-The platform is being built around a modern engineering-focused software stack.
+AEVRA is designed as a collection of specialized applications built on shared platform infrastructure.
 
-**Frontend**
+```text
+                           AEVRA
+                             │
+             ┌───────────────┼───────────────┐
+             │               │               │
+             ▼               ▼               ▼
+        Applications      AI Systems     Shared Data
+             │               │               │
+     ┌───────┼───────┐       │               │
+     │       │       │       │               │
+     ▼       ▼       ▼       ▼               ▼
+ Engineering Robotics ORION AI Lab      Projects
+     │       │       │       │           Knowledge
+     └───────┴───────┴───────┘           Files
+             │                           Settings
+             ▼
+       Shared Platform
+             │
+       ┌─────┼─────┐
+       ▼     ▼     ▼
+      AI    Tools  Data
+```
+
+The architecture allows individual applications to evolve independently while remaining part of the same ecosystem.
+
+---
+
+# Technology
+
+AEVRA is being built around a modern software and AI stack.
+
+### Frontend
 
 * Next.js
 * React
@@ -248,7 +270,7 @@ The platform is being built around a modern engineering-focused software stack.
 * React Flow
 * React Three Fiber / Three.js
 
-**Engineering**
+### Engineering
 
 * Deterministic calculation engines
 * OpenCascade.js
@@ -256,28 +278,43 @@ The platform is being built around a modern engineering-focused software stack.
 * Simulation solvers
 * Engineering validation tools
 
-**AI**
+### AI
 
 * Large language models
-* Specialized engineering models
+* Specialized models
+* AI agents
 * RAG
 * Vector search
-* Engineering knowledge bases
+* Knowledge bases
+* AI orchestration
 
-**Backend**
+### Backend
 
 * Python
 * FastAPI
 * Engineering tool APIs
-* AI orchestration
+* AI infrastructure
+* Data services
 
 ---
 
-## Project Status
+# Project Status
 
-🚧 **Engineering-AI is currently under active development.**
+**AEVRA is currently under active development.**
 
-### Completed
+### Platform
+
+* [x] AEVRA Hub
+* [x] Application structure
+* [x] Project workspace foundation
+* [x] Account interface
+* [x] Settings interface
+* [ ] Authentication
+* [ ] Shared project infrastructure
+* [ ] Cross-application data
+* [ ] Unified AI infrastructure
+
+### Engineering
 
 * [x] Requirements
 * [x] Planning
@@ -285,68 +322,86 @@ The platform is being built around a modern engineering-focused software stack.
 * [x] Component Management
 * [x] Project Workspace
 * [x] Engineering Process Navigation
-
-### In Development
-
 * [ ] Calculation Workspace
 * [ ] Deterministic Calculation Engine
 * [ ] Engineering Validation
-* [ ] AI Agent Architecture
-
-### Planned
-
 * [ ] Code Generation
 * [ ] Parametric CAD
-* [ ] Engineering-Aware CAD
 * [ ] Simulation
 * [ ] Optimization
-* [ ] Manufacturing Workflows
+* [ ] Manufacturing
 * [ ] Prototype Management
 * [ ] Testing & Validation
-* [ ] Specialized Engineering Agents
+
+### Other Applications
+
+* [ ] Robotics
+* [ ] ORION
+* [ ] AI Lab
+* [ ] Work
+* [ ] Future applications
 
 ---
 
-## Long-Term Goal
+# Long-Term Goal
 
-The ultimate goal is to create an engineering environment where an engineer can provide a high-level objective such as:
+The long-term goal is to create a single environment where ambitious technical projects can be developed from concept to reality.
+
+For example:
 
 > **Design an autonomous rover capable of carrying 20 kg over rough terrain for 4 hours.**
 
-Engineering-AI should be able to help transform that objective into:
+AEVRA could eventually coordinate the process across its applications:
 
 ```text
-Objective
-   ↓
-Requirements
-   ↓
-System Architecture
-   ↓
-Components
-   ↓
-Engineering Calculations
-   ↓
-Software
-   ↓
-Mechanical Design
-   ↓
-Simulation
-   ↓
-Optimization
-   ↓
-Manufacturing
-   ↓
-Prototype
-   ↓
-Testing
-   ↓
-Validated System
+                         AEVRA
+                           │
+                           ▼
+                        Objective
+                           │
+                           ▼
+                    AEVRA Engineering
+                           │
+             ┌─────────────┼─────────────┐
+             ▼             ▼             ▼
+        Requirements   Architecture   Components
+             │             │             │
+             └─────────────┼─────────────┘
+                           ▼
+                     Calculations
+                           │
+                           ▼
+                         CAD
+                           │
+                           ▼
+                      Simulation
+                           │
+                           ▼
+                     Optimization
+                           │
+                           ▼
+                    Manufacturing
+                           │
+                           ▼
+                      Prototype
+                           │
+                           ▼
+                        Testing
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Validated System│
+                  └─────────────────┘
 ```
 
-while keeping the entire project **connected, traceable, and engineering-aware**.
+while other AEVRA applications can provide robotics, AI, wearable-system, and general development capabilities where required.
+
+The goal is not simply to create another collection of software tools.
+
+It is to build a **connected technical workspace for turning ideas into real systems**.
 
 ---
 
-# Engineering-AI
+# AEVRA
 
-**From engineering requirements to validated physical systems.**
+**Build what's next.**
