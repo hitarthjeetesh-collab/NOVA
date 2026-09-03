@@ -14,6 +14,7 @@ import Chat from "@/components/Engineering/chat/Chat";
 import EngineeringProcess from "@/components/Engineering/engineering/EngineeringProcess";
 import Components from "@/components/Engineering/engineering/components/Components";
 import CAD from "@/components/Engineering/engineering/cad/CAD";
+import Simulation from "@/components/Engineering/engineering/simulation/Simulation";
 
 import type { WorkspaceStage } from "@/types/workspace";
 
@@ -74,12 +75,7 @@ export default function Workspace({
 
           {stage === "cad" && <CAD />}
 
-          {stage === "simulation" && (
-            <Placeholder
-              title="Simulation"
-              description="Simulate system behavior and performance."
-            />
-          )}
+          {stage === "simulation" && <Simulation />}
 
           {stage === "optimization" && (
             <Placeholder
