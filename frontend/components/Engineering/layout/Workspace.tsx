@@ -5,16 +5,16 @@ import { useState } from "react";
 import Architecture, {
   initialArchitectureNodes,
   type ArchitectureNode,
-} from "@/components/engineering/architecture/Architecture";
-import Code from "@/components/engineering/code/Code";
-import Calculations from "@/components/engineering/calculations/Calculations";
-import Planning from "@/components/engineering/planning/planning";
-import Requirements from "@/components/engineering/requirements/Requirements";
-import Chat from "@/components/chat/Chat";
-import EngineeringProcess from "@/components/engineering/EngineeringProcess";
-import Components from "@/components/engineering/components/Components";
+} from "@/components/Engineering/engineering/architecture/Architecture";
+import Code from "@/components/Engineering/engineering/code/Code";
+import Calculations from "@/components/Engineering/engineering/calculations/Calculations";
+import Planning from "@/components/Engineering/engineering/planning/planning";
+import Requirements from "@/components/Engineering/engineering/requirements/Requirements";
+import Chat from "@/components/Engineering/chat/Chat";
+import EngineeringProcess from "@/components/Engineering/engineering/EngineeringProcess";
+import Components from "@/components/Engineering/engineering/components/Components";
 
-import type { WorkspaceStage } from "@/app/engineeringapp/page";
+import type { WorkspaceStage } from "@/types/workspace";
 
 interface WorkspaceProps {
   projectName: string;

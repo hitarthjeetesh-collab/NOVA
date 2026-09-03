@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Engineering Platform",
-  description: "AI-powered engineering workspace",
+  title: "AEVRA",
+  description: "An intelligent workspace for building what's next.",
 };
 
 export default function RootLayout({
