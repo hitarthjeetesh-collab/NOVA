@@ -8,6 +8,7 @@ app = FastAPI(
     version="0.1.0",
 )
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -24,6 +25,10 @@ app.add_middleware(
 
 class ProjectCreate(BaseModel):
     name: str
+
+
+class ChatMessage(BaseModel):
+    message: str
 
 
 projects = []
@@ -62,3 +67,11 @@ def create_project(project: ProjectCreate):
     projects.append(new_project)
 
     return new_project
+
+
+@app.post("/api/chat")
+def chat(message: ChatMessage):
+    return {
+        "message": message.message,
+        "response": f"AEVRA API received: {message.message}",
+    }
