@@ -8,13 +8,12 @@ app = FastAPI(
     version="0.1.0",
 )
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "https://ai-engineering-platform.pages.dev",
+        "https://novacentral.pages.dev",
         "https://aevra.tech",
     ],
     allow_credentials=True,
