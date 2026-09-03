@@ -3,7 +3,6 @@ import uvicorn
 
 
 def start_api():
-    """Start the AEVRA API."""
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
@@ -16,7 +15,6 @@ def main():
 
     if mode == "api":
         start_api()
-
     else:
         raise ValueError(f"Unknown AEVRA_MODE: {mode}")
 
