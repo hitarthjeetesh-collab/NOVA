@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -14,6 +14,10 @@ app = FastAPI(
     version="0.2.0",
 )
 
+
+# -------------------------------------------------------------------
+# CORS
+# -------------------------------------------------------------------
 
 app.add_middleware(
     CORSMiddleware,
@@ -74,8 +78,10 @@ def get_projects():
     projects = []
 
     for document in projects_ref.stream():
-        project = document.to_dict()
+        project = document.to_dict() or {}
+
         project["id"] = document.id
+
         projects.append(project)
 
     return {
@@ -115,32 +121,48 @@ def create_project(project: ProjectCreate):
 
 @app.post("/api/files/upload")
 async def upload_file(
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
 ):
+    if not file.filename:
+        raise HTTPException(
+            status_code=400,
+            detail="No filename provided",
+        )
+
     s3 = get_filebase()
     bucket = get_bucket()
 
     file_id = str(uuid4())
 
-    filename = file.filename or "unnamed-file"
+    filename = file.filename
 
     storage_key = f"uploads/{file_id}/{filename}"
 
     file_contents = await file.read()
 
-    s3.put_object(
-        Bucket=bucket,
-        Key=storage_key,
-        Body=file_contents,
-        ContentType=file.content_type or "application/octet-stream",
-    )
+    try:
+        s3.put_object(
+            Bucket=bucket,
+            Key=storage_key,
+            Body=file_contents,
+            ContentType=file.content_type
+            or "application/octet-stream",
+        )
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Filebase upload failed: {error}",
+        ) from error
 
     return {
         "id": file_id,
         "filename": filename,
         "storage_key": storage_key,
-        "content_type": file.content_type,
+        "content_type": file.content_type
+        or "application/octet-stream",
         "size": len(file_contents),
+        "bucket": bucket,
+        "status": "uploaded",
     }
 
 
@@ -149,19 +171,29 @@ def list_files():
     s3 = get_filebase()
     bucket = get_bucket()
 
-    response = s3.list_objects_v2(
-        Bucket=bucket,
-        Prefix="uploads/",
-    )
+    try:
+        response = s3.list_objects_v2(
+            Bucket=bucket,
+            Prefix="uploads/",
+        )
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Filebase listing failed: {error}",
+        ) from error
 
     files = []
 
     for item in response.get("Contents", []):
-        files.append({
-            "key": item["Key"],
-            "size": item["Size"],
-            "last_modified": item["LastModified"].isoformat(),
-        })
+        files.append(
+            {
+                "key": item["Key"],
+                "size": item["Size"],
+                "last_modified": item[
+                    "LastModified"
+                ].isoformat(),
+            }
+        )
 
     return {
         "files": files,
@@ -173,10 +205,16 @@ def delete_file(key: str):
     s3 = get_filebase()
     bucket = get_bucket()
 
-    s3.delete_object(
-        Bucket=bucket,
-        Key=key,
-    )
+    try:
+        s3.delete_object(
+            Bucket=bucket,
+            Key=key,
+        )
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Filebase deletion failed: {error}",
+        ) from error
 
     return {
         "deleted": True,

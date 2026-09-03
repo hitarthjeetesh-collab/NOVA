@@ -7,10 +7,7 @@ from firebase_admin import credentials, firestore
 
 def get_firestore():
     """
-    Return the AEVRA Firestore client.
-
-    The Firebase service account is provided through the
-    FIREBASE_SERVICE_ACCOUNT_JSON environment variable.
+    Create and return the Firestore client.
     """
 
     if not firebase_admin._apps:
@@ -23,10 +20,14 @@ def get_firestore():
                 "FIREBASE_SERVICE_ACCOUNT_JSON is not configured"
             )
 
-        service_account_info = json.loads(service_account_json)
+        service_account_info = json.loads(
+            service_account_json
+        )
 
-        cred = credentials.Certificate(service_account_info)
+        credential = credentials.Certificate(
+            service_account_info
+        )
 
-        firebase_admin.initialize_app(cred)
+        firebase_admin.initialize_app(credential)
 
     return firestore.client()

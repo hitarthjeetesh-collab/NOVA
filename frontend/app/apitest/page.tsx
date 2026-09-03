@@ -19,20 +19,51 @@ type Message = {
   content: string;
 };
 
-export default function ApiTestPage() {
-  const [apiStatus, setApiStatus] = useState<ApiStatus | null>(null);
-  const [apiError, setApiError] = useState<string | null>(null);
+type UploadedFile = {
+  id: string;
+  filename: string;
+  storage_key: string;
+  content_type: string;
+  size: number;
+  bucket: string;
+  status: string;
+};
 
-  const [messages, setMessages] = useState<Message[]>([]);
+export default function ApiTestPage() {
+  const [apiStatus, setApiStatus] =
+    useState<ApiStatus | null>(null);
+
+  const [apiError, setApiError] =
+    useState<string | null>(null);
+
+  const [messages, setMessages] =
+    useState<Message[]>([]);
+
   const [input, setInput] = useState("");
-  const [sending, setSending] = useState(false);
+
+  const [sending, setSending] =
+    useState(false);
+
+  const [selectedFile, setSelectedFile] =
+    useState<File | null>(null);
+
+  const [uploading, setUploading] =
+    useState(false);
+
+  const [uploadResult, setUploadResult] =
+    useState<UploadedFile | null>(null);
+
+  const [uploadError, setUploadError] =
+    useState<string | null>(null);
 
   useEffect(() => {
     apiFetch<ApiStatus>("/")
       .then(setApiStatus)
       .catch((err) => {
         setApiError(
-          err instanceof Error ? err.message : "Unknown error"
+          err instanceof Error
+            ? err.message
+            : "Unknown error"
         );
       });
   }, []);
@@ -57,12 +88,13 @@ export default function ApiTestPage() {
     setSending(true);
 
     try {
-      const result = await apiFetch<ChatResponse>("/api/chat", {
-        method: "POST",
-        body: JSON.stringify({
-          message,
-        }),
-      });
+      const result =
+        await apiFetch<ChatResponse>("/api/chat", {
+          method: "POST",
+          body: JSON.stringify({
+            message,
+          }),
+        });
 
       setMessages((current) => [
         ...current,
@@ -96,6 +128,56 @@ export default function ApiTestPage() {
     }
   }
 
+  async function uploadFile() {
+    if (!selectedFile || uploading) {
+      return;
+    }
+
+    setUploading(true);
+    setUploadResult(null);
+    setUploadError(null);
+
+    try {
+      const formData = new FormData();
+
+      formData.append("file", selectedFile);
+
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        "http://127.0.0.1:8000";
+
+      const response = await fetch(
+        `${apiUrl}/api/files/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+
+        throw new Error(
+          `${response.status} ${response.statusText}: ${errorText}`
+        );
+      }
+
+      const result: UploadedFile =
+        await response.json();
+
+      setUploadResult(result);
+      setSelectedFile(null);
+    } catch (err) {
+      setUploadError(
+        err instanceof Error
+          ? err.message
+          : "File upload failed"
+      );
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#0b0d10] p-8 text-white">
       <div className="mx-auto flex max-w-3xl flex-col">
@@ -106,6 +188,8 @@ export default function ApiTestPage() {
         <p className="mt-2 text-sm text-white/40">
           Frontend → AEVRA API connection test
         </p>
+
+        {/* API STATUS */}
 
         <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-5">
           {apiError && (
@@ -131,6 +215,7 @@ export default function ApiTestPage() {
                   <span className="text-white/40">
                     Name:{" "}
                   </span>
+
                   {apiStatus.name}
                 </div>
 
@@ -138,6 +223,7 @@ export default function ApiTestPage() {
                   <span className="text-white/40">
                     Status:{" "}
                   </span>
+
                   {apiStatus.status}
                 </div>
 
@@ -145,6 +231,7 @@ export default function ApiTestPage() {
                   <span className="text-white/40">
                     Version:{" "}
                   </span>
+
                   {apiStatus.version}
                 </div>
               </div>
@@ -157,6 +244,119 @@ export default function ApiTestPage() {
             </p>
           )}
         </div>
+
+        {/* FILEBASE TEST */}
+
+        <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03]">
+          <div className="border-b border-white/10 px-5 py-4">
+            <h2 className="text-sm font-medium">
+              Filebase Test
+            </h2>
+
+            <p className="mt-1 text-xs text-white/30">
+              Upload a file through the AEVRA API
+              into Filebase.
+            </p>
+          </div>
+
+          <div className="p-5">
+            <input
+              type="file"
+              onChange={(event) => {
+                const file =
+                  event.target.files?.[0] ?? null;
+
+                setSelectedFile(file);
+                setUploadResult(null);
+                setUploadError(null);
+              }}
+              disabled={uploading}
+              className="block w-full text-sm text-white/60 file:mr-4 file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-black hover:file:bg-white/90"
+            />
+
+            {selectedFile && (
+              <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+                <p className="text-sm">
+                  {selectedFile.name}
+                </p>
+
+                <p className="mt-1 text-xs text-white/30">
+                  {(selectedFile.size / 1024).toFixed(1)} KB
+                </p>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={uploadFile}
+              disabled={!selectedFile || uploading}
+              className="mt-4 rounded-lg bg-white px-5 py-3 text-sm font-medium text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              {uploading
+                ? "Uploading..."
+                : "Upload to Filebase"}
+            </button>
+
+            {uploadError && (
+              <div className="mt-4 rounded-lg border border-red-400/20 bg-red-400/5 p-4">
+                <p className="text-sm font-medium text-red-400">
+                  Upload failed
+                </p>
+
+                <p className="mt-1 text-xs text-white/40">
+                  {uploadError}
+                </p>
+              </div>
+            )}
+
+            {uploadResult && (
+              <div className="mt-4 rounded-lg border border-green-400/20 bg-green-400/5 p-4">
+                <p className="text-sm font-medium text-green-400">
+                  File uploaded successfully
+                </p>
+
+                <div className="mt-3 space-y-1 text-xs text-white/50">
+                  <p>
+                    <span className="text-white/30">
+                      File:
+                    </span>{" "}
+                    {uploadResult.filename}
+                  </p>
+
+                  <p>
+                    <span className="text-white/30">
+                      Bucket:
+                    </span>{" "}
+                    {uploadResult.bucket}
+                  </p>
+
+                  <p>
+                    <span className="text-white/30">
+                      Storage key:
+                    </span>{" "}
+                    {uploadResult.storage_key}
+                  </p>
+
+                  <p>
+                    <span className="text-white/30">
+                      Size:
+                    </span>{" "}
+                    {(uploadResult.size / 1024).toFixed(1)} KB
+                  </p>
+
+                  <p>
+                    <span className="text-white/30">
+                      Status:
+                    </span>{" "}
+                    {uploadResult.status}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* CHAT TEST */}
 
         <div className="mt-6 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03]">
           <div className="border-b border-white/10 px-5 py-4">

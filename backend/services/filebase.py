@@ -1,4 +1,3 @@
-
 import os
 
 import boto3
@@ -6,7 +5,7 @@ import boto3
 
 def get_filebase():
     """
-    Return an S3 client configured for Filebase.
+    Create and return a Filebase S3 client.
     """
 
     access_key = os.environ.get("FILEBASE_ACCESS_KEY")
@@ -32,6 +31,10 @@ def get_filebase():
 
 
 def get_bucket():
+    """
+    Return the Filebase bucket name.
+    """
+
     bucket = os.environ.get("FILEBASE_BUCKET")
 
     if not bucket:
