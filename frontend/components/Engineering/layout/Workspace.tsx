@@ -16,6 +16,7 @@ import Components from "@/components/Engineering/engineering/components/Componen
 import CAD from "@/components/Engineering/engineering/cad/CAD";
 import Simulation from "@/components/Engineering/engineering/simulation/Simulation";
 import Optimization from "@/components/Engineering/engineering/optimization/Optimization";
+import Manufacturing from "@/components/Engineering/engineering/manufacturing/Manufacturing";
 
 import type { WorkspaceStage } from "@/types/workspace";
 
@@ -80,12 +81,7 @@ export default function Workspace({
 
           {stage === "optimization" && <Optimization />}
 
-          {stage === "manufacturing" && (
-            <Placeholder
-              title="Manufacturing"
-              description="Prepare the design for manufacturing."
-            />
-          )}
+          {stage === "manufacturing" && <Manufacturing />}
         </div>
       </section>
 
