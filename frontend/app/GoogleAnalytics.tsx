@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 declare global {
   interface Window {
@@ -12,22 +12,16 @@ declare global {
 
 export default function GoogleAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!window.gtag) {
+    if (!window.gtag || !pathname) {
       return;
     }
 
-    const search = searchParams.toString();
-    const pagePath = search
-      ? `${pathname}?${search}`
-      : pathname;
-
     window.gtag("config", "G-ES46D799BM", {
-      page_path: pagePath,
+      page_path: pathname,
     });
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }
