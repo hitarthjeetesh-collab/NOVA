@@ -71,7 +71,6 @@ while True:
     modified: false,
     content: `def test_rover_speed():
     expected_speed = 50
-
     assert expected_speed == 50
 `,
   },

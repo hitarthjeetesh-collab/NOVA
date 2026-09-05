@@ -21,9 +21,7 @@ export default function Modal({
       return;
     }
 
-    function handleKeyDown(
-      event: KeyboardEvent
-    ) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         onClose();
       }
@@ -31,19 +29,18 @@ export default function Modal({
 
     document.addEventListener(
       "keydown",
-      handleKeyDown
+      handleKeyDown,
     );
 
     const previousOverflow =
       document.body.style.overflow;
 
-    document.body.style.overflow =
-      "hidden";
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener(
         "keydown",
-        handleKeyDown
+        handleKeyDown,
       );
 
       document.body.style.overflow =
@@ -57,18 +54,15 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-6 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[color-mix(in_srgb,var(--aevra-background)_70%,transparent)] p-6 backdrop-blur-sm"
       onMouseDown={(event) => {
-        if (
-          event.target ===
-          event.currentTarget
-        ) {
+        if (event.target === event.currentTarget) {
           onClose();
         }
       }}
     >
       <div
-        className="max-h-[90vh] max-w-[95vw] overflow-hidden rounded-2xl border border-white/10 bg-[#15191f] shadow-2xl"
+        className="max-h-[90vh] max-w-[95vw] overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface-light)] shadow-2xl"
         onMouseDown={(event) =>
           event.stopPropagation()
         }

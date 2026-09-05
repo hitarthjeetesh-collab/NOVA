@@ -17,15 +17,15 @@ export default function ManufacturingResults({
   error,
 }: ManufacturingResultsProps) {
   return (
-    <aside className="w-64 shrink-0 overflow-y-auto border-l border-white/10">
-      <div className="border-b border-white/10 p-4">
-        <p className="text-xs font-semibold text-white/80">
+    <aside className="w-64 shrink-0 overflow-y-auto border-l border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
+        <p className="text-xs font-semibold text-[color-mix(in_srgb,var(--aevra-text)_80%,transparent)]">
           Manufacturing Summary
         </p>
       </div>
 
-      <section className="border-b border-white/10 p-4">
-        <p className="text-[11px] uppercase tracking-wide text-white/30">
+      <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
+        <p className="text-[11px] uppercase tracking-wide text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
           Status
         </p>
 
@@ -38,11 +38,11 @@ export default function ManufacturingResults({
                   ? "bg-yellow-400"
                   : status === "completed"
                     ? "bg-green-400"
-                    : "bg-white/40"
+                    : "bg-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]"
             }`}
           />
 
-          <span className="text-xs text-white/70">
+          <span className="text-xs text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]">
             {getStatusLabel(status)}
           </span>
         </div>
@@ -54,7 +54,7 @@ export default function ManufacturingResults({
         )}
       </section>
 
-      <section className="border-b border-white/10 p-4">
+      <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
         <Metric
           label="Estimated Time"
           value={
@@ -91,12 +91,12 @@ export default function ManufacturingResults({
       </section>
 
       <section className="p-4">
-        <p className="mb-3 text-[11px] uppercase tracking-wide text-white/30">
+        <p className="mb-3 text-[11px] uppercase tracking-wide text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
           Warnings
         </p>
 
         {!results || results.warnings.length === 0 ? (
-          <p className="text-xs text-white/30">
+          <p className="text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
             No warnings.
           </p>
         ) : (
@@ -104,9 +104,9 @@ export default function ManufacturingResults({
             {results.warnings.map((warning) => (
               <div
                 key={warning.id}
-                className="rounded-md border border-white/10 bg-white/[0.03] p-3"
+                className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] p-3"
               >
-                <p className="text-[11px] leading-4 text-white/50">
+                <p className="text-[11px] leading-4 text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
                   {warning.message}
                 </p>
               </div>
@@ -127,10 +127,11 @@ function Metric({
 }) {
   return (
     <div className="mb-4 last:mb-0">
-      <p className="text-[11px] text-white/30">
+      <p className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
         {label}
       </p>
-      <p className="mt-1 text-sm font-medium text-white/80">
+
+      <p className="mt-1 text-sm font-medium text-[color-mix(in_srgb,var(--aevra-text)_80%,transparent)]">
         {value}
       </p>
     </div>
@@ -141,10 +142,13 @@ function getStatusLabel(status: ManufacturingStatus) {
   switch (status) {
     case "ready":
       return "Ready";
+
     case "preparing":
       return "Preparing";
+
     case "completed":
       return "Completed";
+
     case "error":
       return "Error";
   }
@@ -153,7 +157,7 @@ function getStatusLabel(status: ManufacturingStatus) {
 function formatHours(hours: number) {
   const wholeHours = Math.floor(hours);
   const minutes = Math.round(
-    (hours - wholeHours) * 60
+    (hours - wholeHours) * 60,
   );
 
   return `${wholeHours}h ${minutes}m`;

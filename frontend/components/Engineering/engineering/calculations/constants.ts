@@ -1,4 +1,7 @@
-import type { Calculation, CalculationCategory } from "./types/calculations";
+import type {
+  Calculation,
+  CalculationCategory,
+} from "./types/calculations";
 
 export const CALCULATION_CATEGORIES: (
   | "All"
@@ -102,7 +105,8 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
       unit: "A",
       label: "Current",
       status: "valid",
-      explanation: "Current is calculated by dividing voltage by resistance.",
+      explanation:
+        "Current is calculated by dividing voltage by resistance.",
     },
     assumptions: [
       "Resistance is constant.",

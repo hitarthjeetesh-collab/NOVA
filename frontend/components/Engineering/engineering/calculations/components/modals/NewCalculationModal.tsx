@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import type {
   Calculation,
   CalculationCategory,
@@ -112,13 +113,14 @@ export default function NewCalculationModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#111318] shadow-2xl">
-        <div className="border-b border-white/10 px-5 py-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,var(--aevra-background)_70%,transparent)] p-4 backdrop-blur-sm">
+      <div className="w-full max-w-lg rounded-2xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] shadow-2xl">
+        <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-4">
           <h2 className="text-base font-semibold">
             New Calculation
           </h2>
-          <p className="mt-1 text-xs text-white/35">
+
+          <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
             Choose a calculation template to start with.
           </p>
         </div>
@@ -126,8 +128,7 @@ export default function NewCalculationModal({
         <div className="max-h-[60vh] overflow-y-auto p-4">
           <div className="space-y-2">
             {templates.map((template) => {
-              const active =
-                selected.name === template.name;
+              const active = selected.name === template.name;
 
               return (
                 <button
@@ -136,8 +137,8 @@ export default function NewCalculationModal({
                   onClick={() => setSelected(template)}
                   className={`w-full rounded-xl border p-4 text-left transition ${
                     active
-                      ? "border-white/20 bg-white/10"
-                      : "border-white/10 bg-white/[0.02] hover:bg-white/[0.05]"
+                      ? "border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]"
+                      : "border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)]"
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -145,12 +146,12 @@ export default function NewCalculationModal({
                       {template.name}
                     </span>
 
-                    <span className="text-[10px] text-white/30">
+                    <span className="text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                       {template.category}
                     </span>
                   </div>
 
-                  <p className="mt-2 font-mono text-xs text-white/35">
+                  <p className="mt-2 font-mono text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
                     {template.equation}
                   </p>
                 </button>
@@ -159,11 +160,11 @@ export default function NewCalculationModal({
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 border-t border-white/10 px-5 py-4">
+        <div className="flex justify-end gap-2 border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-4">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg px-4 py-2 text-xs text-white/45 hover:text-white"
+            className="rounded-lg px-4 py-2 text-xs text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)] hover:text-[var(--aevra-text)]"
           >
             Cancel
           </button>
@@ -171,7 +172,7 @@ export default function NewCalculationModal({
           <button
             type="button"
             onClick={createCalculation}
-            className="rounded-lg bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-white/90"
+            className="rounded-lg bg-[var(--aevra-text)] px-4 py-2 text-xs font-medium text-[var(--aevra-background)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)]"
           >
             Create Calculation
           </button>

@@ -1,10 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import type {
   OptimizationConstraint,
-  OptimizationConstraintType,
   OptimizationMethod,
   OptimizationObjective,
   OptimizationResults,
@@ -84,9 +88,9 @@ export function useOptimization() {
   const [state, setState] =
     useState<OptimizationState>(createInitialState);
 
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(
-    null
-  );
+  const timerRef = useRef<
+    ReturnType<typeof setInterval> | null
+  >(null);
 
   const clearOptimizationTimer = useCallback(() => {
     if (timerRef.current) {
@@ -114,7 +118,7 @@ export function useOptimization() {
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const setSettings = useCallback(
@@ -129,11 +133,13 @@ export function useOptimization() {
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const addObjective = useCallback(
-    (objective: Omit<OptimizationObjective, "id">) => {
+    (
+      objective: Omit<OptimizationObjective, "id">,
+    ) => {
       setState((current) => ({
         ...current,
         objectives: [
@@ -147,36 +153,37 @@ export function useOptimization() {
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const updateObjective = useCallback(
     (
       id: string,
-      updates: Partial<OptimizationObjective>
+      updates: Partial<OptimizationObjective>,
     ) => {
       setState((current) => ({
         ...current,
-        objectives: current.objectives.map((objective) =>
-          objective.id === id
-            ? {
-                ...objective,
-                ...updates,
-              }
-            : objective
+        objectives: current.objectives.map(
+          (objective) =>
+            objective.id === id
+              ? {
+                  ...objective,
+                  ...updates,
+                }
+              : objective,
         ),
         results: null,
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const removeObjective = useCallback((id: string) => {
     setState((current) => ({
       ...current,
       objectives: current.objectives.filter(
-        (objective) => objective.id !== id
+        (objective) => objective.id !== id,
       ),
       results: null,
       error: null,
@@ -185,7 +192,7 @@ export function useOptimization() {
 
   const addConstraint = useCallback(
     (
-      constraint: Omit<OptimizationConstraint, "id">
+      constraint: Omit<OptimizationConstraint, "id">,
     ) => {
       setState((current) => ({
         ...current,
@@ -200,36 +207,37 @@ export function useOptimization() {
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const updateConstraint = useCallback(
     (
       id: string,
-      updates: Partial<OptimizationConstraint>
+      updates: Partial<OptimizationConstraint>,
     ) => {
       setState((current) => ({
         ...current,
-        constraints: current.constraints.map((constraint) =>
-          constraint.id === id
-            ? {
-                ...constraint,
-                ...updates,
-              }
-            : constraint
+        constraints: current.constraints.map(
+          (constraint) =>
+            constraint.id === id
+              ? {
+                  ...constraint,
+                  ...updates,
+                }
+              : constraint,
         ),
         results: null,
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const removeConstraint = useCallback((id: string) => {
     setState((current) => ({
       ...current,
       constraints: current.constraints.filter(
-        (constraint) => constraint.id !== id
+        (constraint) => constraint.id !== id,
       ),
       results: null,
       error: null,
@@ -237,7 +245,9 @@ export function useOptimization() {
   }, []);
 
   const addVariable = useCallback(
-    (variable: Omit<OptimizationVariable, "id">) => {
+    (
+      variable: Omit<OptimizationVariable, "id">,
+    ) => {
       setState((current) => ({
         ...current,
         variables: [
@@ -251,36 +261,37 @@ export function useOptimization() {
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const updateVariable = useCallback(
     (
       id: string,
-      updates: Partial<OptimizationVariable>
+      updates: Partial<OptimizationVariable>,
     ) => {
       setState((current) => ({
         ...current,
-        variables: current.variables.map((variable) =>
-          variable.id === id
-            ? {
-                ...variable,
-                ...updates,
-              }
-            : variable
+        variables: current.variables.map(
+          (variable) =>
+            variable.id === id
+              ? {
+                  ...variable,
+                  ...updates,
+                }
+              : variable,
         ),
         results: null,
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const removeVariable = useCallback((id: string) => {
     setState((current) => ({
       ...current,
       variables: current.variables.filter(
-        (variable) => variable.id !== id
+        (variable) => variable.id !== id,
       ),
       results: null,
       error: null,
@@ -341,9 +352,10 @@ export function useOptimization() {
             Math.max(
               20,
               Math.round(
-                defaultResults.iterations * iterationRatio
-              )
-            )
+                defaultResults.iterations *
+                  iterationRatio,
+              ),
+            ),
           );
 
           return {
@@ -394,22 +406,17 @@ export function useOptimization() {
 
   return {
     state,
-
     setMethod,
     setSettings,
-
     addObjective,
     updateObjective,
     removeObjective,
-
     addConstraint,
     updateConstraint,
     removeConstraint,
-
     addVariable,
     updateVariable,
     removeVariable,
-
     run,
     stop,
     reset,

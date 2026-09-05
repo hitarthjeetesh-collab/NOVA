@@ -5,7 +5,6 @@ import SimulationSetup from "./components/SimulationSetup";
 import SimulationStatusBar from "./components/SimulationStatusBar";
 import SimulationToolbar from "./components/SimulationToolbar";
 import SimulationViewport from "./components/SimulationViewport";
-
 import { useSimulation } from "./hooks/useSimulation";
 
 export default function Simulation() {
@@ -44,8 +43,7 @@ export default function Simulation() {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[#090b0e] text-white">
-      {/* Toolbar */}
+    <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <SimulationToolbar
         analysisType={state.analysisType}
         status={state.status}
@@ -54,9 +52,7 @@ export default function Simulation() {
         onReset={reset}
       />
 
-      {/* Main simulation workspace */}
       <div className="flex min-h-0 flex-1 overflow-hidden">
-        {/* Setup */}
         <SimulationSetup
           analysisType={state.analysisType}
           material={state.material}
@@ -74,7 +70,6 @@ export default function Simulation() {
           onRemoveConstraint={removeConstraint}
         />
 
-        {/* Viewport */}
         <SimulationViewport
           status={state.status}
           progress={state.progress}
@@ -82,7 +77,6 @@ export default function Simulation() {
           constraints={state.constraints}
         />
 
-        {/* Results */}
         <SimulationResults
           status={state.status}
           progress={state.progress}
@@ -91,7 +85,6 @@ export default function Simulation() {
         />
       </div>
 
-      {/* Status bar */}
       <SimulationStatusBar
         status={state.status}
         mesh={state.mesh}

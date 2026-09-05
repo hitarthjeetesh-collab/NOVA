@@ -6,25 +6,31 @@ export interface ValidationResult {
 }
 
 export function validateOptimization(
-  state: OptimizationState
+  state: OptimizationState,
 ): ValidationResult {
   const errors: string[] = [];
 
   if (state.objectives.length === 0) {
-    errors.push("At least one optimization objective is required.");
+    errors.push(
+      "At least one optimization objective is required.",
+    );
   }
 
   if (state.constraints.length === 0) {
-    errors.push("At least one optimization constraint is required.");
+    errors.push(
+      "At least one optimization constraint is required.",
+    );
   }
 
   if (state.settings.maxIterations <= 0) {
-    errors.push("Maximum iterations must be greater than zero.");
+    errors.push(
+      "Maximum iterations must be greater than zero.",
+    );
   }
 
   if (state.settings.convergenceTolerance <= 0) {
     errors.push(
-      "Convergence tolerance must be greater than zero."
+      "Convergence tolerance must be greater than zero.",
     );
   }
 
@@ -34,7 +40,7 @@ export function validateOptimization(
       objective.weight <= 0
     ) {
       errors.push(
-        `Objective ${objective.id} must have a weight greater than zero.`
+        `Objective ${objective.id} must have a weight greater than zero.`,
       );
     }
   }
@@ -45,7 +51,7 @@ export function validateOptimization(
       constraint.value <= 0
     ) {
       errors.push(
-        `Constraint ${constraint.id} must have a value greater than zero.`
+        `Constraint ${constraint.id} must have a value greater than zero.`,
       );
     }
   }
@@ -56,13 +62,13 @@ export function validateOptimization(
       !Number.isFinite(variable.maximum)
     ) {
       errors.push(
-        `Variable ${variable.id} must have valid bounds.`
+        `Variable ${variable.id} must have valid bounds.`,
       );
     }
 
     if (variable.minimum >= variable.maximum) {
       errors.push(
-        `Variable ${variable.id} must have a minimum below its maximum.`
+        `Variable ${variable.id} must have a minimum below its maximum.`,
       );
     }
   }

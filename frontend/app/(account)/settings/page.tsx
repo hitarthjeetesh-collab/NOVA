@@ -63,47 +63,44 @@ export default function SettingsPage() {
   ];
 
   const currentSection = sections.find(
-    (item) => item.id === section
+    (item) => item.id === section,
   );
 
   return (
-    <main className="min-h-screen bg-[#0b0d10] text-white">
+    <main className="min-h-screen bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <div className="mx-auto flex min-h-screen max-w-6xl">
         {/* Settings navigation */}
-
-        <aside className="w-64 shrink-0 border-r border-white/10 bg-[#0f1115]">
-          <div className="border-b border-white/10 p-6">
+        <aside className="w-64 shrink-0 border-r border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)]">
+          <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-6">
             <h1 className="text-lg font-semibold">
               Settings
             </h1>
 
-            <p className="mt-1 text-xs text-white/40">
+            <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
               AI Engineering Platform
             </p>
           </div>
 
           <nav className="space-y-1 p-3">
             {sections.map((item) => {
-              const active =
-                section === item.id;
+              const active = section === item.id;
 
               return (
                 <button
                   key={item.id}
-                  onClick={() =>
-                    setSection(item.id)
-                  }
+                  type="button"
+                  onClick={() => setSection(item.id)}
                   className={`w-full rounded-lg px-3 py-3 text-left transition ${
                     active
-                      ? "bg-white/10 text-white"
-                      : "text-white/50 hover:bg-white/5 hover:text-white"
+                      ? "bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] text-[var(--aevra-text)]"
+                      : "text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
                   }`}
                 >
                   <p className="text-sm font-medium">
                     {item.name}
                   </p>
 
-                  <p className="mt-1 text-xs text-white/30">
+                  <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                     {item.description}
                   </p>
                 </button>
@@ -113,15 +110,14 @@ export default function SettingsPage() {
         </aside>
 
         {/* Settings content */}
-
         <section className="min-w-0 flex-1">
-          <div className="flex items-center justify-between border-b border-white/10 px-8 py-5">
+          <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-8 py-5">
             <div>
               <h2 className="text-xl font-semibold">
                 {currentSection?.name}
               </h2>
 
-              <p className="mt-1 text-sm text-white/40">
+              <p className="mt-1 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
                 {currentSection?.description}
               </p>
             </div>
@@ -129,7 +125,7 @@ export default function SettingsPage() {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+              className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
             >
               ← Back to Workspace
             </button>
@@ -148,11 +144,9 @@ export default function SettingsPage() {
                   <input
                     value={projectName}
                     onChange={(event) =>
-                      setProjectName(
-                        event.target.value
-                      )
+                      setProjectName(event.target.value)
                     }
-                    className="w-64 rounded-lg border border-white/10 bg-[#0f1115] px-3 py-2 text-sm text-white outline-none transition focus:border-white/30"
+                    className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
                   />
                 </SettingRow>
 
@@ -172,9 +166,7 @@ export default function SettingsPage() {
                 >
                   <Toggle
                     enabled={confirmDestructive}
-                    onChange={
-                      setConfirmDestructive
-                    }
+                    onChange={setConfirmDestructive}
                   />
                 </SettingRow>
               </SettingsGroup>
@@ -193,9 +185,7 @@ export default function SettingsPage() {
                     value={units}
                     onChange={(value) =>
                       setUnits(
-                        value as
-                          | "metric"
-                          | "imperial"
+                        value as "metric" | "imperial",
                       )
                     }
                     options={[
@@ -276,9 +266,7 @@ export default function SettingsPage() {
                 >
                   <Select
                     value={reasoningEffort}
-                    onChange={
-                      setReasoningEffort
-                    }
+                    onChange={setReasoningEffort}
                     options={[
                       {
                         value: "Low",
@@ -347,13 +335,13 @@ function SettingsGroup({
   children,
 }: SettingsGroupProps) {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0f1115]">
-      <div className="border-b border-white/10 px-5 py-4">
+    <div className="overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-4">
         <h3 className="text-sm font-semibold">
           {title}
         </h3>
 
-        <p className="mt-1 text-xs text-white/40">
+        <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
         </p>
       </div>
@@ -375,13 +363,13 @@ function SettingRow({
   children,
 }: SettingRowProps) {
   return (
-    <div className="flex items-center justify-between gap-8 border-b border-white/10 px-5 py-5 last:border-b-0">
+    <div className="flex items-center justify-between gap-8 border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-5 last:border-b-0">
       <div className="min-w-0">
         <p className="text-sm font-medium">
           {title}
         </p>
 
-        <p className="mt-1 max-w-xl text-xs leading-5 text-white/40">
+        <p className="mt-1 max-w-xl text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
         </p>
       </div>
@@ -405,21 +393,19 @@ function Toggle({
   return (
     <button
       type="button"
-      onClick={() =>
-        onChange(!enabled)
-      }
+      onClick={() => onChange(!enabled)}
       className={`relative h-6 w-11 rounded-full border transition ${
         enabled
-          ? "border-white bg-white"
-          : "border-white/20 bg-white/5"
+          ? "border-[var(--aevra-text)] bg-[var(--aevra-text)]"
+          : "border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)]"
       }`}
       aria-pressed={enabled}
     >
       <span
         className={`absolute top-1 h-4 w-4 rounded-full transition ${
           enabled
-            ? "left-6 bg-black"
-            : "left-1 bg-white/40"
+            ? "left-6 bg-[var(--aevra-background)]"
+            : "left-1 bg-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]"
         }`}
       />
     </button>
@@ -446,13 +432,13 @@ function Select({
       onChange={(event) =>
         onChange(event.target.value)
       }
-      className="min-w-48 rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+      className="min-w-48 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
     >
       {options.map((option) => (
         <option
           key={option.value}
           value={option.value}
-          className="bg-[#0b0d10]"
+          className="bg-[var(--aevra-background)]"
         >
           {option.label}
         </option>

@@ -11,17 +11,14 @@ export default function AccountPage() {
   const [email, setEmail] = useState("hitarth@example.com");
 
   return (
-    <main className="min-h-screen bg-[#0b0d10] text-white">
+    <main className="min-h-screen bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <div className="mx-auto min-h-screen max-w-5xl">
         {/* Header */}
-
-        <div className="flex items-center justify-between border-b border-white/10 px-8 py-5">
+        <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-8 py-5">
           <div>
-            <h1 className="text-xl font-semibold">
-              Account
-            </h1>
+            <h1 className="text-xl font-semibold">Account</h1>
 
-            <p className="mt-1 text-sm text-white/40">
+            <p className="mt-1 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
               Manage your profile and account settings.
             </p>
           </div>
@@ -29,7 +26,7 @@ export default function AccountPage() {
           <button
             type="button"
             onClick={() => router.push("/")}
-            className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+            className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
           >
             ← Back to Workspace
           </button>
@@ -37,7 +34,6 @@ export default function AccountPage() {
 
         <div className="space-y-6 px-8 py-8">
           {/* Profile */}
-
           <AccountGroup
             title="Profile"
             description="Your personal information displayed throughout the platform."
@@ -48,7 +44,7 @@ export default function AccountPage() {
             >
               <button
                 type="button"
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-sm font-medium hover:bg-white/15"
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] text-sm font-medium text-[var(--aevra-text)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_15%,transparent)]"
               >
                 H
               </button>
@@ -63,7 +59,7 @@ export default function AccountPage() {
                 onChange={(event) =>
                   setName(event.target.value)
                 }
-                className="w-64 rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-sm text-white outline-none transition focus:border-white/30"
+                className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               />
             </AccountRow>
 
@@ -76,7 +72,7 @@ export default function AccountPage() {
                 onChange={(event) =>
                   setUsername(event.target.value)
                 }
-                className="w-64 rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-sm text-white outline-none transition focus:border-white/30"
+                className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               />
             </AccountRow>
 
@@ -90,13 +86,12 @@ export default function AccountPage() {
                 onChange={(event) =>
                   setEmail(event.target.value)
                 }
-                className="w-64 rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-sm text-white outline-none transition focus:border-white/30"
+                className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               />
             </AccountRow>
           </AccountGroup>
 
           {/* Preferences */}
-
           <AccountGroup
             title="Preferences"
             description="Account-level preferences."
@@ -107,26 +102,17 @@ export default function AccountPage() {
             >
               <select
                 defaultValue="ORION"
-                className="min-w-48 rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+                className="min-w-48 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               >
-                <option
-                  value="ORION"
-                  className="bg-[#0b0d10]"
-                >
+                <option value="ORION">
                   ORION
                 </option>
 
-                <option
-                  value="Autonomous Rover"
-                  className="bg-[#0b0d10]"
-                >
+                <option value="Autonomous Rover">
                   Autonomous Rover
                 </option>
 
-                <option
-                  value="Drone"
-                  className="bg-[#0b0d10]"
-                >
+                <option value="Drone">
                   Drone
                 </option>
               </select>
@@ -134,7 +120,6 @@ export default function AccountPage() {
           </AccountGroup>
 
           {/* Security */}
-
           <AccountGroup
             title="Security"
             description="Manage authentication and account security."
@@ -145,7 +130,7 @@ export default function AccountPage() {
             >
               <button
                 type="button"
-                className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
               >
                 Change Password
               </button>
@@ -157,7 +142,7 @@ export default function AccountPage() {
             >
               <button
                 type="button"
-                className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
               >
                 Manage Sessions
               </button>
@@ -165,14 +150,13 @@ export default function AccountPage() {
           </AccountGroup>
 
           {/* Danger Zone */}
-
-          <div className="overflow-hidden rounded-xl border border-red-500/20 bg-red-500/5">
-            <div className="border-b border-red-500/20 px-5 py-4">
-              <h2 className="text-sm font-semibold text-red-400">
+          <div className="overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--aevra-danger)_20%,transparent)] bg-[color-mix(in_srgb,var(--aevra-danger)_5%,transparent)]">
+            <div className="border-b border-[color-mix(in_srgb,var(--aevra-danger)_20%,transparent)] px-5 py-4">
+              <h2 className="text-sm font-semibold text-[var(--aevra-danger)]">
                 Danger Zone
               </h2>
 
-              <p className="mt-1 text-xs text-white/40">
+              <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
                 Permanent account actions.
               </p>
             </div>
@@ -183,14 +167,14 @@ export default function AccountPage() {
                   Delete account
                 </p>
 
-                <p className="mt-1 text-xs leading-5 text-white/40">
+                <p className="mt-1 text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
                   Permanently delete your account and associated data.
                 </p>
               </div>
 
               <button
                 type="button"
-                className="shrink-0 rounded-lg border border-red-500/30 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
+                className="shrink-0 rounded-lg border border-[color-mix(in_srgb,var(--aevra-danger)_30%,transparent)] px-4 py-2 text-sm text-[var(--aevra-danger)] transition hover:bg-[color-mix(in_srgb,var(--aevra-danger)_10%,transparent)]"
               >
                 Delete Account
               </button>
@@ -214,13 +198,13 @@ function AccountGroup({
   children,
 }: AccountGroupProps) {
   return (
-    <section className="overflow-hidden rounded-xl border border-white/10 bg-[#0f1115]">
-      <div className="border-b border-white/10 px-5 py-4">
+    <section className="overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-4">
         <h2 className="text-sm font-semibold">
           {title}
         </h2>
 
-        <p className="mt-1 text-xs text-white/40">
+        <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
         </p>
       </div>
@@ -242,13 +226,13 @@ function AccountRow({
   children,
 }: AccountRowProps) {
   return (
-    <div className="flex items-center justify-between gap-8 border-b border-white/10 px-5 py-5 last:border-b-0">
+    <div className="flex items-center justify-between gap-8 border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-5 last:border-b-0">
       <div className="min-w-0">
         <p className="text-sm font-medium">
           {title}
         </p>
 
-        <p className="mt-1 max-w-xl text-xs leading-5 text-white/40">
+        <p className="mt-1 max-w-xl text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
         </p>
       </div>

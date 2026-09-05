@@ -4,6 +4,7 @@ import ManufacturingResults from "./components/ManufacturingResults";
 import ManufacturingSetup from "./components/ManufacturingSetup";
 import ManufacturingToolbar from "./components/ManufacturingToolbar";
 import ManufacturingViewport from "./components/ManufacturingViewport";
+
 import { useManufacturing } from "./hooks/useManufacturing";
 
 export default function Manufacturing() {
@@ -15,7 +16,7 @@ export default function Manufacturing() {
   } = useManufacturing();
 
   return (
-    <div className="flex h-full min-h-0 flex-col bg-[#0b0d10] text-white">
+    <div className="flex h-full min-h-0 flex-col bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <ManufacturingToolbar
         process={state.settings.process}
         status={state.status}
@@ -45,7 +46,7 @@ export default function Manufacturing() {
         />
       </div>
 
-      <div className="flex h-8 shrink-0 items-center justify-between border-t border-white/10 px-4 text-[10px] text-white/30">
+      <div className="flex h-8 shrink-0 items-center justify-between border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
         <div className="flex items-center gap-5">
           <span>
             Process:{" "}
@@ -76,13 +77,15 @@ export default function Manufacturing() {
 }
 
 function getProcessLabel(
-  process: "cnc" | "3d-printing" | "sheet-metal"
+  process: "cnc" | "3d-printing" | "sheet-metal",
 ) {
   switch (process) {
     case "cnc":
       return "CNC";
+
     case "3d-printing":
       return "3D Printing";
+
     case "sheet-metal":
       return "Sheet Metal";
   }

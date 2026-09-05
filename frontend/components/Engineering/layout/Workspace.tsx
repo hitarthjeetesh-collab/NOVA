@@ -6,6 +6,7 @@ import Architecture, {
   initialArchitectureNodes,
   type ArchitectureNode,
 } from "@/components/Engineering/engineering/architecture/Architecture";
+
 import Code from "@/components/Engineering/engineering/code/Code";
 import Calculations from "@/components/Engineering/engineering/calculations/Calculations";
 import Planning from "@/components/Engineering/engineering/planning/planning";
@@ -37,12 +38,12 @@ export default function Workspace({
   return (
     <div className="flex min-h-0 flex-1">
       <section className="flex min-w-0 flex-1 flex-col">
-        <div className="border-b border-white/10 px-6 py-4">
-          <h1 className="text-lg font-semibold">
+        <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-6 py-4">
+          <h1 className="text-lg font-semibold text-[var(--aevra-text)]">
             {projectName}
           </h1>
 
-          <p className="mt-1 text-sm text-white/40">
+          <p className="mt-1 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
             {getStageDescription(stage)}
           </p>
         </div>
@@ -142,15 +143,18 @@ function Placeholder({
   return (
     <div className="flex h-full items-center justify-center">
       <div className="max-w-md text-center">
-        <h2 className="text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold text-[var(--aevra-text)]">
           {title}
         </h2>
 
-        <p className="mt-3 text-sm leading-6 text-white/40">
+        <p className="mt-3 text-sm leading-6 text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
         </p>
 
-        <button className="mt-6 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90">
+        <button
+          type="button"
+          className="mt-6 rounded-lg bg-[var(--aevra-text)] px-4 py-2 text-sm font-medium text-[var(--aevra-background)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)]"
+        >
           Get Started
         </button>
       </div>

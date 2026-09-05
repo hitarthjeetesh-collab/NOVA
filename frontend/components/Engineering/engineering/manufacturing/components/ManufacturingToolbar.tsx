@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import type { ManufacturingProcess } from "../types/manufacturing";
 
@@ -27,42 +27,43 @@ export default function ManufacturingToolbar({
   onReset,
 }: ManufacturingToolbarProps) {
   return (
-    <div className="flex h-12 items-center justify-between border-b border-white/10 px-4">
+    <div className="flex h-12 items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4">
       <div className="flex items-center gap-3">
         <span className="text-sm font-semibold">
           Manufacturing
         </span>
 
-        <div className="h-4 w-px bg-white/10" />
+        <div className="h-4 w-px bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]" />
 
         <select
           value={process}
           onChange={(event) =>
             onProcessChange(
-              event.target.value as ManufacturingProcess
+              event.target.value as ManufacturingProcess,
             )
           }
-          className="rounded-md border border-white/10 bg-white/5 px-2 py-1.5 text-xs text-white outline-none"
+          className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-2 py-1.5 text-xs text-[var(--aevra-text)] outline-none"
         >
           {Object.entries(processLabels).map(
             ([value, label]) => (
               <option
                 key={value}
                 value={value}
-                className="bg-[#101318]"
+                className="bg-[var(--aevra-surface)]"
               >
                 {label}
               </option>
-            )
+            ),
           )}
         </select>
       </div>
 
       <div className="flex items-center gap-2">
         <button
+          type="button"
           onClick={onPrepare}
           disabled={status === "preparing"}
-          className="rounded-md bg-white px-3 py-1.5 text-xs font-medium text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-md bg-[var(--aevra-text)] px-3 py-1.5 text-xs font-medium text-[var(--aevra-background)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {status === "preparing"
             ? "Preparing..."
@@ -70,8 +71,9 @@ export default function ManufacturingToolbar({
         </button>
 
         <button
+          type="button"
           onClick={onReset}
-          className="rounded-md border border-white/10 px-3 py-1.5 text-xs text-white/60 transition hover:bg-white/5 hover:text-white"
+          className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-3 py-1.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
         >
           Reset
         </button>

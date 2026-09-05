@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import CADToolbar from "./components/CADToolbar";
 import CADViewport from "./components/CADViewport";
 import ModelTree from "./components/ModelTree";
@@ -28,7 +29,7 @@ export default function CAD() {
     objects.find((object) => object.id === selectedId) ?? null;
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#0b0d10] text-white">
+    <div className="flex h-full min-h-0 w-full flex-col overflow-hidden bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <CADToolbar />
 
       <div className="flex min-h-0 flex-1">

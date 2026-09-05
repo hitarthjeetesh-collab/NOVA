@@ -15,39 +15,35 @@ interface OptimizationSetupProps {
   objectives: OptimizationObjective[];
   constraints: OptimizationConstraint[];
   variables: OptimizationVariable[];
-
   onMethodChange: (value: OptimizationMethod) => void;
   onSettingsChange: (
-    value: Partial<OptimizationSettings>
+    value: Partial<OptimizationSettings>,
   ) => void;
-
   onAddObjective: () => void;
   onUpdateObjective: (
     id: string,
-    updates: Partial<OptimizationObjective>
+    updates: Partial<OptimizationObjective>,
   ) => void;
   onRemoveObjective: (id: string) => void;
-
   onAddConstraint: () => void;
   onUpdateConstraint: (
     id: string,
-    updates: Partial<OptimizationConstraint>
+    updates: Partial<OptimizationConstraint>,
   ) => void;
   onRemoveConstraint: (id: string) => void;
-
   onAddVariable: () => void;
   onUpdateVariable: (
     id: string,
-    updates: Partial<OptimizationVariable>
+    updates: Partial<OptimizationVariable>,
   ) => void;
   onRemoveVariable: (id: string) => void;
 }
 
 const inputClass =
-  "h-8 w-full rounded-md border border-white/10 bg-white/[0.04] px-2.5 text-xs text-white outline-none transition focus:border-white/25";
+  "h-8 w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] px-2.5 text-xs text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]";
 
 const selectClass =
-  "h-8 w-full rounded-md border border-white/10 bg-[#11151a] px-2.5 text-xs text-white outline-none transition focus:border-white/25";
+  "h-8 w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-2.5 text-xs text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]";
 
 export default function OptimizationSetup({
   method,
@@ -68,24 +64,24 @@ export default function OptimizationSetup({
   onRemoveVariable,
 }: OptimizationSetupProps) {
   return (
-    <aside className="flex w-64 shrink-0 flex-col overflow-hidden border-r border-white/10 bg-[#0d1014]">
-      <div className="border-b border-white/10 px-4 py-3">
-        <div className="text-xs font-medium text-white">
+    <aside className="flex w-64 shrink-0 flex-col overflow-hidden border-r border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-3">
+        <div className="text-xs font-medium text-[var(--aevra-text)]">
           Optimization Setup
         </div>
 
-        <div className="mt-1 text-[11px] text-white/35">
+        <div className="mt-1 text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
           Define how the design should be improved.
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">
         <section className="mb-6">
-          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
             Method
           </div>
 
-          <label className="mb-1.5 block text-[11px] text-white/50">
+          <label className="mb-1.5 block text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
             Optimization
           </label>
 
@@ -93,7 +89,7 @@ export default function OptimizationSetup({
             value={method}
             onChange={(event) =>
               onMethodChange(
-                event.target.value as OptimizationMethod
+                event.target.value as OptimizationMethod,
               )
             }
             className={selectClass}
@@ -111,12 +107,12 @@ export default function OptimizationSetup({
         </section>
 
         <section className="mb-6">
-          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
             Solver
           </div>
 
           <div className="mb-3">
-            <label className="mb-1.5 block text-[11px] text-white/50">
+            <label className="mb-1.5 block text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
               Max Iterations
             </label>
 
@@ -136,11 +132,11 @@ export default function OptimizationSetup({
 
           <div className="mb-3">
             <div className="mb-1.5 flex items-center justify-between">
-              <label className="text-[11px] text-white/50">
+              <label className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
                 Convergence
               </label>
 
-              <span className="text-[10px] text-white/30">
+              <span className="text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                 %
               </span>
             </div>
@@ -153,7 +149,7 @@ export default function OptimizationSetup({
               onChange={(event) =>
                 onSettingsChange({
                   convergenceTolerance: Number(
-                    event.target.value
+                    event.target.value,
                   ),
                 })
               }
@@ -161,7 +157,7 @@ export default function OptimizationSetup({
             />
           </div>
 
-          <label className="flex cursor-pointer items-center gap-2 text-[11px] text-white/55">
+          <label className="flex cursor-pointer items-center gap-2 text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)]">
             <input
               type="checkbox"
               checked={settings.preserveMass}
@@ -170,22 +166,23 @@ export default function OptimizationSetup({
                   preserveMass: event.target.checked,
                 })
               }
-              className="h-3.5 w-3.5 accent-white"
+              className="h-3.5 w-3.5 accent-[var(--aevra-text)]"
             />
+
             Preserve mass
           </label>
         </section>
 
         <section className="mb-6">
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
               Objectives
             </div>
 
             <button
               type="button"
               onClick={onAddObjective}
-              className="text-[11px] text-white/45 transition hover:text-white"
+              className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)] transition hover:text-[var(--aevra-text)]"
             >
               + Add
             </button>
@@ -195,10 +192,10 @@ export default function OptimizationSetup({
             {objectives.map((objective) => (
               <div
                 key={objective.id}
-                className="rounded-md border border-white/10 bg-white/[0.025] p-2.5"
+                className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] p-2.5"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[11px] text-white/65">
+                  <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_65%,transparent)]">
                     Objective
                   </span>
 
@@ -207,7 +204,7 @@ export default function OptimizationSetup({
                     onClick={() =>
                       onRemoveObjective(objective.id)
                     }
-                    className="text-[11px] text-white/25 hover:text-white/70"
+                    className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
                   </button>
@@ -217,9 +214,8 @@ export default function OptimizationSetup({
                   value={objective.type}
                   onChange={(event) =>
                     onUpdateObjective(objective.id, {
-                      type:
-                        event.target
-                          .value as OptimizationObjective["type"],
+                      type: event.target
+                        .value as OptimizationObjective["type"],
                     })
                   }
                   className={`${selectClass} mb-2`}
@@ -249,13 +245,15 @@ export default function OptimizationSetup({
                     value={objective.weight}
                     onChange={(event) =>
                       onUpdateObjective(objective.id, {
-                        weight: Number(event.target.value),
+                        weight: Number(
+                          event.target.value,
+                        ),
                       })
                     }
                     className={inputClass}
                   />
 
-                  <span className="shrink-0 text-[10px] text-white/30">
+                  <span className="shrink-0 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                     Weight
                   </span>
                 </div>
@@ -266,14 +264,14 @@ export default function OptimizationSetup({
 
         <section className="mb-6">
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
               Constraints
             </div>
 
             <button
               type="button"
               onClick={onAddConstraint}
-              className="text-[11px] text-white/45 transition hover:text-white"
+              className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)] transition hover:text-[var(--aevra-text)]"
             >
               + Add
             </button>
@@ -283,10 +281,10 @@ export default function OptimizationSetup({
             {constraints.map((constraint) => (
               <div
                 key={constraint.id}
-                className="rounded-md border border-white/10 bg-white/[0.025] p-2.5"
+                className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] p-2.5"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[11px] text-white/65">
+                  <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_65%,transparent)]">
                     Constraint
                   </span>
 
@@ -295,7 +293,7 @@ export default function OptimizationSetup({
                     onClick={() =>
                       onRemoveConstraint(constraint.id)
                     }
-                    className="text-[11px] text-white/25 hover:text-white/70"
+                    className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
                   </button>
@@ -305,9 +303,8 @@ export default function OptimizationSetup({
                   value={constraint.type}
                   onChange={(event) =>
                     onUpdateConstraint(constraint.id, {
-                      type:
-                        event.target
-                          .value as OptimizationConstraintType,
+                      type: event.target
+                        .value as OptimizationConstraintType,
                     })
                   }
                   className={`${selectClass} mb-2`}
@@ -315,15 +312,12 @@ export default function OptimizationSetup({
                   <option value="maximum-stress">
                     Maximum Stress
                   </option>
-
                   <option value="maximum-displacement">
                     Maximum Displacement
                   </option>
-
                   <option value="minimum-safety-factor">
                     Minimum Safety Factor
                   </option>
-
                   <option value="preserve-region">
                     Preserve Region
                   </option>
@@ -337,7 +331,9 @@ export default function OptimizationSetup({
                     value={constraint.value}
                     onChange={(event) =>
                       onUpdateConstraint(constraint.id, {
-                        value: Number(event.target.value),
+                        value: Number(
+                          event.target.value,
+                        ),
                       })
                     }
                     className={inputClass}
@@ -364,14 +360,14 @@ export default function OptimizationSetup({
 
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
               Variables
             </div>
 
             <button
               type="button"
               onClick={onAddVariable}
-              className="text-[11px] text-white/45 transition hover:text-white"
+              className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)] transition hover:text-[var(--aevra-text)]"
             >
               + Add
             </button>
@@ -381,10 +377,10 @@ export default function OptimizationSetup({
             {variables.map((variable) => (
               <div
                 key={variable.id}
-                className="rounded-md border border-white/10 bg-white/[0.025] p-2.5"
+                className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] p-2.5"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[11px] text-white/65">
+                  <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_65%,transparent)]">
                     Variable
                   </span>
 
@@ -393,7 +389,7 @@ export default function OptimizationSetup({
                     onClick={() =>
                       onRemoveVariable(variable.id)
                     }
-                    className="text-[11px] text-white/25 hover:text-white/70"
+                    className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
                   </button>
@@ -416,7 +412,9 @@ export default function OptimizationSetup({
                     value={variable.minimum}
                     onChange={(event) =>
                       onUpdateVariable(variable.id, {
-                        minimum: Number(event.target.value),
+                        minimum: Number(
+                          event.target.value,
+                        ),
                       })
                     }
                     className={inputClass}
@@ -428,7 +426,9 @@ export default function OptimizationSetup({
                     value={variable.maximum}
                     onChange={(event) =>
                       onUpdateVariable(variable.id, {
-                        maximum: Number(event.target.value),
+                        maximum: Number(
+                          event.target.value,
+                        ),
                       })
                     }
                     className={inputClass}

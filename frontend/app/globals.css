@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+:root {
+  --aevra-accent: #5b8cff;
+  --aevra-accent-hover: #7aa2ff;
+
+  --aevra-background: #0b0d10;
+  --aevra-surface: #11151a;
+  --aevra-surface-light: #181d24;
+
+  --aevra-text: #e5e7eb;
+  --aevra-text-muted: #9ca3af;
+}
+
 html,
 body {
   height: 100%;
@@ -7,4 +19,6 @@ body {
 
 body {
   margin: 0;
+  background: var(--aevra-background);
+  color: var(--aevra-text);
 }

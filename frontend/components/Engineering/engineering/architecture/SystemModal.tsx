@@ -119,13 +119,12 @@ const categories = [
   "Other",
 ];
 
-const statuses: SystemNodeData["status"][] =
-  [
-    "Concept",
-    "Designed",
-    "Validated",
-    "Manufacturing",
-  ];
+const statuses: SystemNodeData["status"][] = [
+  "Concept",
+  "Designed",
+  "Validated",
+  "Manufacturing",
+];
 
 function createInterface(): SystemInterface {
   return {
@@ -157,8 +156,7 @@ export default function SystemModal({
   onClose,
   onSubmit,
   onInterfaceCreated,
-  connectedInterfaceIds =
-    new Set<string>(),
+  connectedInterfaceIds = new Set<string>(),
 }: SystemModalProps) {
   const [label, setLabel] =
     useState("");
@@ -180,8 +178,10 @@ export default function SystemModal({
   const [parameters, setParameters] =
     useState<SystemParameter[]>([]);
 
-  const [selectedInterfaceId, setSelectedInterfaceId] =
-    useState<string | null>(null);
+  const [
+    selectedInterfaceId,
+    setSelectedInterfaceId,
+  ] = useState<string | null>(null);
 
   const [error, setError] =
     useState("");
@@ -313,7 +313,6 @@ export default function SystemModal({
       setError(
         "This interface is currently used by one or more connections. Remove those connections before deleting the interface."
       );
-
       return;
     }
 
@@ -409,13 +408,13 @@ export default function SystemModal({
       <div className="flex max-h-[85vh] w-[900px] max-w-[95vw] flex-col">
         {/* Header */}
         <div className="border-b border-white/10 px-6 py-5">
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold text-[var(--aevra-text)]">
             {editing
               ? "Edit System"
               : "Add System"}
           </h2>
 
-          <p className="mt-1 text-sm text-white/40">
+          <p className="mt-1 text-sm text-[var(--aevra-text-muted)]">
             Define the system, its interfaces,
             and engineering parameters.
           </p>
@@ -436,7 +435,7 @@ export default function SystemModal({
             />
 
             <div>
-              <label className="mb-2 block text-xs font-medium text-white/50">
+              <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
                 Category
               </label>
 
@@ -447,14 +446,14 @@ export default function SystemModal({
                     event.target.value
                   )
                 }
-                className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+                className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
               >
                 {categories.map(
                   (item) => (
                     <option
                       key={item}
                       value={item}
-                      className="bg-[#101419]"
+                      className="bg-[var(--aevra-surface)]"
                     >
                       {item}
                     </option>
@@ -465,7 +464,7 @@ export default function SystemModal({
           </div>
 
           <div className="mt-4">
-            <label className="mb-2 block text-xs font-medium text-white/50">
+            <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
               Status
             </label>
 
@@ -477,14 +476,14 @@ export default function SystemModal({
                     .value as SystemNodeData["status"]
                 )
               }
-              className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
             >
               {statuses.map(
                 (item) => (
                   <option
                     key={item}
                     value={item}
-                    className="bg-[#101419]"
+                    className="bg-[var(--aevra-surface)]"
                   >
                     {item}
                   </option>
@@ -494,7 +493,7 @@ export default function SystemModal({
           </div>
 
           <div className="mt-4">
-            <label className="mb-2 block text-xs font-medium text-white/50">
+            <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
               Description
             </label>
 
@@ -507,7 +506,7 @@ export default function SystemModal({
               }
               rows={3}
               placeholder="What does this system do?"
-              className="w-full resize-none rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-white/30"
+              className="w-full resize-none rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/20 focus:border-white/30"
             />
           </div>
 
@@ -515,11 +514,11 @@ export default function SystemModal({
           <div className="mt-8">
             <div className="mb-3 flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-sm font-semibold text-[var(--aevra-text)]">
                   Interfaces
                 </h3>
 
-                <p className="mt-1 text-xs text-white/35">
+                <p className="mt-1 text-xs text-[var(--aevra-text-muted)]">
                   Connections reference interface
                   IDs, so changing the order does not
                   break existing architecture.
@@ -538,11 +537,11 @@ export default function SystemModal({
 
             <div className="grid min-h-[300px] grid-cols-[220px_1fr] overflow-hidden rounded-xl border border-white/10">
               {/* Interface list */}
-              <div className="border-r border-white/10 bg-[#101419]">
+              <div className="border-r border-white/10 bg-[var(--aevra-surface)]">
                 <div className="max-h-[420px] overflow-y-auto p-2">
                   {interfaces.length ===
                   0 ? (
-                    <div className="px-3 py-8 text-center text-xs text-white/30">
+                    <div className="px-3 py-8 text-center text-xs text-[var(--aevra-text-muted)]">
                       No interfaces yet.
                     </div>
                   ) : (
@@ -561,8 +560,8 @@ export default function SystemModal({
                           className={`mb-1 w-full rounded-lg px-3 py-2.5 text-left transition ${
                             selectedInterfaceId ===
                             item.id
-                              ? "bg-white/10 text-white"
-                              : "text-white/50 hover:bg-white/5 hover:text-white"
+                              ? "bg-[var(--aevra-surface-light)] text-[var(--aevra-text)]"
+                              : "text-[var(--aevra-text-muted)] hover:bg-[var(--aevra-surface-light)] hover:text-[var(--aevra-text)]"
                           }`}
                         >
                           <div className="truncate text-xs font-medium">
@@ -571,7 +570,7 @@ export default function SystemModal({
                             }
                           </div>
 
-                          <div className="mt-1 truncate text-[10px] text-white/30">
+                          <div className="mt-1 truncate text-[10px] text-[var(--aevra-text-muted)]">
                             {
                               interfaceTypes.find(
                                 (
@@ -579,8 +578,7 @@ export default function SystemModal({
                                 ) =>
                                   type.value ===
                                   item.type
-                              )
-                                ?.label
+                              )?.label
                             }
                           </div>
                         </button>
@@ -593,14 +591,14 @@ export default function SystemModal({
               {/* Interface editor */}
               <div className="p-5">
                 {!selectedInterface ? (
-                  <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-white/30">
+                  <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-[var(--aevra-text-muted)]">
                     Select an interface to edit it.
                   </div>
                 ) : (
                   <div>
                     <div className="mb-5 flex items-center justify-between">
                       <div>
-                        <div className="text-sm font-semibold text-white">
+                        <div className="text-sm font-semibold text-[var(--aevra-text)]">
                           Interface
                         </div>
 
@@ -645,7 +643,7 @@ export default function SystemModal({
                       />
 
                       <div>
-                        <label className="mb-2 block text-xs font-medium text-white/50">
+                        <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
                           Type
                         </label>
 
@@ -665,12 +663,10 @@ export default function SystemModal({
                               }
                             )
                           }
-                          className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none"
+                          className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none"
                         >
                           {interfaceTypes.map(
-                            (
-                              item
-                            ) => (
+                            (item) => (
                               <option
                                 key={
                                   item.value
@@ -678,7 +674,7 @@ export default function SystemModal({
                                 value={
                                   item.value
                                 }
-                                className="bg-[#101419]"
+                                className="bg-[var(--aevra-surface)]"
                               >
                                 {
                                   item.label
@@ -690,7 +686,7 @@ export default function SystemModal({
                       </div>
 
                       <div>
-                        <label className="mb-2 block text-xs font-medium text-white/50">
+                        <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
                           Direction
                         </label>
 
@@ -711,25 +707,25 @@ export default function SystemModal({
                               }
                             )
                           }
-                          className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none"
+                          className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none"
                         >
                           <option
                             value="input"
-                            className="bg-[#101419]"
+                            className="bg-[var(--aevra-surface)]"
                           >
                             Input
                           </option>
 
                           <option
                             value="output"
-                            className="bg-[#101419]"
+                            className="bg-[var(--aevra-surface)]"
                           >
                             Output
                           </option>
 
                           <option
                             value="bidirectional"
-                            className="bg-[#101419]"
+                            className="bg-[var(--aevra-surface)]"
                           >
                             Bidirectional
                           </option>
@@ -843,7 +839,7 @@ export default function SystemModal({
                     </div>
 
                     <div className="mt-4">
-                      <label className="mb-2 block text-xs font-medium text-white/50">
+                      <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
                         Description
                       </label>
 
@@ -865,7 +861,7 @@ export default function SystemModal({
                           )
                         }
                         rows={3}
-                        className="w-full resize-none rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/20"
+                        className="w-full resize-none rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/20"
                       />
                     </div>
                   </div>
@@ -884,11 +880,11 @@ export default function SystemModal({
           <div className="mt-8">
             <div className="mb-3 flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-sm font-semibold text-[var(--aevra-text)]">
                   Parameters
                 </h3>
 
-                <p className="mt-1 text-xs text-white/35">
+                <p className="mt-1 text-xs text-[var(--aevra-text-muted)]">
                   Engineering properties for this system.
                 </p>
               </div>
@@ -978,7 +974,7 @@ export default function SystemModal({
                           parameter.id!
                         )
                       }
-                      className="rounded-lg border border-white/10 px-3 text-xs text-white/30 hover:bg-white/5 hover:text-white"
+                      className="rounded-lg border border-white/10 px-3 text-xs text-[var(--aevra-text-muted)] hover:bg-[var(--aevra-surface-light)] hover:text-[var(--aevra-text)]"
                     >
                       Delete
                     </button>
@@ -1000,7 +996,9 @@ export default function SystemModal({
 
           <Button
             type="button"
-            onClick={handleSubmit}
+            onClick={
+              handleSubmit
+            }
           >
             {editing
               ? "Save Changes"

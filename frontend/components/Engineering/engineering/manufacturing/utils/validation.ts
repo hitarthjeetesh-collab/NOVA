@@ -1,7 +1,7 @@
 import type { ManufacturingSettings } from "../types/manufacturing";
 
 export function validateManufacturingSettings(
-  settings: ManufacturingSettings
+  settings: ManufacturingSettings,
 ): string[] {
   const errors: string[] = [];
 
@@ -22,7 +22,7 @@ export function validateManufacturingSettings(
     settings.resolution > 1
   ) {
     errors.push(
-      "3D printing resolution should not exceed 1 mm."
+      "3D printing resolution should not exceed 1 mm.",
     );
   }
 

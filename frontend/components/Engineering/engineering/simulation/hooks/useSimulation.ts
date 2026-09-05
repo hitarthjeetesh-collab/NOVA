@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type {
   AnalysisType,
-  ConstraintType,
   MaterialType,
   MeshSettings,
   SimulationConstraint,
@@ -67,9 +66,7 @@ export function useSimulation() {
   const [state, setState] =
     useState<SimulationState>(createInitialState);
 
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(
-    null
-  );
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const clearSimulationTimer = useCallback(() => {
     if (timerRef.current) {
@@ -84,44 +81,35 @@ export function useSimulation() {
     };
   }, [clearSimulationTimer]);
 
-  const setAnalysisType = useCallback(
-    (analysisType: AnalysisType) => {
-      setState((current) => ({
-        ...current,
-        analysisType,
-        results: null,
-        error: null,
-      }));
-    },
-    []
-  );
+  const setAnalysisType = useCallback((analysisType: AnalysisType) => {
+    setState((current) => ({
+      ...current,
+      analysisType,
+      results: null,
+      error: null,
+    }));
+  }, []);
 
-  const setMaterial = useCallback(
-    (material: MaterialType) => {
-      setState((current) => ({
-        ...current,
-        material,
-        results: null,
-        error: null,
-      }));
-    },
-    []
-  );
+  const setMaterial = useCallback((material: MaterialType) => {
+    setState((current) => ({
+      ...current,
+      material,
+      results: null,
+      error: null,
+    }));
+  }, []);
 
-  const setMesh = useCallback(
-    (mesh: Partial<MeshSettings>) => {
-      setState((current) => ({
-        ...current,
-        mesh: {
-          ...current.mesh,
-          ...mesh,
-        },
-        results: null,
-        error: null,
-      }));
-    },
-    []
-  );
+  const setMesh = useCallback((mesh: Partial<MeshSettings>) => {
+    setState((current) => ({
+      ...current,
+      mesh: {
+        ...current.mesh,
+        ...mesh,
+      },
+      results: null,
+      error: null,
+    }));
+  }, []);
 
   const addLoad = useCallback(
     (load: Omit<SimulationLoad, "id">) => {
@@ -133,12 +121,12 @@ export function useSimulation() {
             ...load,
             id: `load-${Date.now()}`,
           },
-          ],
+        ],
         results: null,
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const updateLoad = useCallback(
@@ -151,13 +139,13 @@ export function useSimulation() {
                 ...load,
                 ...updates,
               }
-            : load
+            : load,
         ),
         results: null,
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const removeLoad = useCallback((id: string) => {
@@ -170,9 +158,7 @@ export function useSimulation() {
   }, []);
 
   const addConstraint = useCallback(
-    (
-      constraint: Omit<SimulationConstraint, "id">
-    ) => {
+    (constraint: Omit<SimulationConstraint, "id">) => {
       setState((current) => ({
         ...current,
         constraints: [
@@ -186,45 +172,38 @@ export function useSimulation() {
         error: null,
       }));
     },
-    []
+    [],
   );
 
   const updateConstraint = useCallback(
-    (
-      id: string,
-      updates: Partial<SimulationConstraint>
-    ) => {
+    (id: string, updates: Partial<SimulationConstraint>) => {
       setState((current) => ({
         ...current,
-        constraints: current.constraints.map(
-          (constraint) =>
-            constraint.id === id
-              ? {
-                  ...constraint,
-                  ...updates,
-                }
-              : constraint
+        constraints: current.constraints.map((constraint) =>
+          constraint.id === id
+            ? {
+                ...constraint,
+                ...updates,
+              }
+            : constraint,
         ),
         results: null,
         error: null,
       }));
     },
-    []
+    [],
   );
 
-  const removeConstraint = useCallback(
-    (id: string) => {
-      setState((current) => ({
-        ...current,
-        constraints: current.constraints.filter(
-          (constraint) => constraint.id !== id
-        ),
-        results: null,
-        error: null,
-      }));
-    },
-    []
-  );
+  const removeConstraint = useCallback((id: string) => {
+    setState((current) => ({
+      ...current,
+      constraints: current.constraints.filter(
+        (constraint) => constraint.id !== id,
+      ),
+      results: null,
+      error: null,
+    }));
+  }, []);
 
   const run = useCallback(() => {
     clearSimulationTimer();
@@ -319,19 +298,15 @@ export function useSimulation() {
 
   return {
     state,
-
     setAnalysisType,
     setMaterial,
     setMesh,
-
     addLoad,
     updateLoad,
     removeLoad,
-
     addConstraint,
     updateConstraint,
     removeConstraint,
-
     run,
     stop,
     reset,

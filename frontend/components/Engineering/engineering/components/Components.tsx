@@ -1,11 +1,9 @@
 "use client";
 
-import {
-  useMemo,
-  useState,
-} from "react";
+import { useMemo, useState } from "react";
 
 import type { ArchitectureNode } from "../architecture/Architecture";
+
 import ComponentCard from "./ComponentCard";
 import ComponentModal from "./ComponentModal";
 
@@ -61,8 +59,7 @@ const initialComponents: EngineeringComponent[] = [
     manufacturer: "NVIDIA",
     partNumber: "699-13767-0000-000",
     category: "Computing",
-    description:
-      "Primary onboard compute platform.",
+    description: "Primary onboard compute platform.",
     quantity: 1,
     status: "Selected",
     subsystemId: "computing",
@@ -76,24 +73,17 @@ const initialComponents: EngineeringComponent[] = [
     powerMax: 40,
     unitCost: null,
     currency: "CAD",
-    interfaces: [
-      "USB-C",
-      "Ethernet",
-      "HDMI",
-      "CAN",
-    ],
+    interfaces: ["USB-C", "Ethernet", "HDMI", "CAN"],
     datasheet: "",
     notes: "",
   },
-
   {
     id: "bno085",
     name: "BNO085",
     manufacturer: "CEVA",
     partNumber: "BNO085",
     category: "Sensor",
-    description:
-      "9-axis orientation and motion sensor.",
+    description: "9-axis orientation and motion sensor.",
     quantity: 1,
     status: "Concept",
     subsystemId: "sensors",
@@ -107,23 +97,17 @@ const initialComponents: EngineeringComponent[] = [
     powerMax: null,
     unitCost: null,
     currency: "CAD",
-    interfaces: [
-      "I2C",
-      "SPI",
-      "UART",
-    ],
+    interfaces: ["I2C", "SPI", "UART"],
     datasheet: "",
     notes: "",
   },
-
   {
     id: "oak-d-lite",
     name: "OAK-D Lite",
     manufacturer: "Luxonis",
     partNumber: "OAK-D-LITE",
     category: "Sensor",
-    description:
-      "Stereo depth and RGB camera.",
+    description: "Stereo depth and RGB camera.",
     quantity: 1,
     status: "Concept",
     subsystemId: "sensors",
@@ -137,17 +121,13 @@ const initialComponents: EngineeringComponent[] = [
     powerMax: null,
     unitCost: null,
     currency: "CAD",
-    interfaces: [
-      "USB-C",
-    ],
+    interfaces: ["USB-C"],
     datasheet: "",
     notes: "",
   },
 ];
 
-const categories: Array<
-  "All" | ComponentCategory
-> = [
+const categories: Array<"All" | ComponentCategory> = [
   "All",
   "Computing",
   "Sensor",
@@ -158,9 +138,7 @@ const categories: Array<
   "Other",
 ];
 
-const statuses: Array<
-  "All" | ComponentStatus
-> = [
+const statuses: Array<"All" | ComponentStatus> = [
   "All",
   "Concept",
   "Selected",
@@ -171,30 +149,22 @@ const statuses: Array<
 
 function getSubsystemPath(
   node: ArchitectureNode,
-  nodes: ArchitectureNode[]
+  nodes: ArchitectureNode[],
 ): string {
-  const parts: string[] = [
-    node.data.label,
-  ];
-
-  let parentId =
-    node.data.parentId ?? null;
+  const parts: string[] = [node.data.label];
+  let parentId = node.data.parentId ?? null;
 
   while (parentId) {
     const parent = nodes.find(
-      (item) => item.id === parentId
+      (item) => item.id === parentId,
     );
 
     if (!parent) {
       break;
     }
 
-    parts.unshift(
-      parent.data.label
-    );
-
-    parentId =
-      parent.data.parentId ?? null;
+    parts.unshift(parent.data.label);
+    parentId = parent.data.parentId ?? null;
   }
 
   return `ORION / ${parts.join(" / ")}`;
@@ -203,105 +173,70 @@ function getSubsystemPath(
 export default function Components({
   architectureNodes,
 }: ComponentsProps) {
-  const [
-    components,
-    setComponents,
-  ] = useState<EngineeringComponent[]>(
-    initialComponents
-  );
+  const [components, setComponents] =
+    useState<EngineeringComponent[]>(initialComponents);
 
-  const [search, setSearch] =
-    useState("");
+  const [search, setSearch] = useState("");
 
-  const [
-    categoryFilter,
-    setCategoryFilter,
-  ] = useState<
-    "All" | ComponentCategory
-  >("All");
+  const [categoryFilter, setCategoryFilter] =
+    useState<"All" | ComponentCategory>("All");
 
-  const [
-    statusFilter,
-    setStatusFilter,
-  ] = useState<
-    "All" | ComponentStatus
-  >("All");
+  const [statusFilter, setStatusFilter] =
+    useState<"All" | ComponentStatus>("All");
 
-  const [view, setView] =
-    useState<"grid" | "list">("grid");
+  const [view, setView] = useState<"grid" | "list">("grid");
 
-  const [modalOpen, setModalOpen] =
-    useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const [
-    editingComponent,
-    setEditingComponent,
-  ] = useState<
-    EngineeringComponent | undefined
-  >();
+  const [editingComponent, setEditingComponent] =
+    useState<EngineeringComponent | undefined>();
 
-  const subsystemOptions =
-    useMemo(() => {
-      return architectureNodes
-        .map((node) => ({
-          id: node.id,
-          label: getSubsystemPath(
-            node,
-            architectureNodes
-          ),
-        }))
-        .sort((a, b) =>
-          a.label.localeCompare(
-            b.label
-          )
-        );
-    }, [architectureNodes]);
-
-  const filteredComponents =
-    useMemo(() => {
-      const normalizedSearch =
-        search.trim().toLowerCase();
-
-      return components.filter(
-        (component) => {
-          const matchesSearch =
-            normalizedSearch === "" ||
-            [
-              component.name,
-              component.manufacturer,
-              component.partNumber,
-              component.category,
-            ].some((value) =>
-              value
-                .toLowerCase()
-                .includes(
-                  normalizedSearch
-                )
-            );
-
-          const matchesCategory =
-            categoryFilter === "All" ||
-            component.category ===
-              categoryFilter;
-
-          const matchesStatus =
-            statusFilter === "All" ||
-            component.status ===
-              statusFilter;
-
-          return (
-            matchesSearch &&
-            matchesCategory &&
-            matchesStatus
-          );
-        }
+  const subsystemOptions = useMemo(() => {
+    return architectureNodes
+      .map((node) => ({
+        id: node.id,
+        label: getSubsystemPath(node, architectureNodes),
+      }))
+      .sort((a, b) =>
+        a.label.localeCompare(b.label),
       );
-    }, [
-      components,
-      search,
-      categoryFilter,
-      statusFilter,
-    ]);
+  }, [architectureNodes]);
+
+  const filteredComponents = useMemo(() => {
+    const normalizedSearch = search.trim().toLowerCase();
+
+    return components.filter((component) => {
+      const matchesSearch =
+        normalizedSearch === "" ||
+        [
+          component.name,
+          component.manufacturer,
+          component.partNumber,
+          component.category,
+        ].some((value) =>
+          value.toLowerCase().includes(normalizedSearch),
+        );
+
+      const matchesCategory =
+        categoryFilter === "All" ||
+        component.category === categoryFilter;
+
+      const matchesStatus =
+        statusFilter === "All" ||
+        component.status === statusFilter;
+
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesStatus
+      );
+    });
+  }, [
+    components,
+    search,
+    categoryFilter,
+    statusFilter,
+  ]);
 
   function handleAddComponent() {
     setEditingComponent(undefined);
@@ -309,37 +244,31 @@ export default function Components({
   }
 
   function handleEditComponent(
-    component: EngineeringComponent
+    component: EngineeringComponent,
   ) {
     setEditingComponent(component);
     setModalOpen(true);
   }
 
-  function handleDeleteComponent(
-    id: string
-  ) {
-    const component =
-      components.find(
-        (item) => item.id === id
-      );
+  function handleDeleteComponent(id: string) {
+    const component = components.find(
+      (item) => item.id === id,
+    );
 
     if (!component) {
       return;
     }
 
-    const confirmed =
-      window.confirm(
-        `Delete "${component.name}"?`
-      );
+    const confirmed = window.confirm(
+      `Delete "${component.name}"?`,
+    );
 
     if (!confirmed) {
       return;
     }
 
     setComponents((current) =>
-      current.filter(
-        (item) => item.id !== id
-      )
+      current.filter((item) => item.id !== id),
     );
   }
 
@@ -349,18 +278,16 @@ export default function Components({
   }
 
   function handleComponentSubmit(
-    data: EngineeringComponent
+    data: EngineeringComponent,
   ) {
     setComponents((current) => {
       const exists = current.some(
-        (item) => item.id === data.id
+        (item) => item.id === data.id,
       );
 
       if (exists) {
         return current.map((item) =>
-          item.id === data.id
-            ? data
-            : item
+          item.id === data.id ? data : item,
         );
       }
 
@@ -377,7 +304,7 @@ export default function Components({
   }
 
   return (
-    <div className="h-full overflow-auto bg-[#0b0d10]">
+    <div className="h-full overflow-auto bg-[var(--aevra-background)]">
       <div className="mx-auto max-w-[1600px] p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
@@ -385,16 +312,16 @@ export default function Components({
               Components
             </h2>
 
-            <p className="mt-1 text-sm text-white/40">
-              Manage physical components and
-              parts used by the engineering system.
+            <p className="mt-1 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
+              Manage physical components and parts used by
+              the engineering system.
             </p>
           </div>
 
           <button
             type="button"
             onClick={handleAddComponent}
-            className="rounded-lg border border-white/10 bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90"
+            className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-text)] px-4 py-2 text-sm font-medium text-[var(--aevra-background)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)]"
           >
             + Add Component
           </button>
@@ -407,71 +334,63 @@ export default function Components({
               setSearch(event.target.value)
             }
             placeholder="Search components..."
-            className="min-w-0 flex-1 rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/20"
+            className="min-w-0 flex-1 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none placeholder:text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] focus:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)]"
           />
 
           <select
             value={categoryFilter}
             onChange={(event) =>
               setCategoryFilter(
-                event.target
-                  .value as
+                event.target.value as
                   | "All"
-                  | ComponentCategory
+                  | ComponentCategory,
               )
             }
-            className="rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white outline-none"
+            className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none"
           >
-            {categories.map(
-              (category) => (
-                <option
-                  key={category}
-                  value={category}
-                >
-                  {category === "All"
-                    ? "All Categories"
-                    : category}
-                </option>
-              )
-            )}
+            {categories.map((category) => (
+              <option
+                key={category}
+                value={category}
+              >
+                {category === "All"
+                  ? "All Categories"
+                  : category}
+              </option>
+            ))}
           </select>
 
           <select
             value={statusFilter}
             onChange={(event) =>
               setStatusFilter(
-                event.target
-                  .value as
+                event.target.value as
                   | "All"
-                  | ComponentStatus
+                  | ComponentStatus,
               )
             }
-            className="rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white outline-none"
+            className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none"
           >
-            {statuses.map(
-              (status) => (
-                <option
-                  key={status}
-                  value={status}
-                >
-                  {status === "All"
-                    ? "All Statuses"
-                    : status}
-                </option>
-              )
-            )}
+            {statuses.map((status) => (
+              <option
+                key={status}
+                value={status}
+              >
+                {status === "All"
+                  ? "All Statuses"
+                  : status}
+              </option>
+            ))}
           </select>
 
-          <div className="flex rounded-lg border border-white/10 bg-[#15191f] p-1">
+          <div className="flex rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] p-1">
             <button
               type="button"
-              onClick={() =>
-                setView("grid")
-              }
+              onClick={() => setView("grid")}
               className={`rounded-md px-3 py-1.5 text-xs ${
                 view === "grid"
-                  ? "bg-white/10 text-white"
-                  : "text-white/40 hover:text-white"
+                  ? "bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] text-[var(--aevra-text)]"
+                  : "text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] hover:text-[var(--aevra-text)]"
               }`}
             >
               Grid
@@ -479,13 +398,11 @@ export default function Components({
 
             <button
               type="button"
-              onClick={() =>
-                setView("list")
-              }
+              onClick={() => setView("list")}
               className={`rounded-md px-3 py-1.5 text-xs ${
                 view === "list"
-                  ? "bg-white/10 text-white"
-                  : "text-white/40 hover:text-white"
+                  ? "bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] text-[var(--aevra-text)]"
+                  : "text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] hover:text-[var(--aevra-text)]"
               }`}
             >
               List
@@ -494,10 +411,9 @@ export default function Components({
         </div>
 
         <div className="mt-4 flex items-center justify-between">
-          <p className="text-xs text-white/40">
-            Showing{" "}
-            {filteredComponents.length}{" "}
-            of {components.length} components
+          <p className="text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
+            Showing {filteredComponents.length} of{" "}
+            {components.length} components
           </p>
 
           {(search ||
@@ -506,24 +422,23 @@ export default function Components({
             <button
               type="button"
               onClick={clearFilters}
-              className="text-xs text-white/40 hover:text-white"
+              className="text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] hover:text-[var(--aevra-text)]"
             >
               Clear filters
             </button>
           )}
         </div>
 
-        {filteredComponents.length ===
-        0 ? (
-          <div className="mt-6 rounded-xl border border-dashed border-white/10 px-6 py-16 text-center">
-            <p className="text-sm text-white/50">
+        {filteredComponents.length === 0 ? (
+          <div className="mt-6 rounded-xl border border-dashed border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-6 py-16 text-center">
+            <p className="text-sm text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
               No components found.
             </p>
 
             <button
               type="button"
               onClick={clearFilters}
-              className="mt-3 text-sm text-white underline underline-offset-4"
+              className="mt-3 text-sm text-[var(--aevra-text)] underline underline-offset-4"
             >
               Clear filters
             </button>
@@ -536,36 +451,29 @@ export default function Components({
                 : "mt-6 space-y-3"
             }
           >
-            {filteredComponents.map(
-  (component) => {
-    const subsystem =
-      subsystemOptions.find(
-        (item) =>
-          item.id === component.subsystemId
-      );
+            {filteredComponents.map((component) => {
+              const subsystem = subsystemOptions.find(
+                (item) =>
+                  item.id === component.subsystemId,
+              );
 
-    return (
-      <ComponentCard
-        key={component.id}
-        component={component}
-        subsystemLabel={
-          subsystem
-            ? subsystem.label
-            : undefined
-        }
-        view={view}
-        onEdit={() =>
-          handleEditComponent(component)
-        }
-        onDelete={() =>
-          handleDeleteComponent(
-            component.id
-          )
-        }
-      />
-    );
-  }
-)}
+              return (
+                <ComponentCard
+                  key={component.id}
+                  component={component}
+                  subsystemLabel={
+                    subsystem ? subsystem.label : undefined
+                  }
+                  view={view}
+                  onEdit={() =>
+                    handleEditComponent(component)
+                  }
+                  onDelete={() =>
+                    handleDeleteComponent(component.id)
+                  }
+                />
+              );
+            })}
           </div>
         )}
       </div>
@@ -573,13 +481,9 @@ export default function Components({
       <ComponentModal
         open={modalOpen}
         initialData={editingComponent}
-        architectureNodes={
-          architectureNodes
-        }
+        architectureNodes={architectureNodes}
         onClose={handleModalClose}
-        onSubmit={
-          handleComponentSubmit
-        }
+        onSubmit={handleComponentSubmit}
       />
     </div>
   );

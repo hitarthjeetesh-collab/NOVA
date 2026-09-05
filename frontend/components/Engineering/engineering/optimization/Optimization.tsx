@@ -14,19 +14,15 @@ export default function Optimization() {
     state,
     setMethod,
     setSettings,
-
     addObjective,
     updateObjective,
     removeObjective,
-
     addConstraint,
     updateConstraint,
     removeConstraint,
-
     addVariable,
     updateVariable,
     removeVariable,
-
     run,
     stop,
     reset,
@@ -57,7 +53,7 @@ export default function Optimization() {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[#090b0e] text-white">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <OptimizationToolbar
         method={state.method}
         status={state.status}
@@ -107,7 +103,7 @@ export default function Optimization() {
         />
       </div>
 
-      <div className="flex h-8 shrink-0 items-center border-t border-white/10 bg-[#0d1014] px-3 text-[10px] text-white/30">
+      <div className="flex h-8 shrink-0 items-center border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] px-3 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
         <div className="flex items-center gap-4">
           <span>
             Variables: {state.variables.length}

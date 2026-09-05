@@ -10,10 +10,10 @@ export default function CalculationHeader({
   onDuplicate,
 }: CalculationHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
+    <div className="flex items-start justify-between gap-4 border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] pb-5">
       <div>
         <div className="flex items-center gap-2">
-          <span className="rounded-md bg-white/5 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-white/45">
+          <span className="rounded-md bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)]">
             {calculation.category}
           </span>
 
@@ -26,7 +26,7 @@ export default function CalculationHeader({
           {calculation.name}
         </h1>
 
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-white/45">
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)]">
           {calculation.description}
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function CalculationHeader({
       <button
         type="button"
         onClick={onDuplicate}
-        className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/55 transition hover:bg-white/10 hover:text-white"
+        className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-3 py-2 text-xs text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] hover:text-[var(--aevra-text)]"
       >
         Duplicate
       </button>

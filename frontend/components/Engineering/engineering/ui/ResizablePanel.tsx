@@ -4,16 +4,12 @@ import { type ReactNode } from "react";
 
 type Props = {
   direction: "horizontal" | "vertical";
-
   size: number;
   minSize: number;
   maxSize: number;
-
   collapsed?: boolean;
-
   onSizeChange: (size: number) => void;
   onToggleCollapse?: () => void;
-
   className?: string;
   children: ReactNode;
 };
@@ -38,9 +34,7 @@ export default function ResizablePanel({
           : { height: size }
       }
       className={`group relative shrink-0 ${
-        direction === "horizontal"
-          ? "h-full"
-          : "w-full"
+        direction === "horizontal" ? "h-full" : "w-full"
       } ${className}`}
     >
       <div className="h-full w-full overflow-hidden">
@@ -52,7 +46,7 @@ export default function ResizablePanel({
           type="button"
           onClick={onToggleCollapse}
           title="Collapse panel"
-          className="absolute right-2 top-2 z-50 flex h-6 w-6 items-center justify-center rounded-md border border-white/10 bg-[#111419]/95 text-xs text-white/35 opacity-0 shadow-lg transition-all hover:border-white/20 hover:bg-[#181c22] hover:text-white group-hover:opacity-100"
+          className="absolute right-2 top-2 z-50 flex h-6 w-6 items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-surface)_95%,transparent)] text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)] opacity-0 shadow-lg transition-all hover:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)] hover:bg-[var(--aevra-surface-light)] hover:text-[var(--aevra-text)] group-hover:opacity-100"
         >
           {direction === "horizontal" ? "‹" : "⌃"}
         </button>

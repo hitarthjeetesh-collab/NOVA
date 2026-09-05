@@ -16,9 +16,9 @@ export default function ValidationPanel({
   ).length;
 
   return (
-    <section className="rounded-xl border border-white/10 bg-white/[0.025]">
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-        <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+    <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)]">
+      <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-3">
+        <p className="text-xs font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
           Validation
         </p>
 
@@ -43,7 +43,7 @@ export default function ValidationPanel({
         </div>
       </div>
 
-      <div className="divide-y divide-white/5">
+      <div className="divide-y divide-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)]">
         {validation.map((item, index) => (
           <div
             key={`${item.label}-${index}`}
@@ -66,11 +66,11 @@ export default function ValidationPanel({
             </span>
 
             <div>
-              <p className="text-xs font-medium text-white/65">
+              <p className="text-xs font-medium text-[color-mix(in_srgb,var(--aevra-text)_65%,transparent)]">
                 {item.label}
               </p>
 
-              <p className="mt-0.5 text-[11px] leading-5 text-white/35">
+              <p className="mt-0.5 text-[11px] leading-5 text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
                 {item.message}
               </p>
             </div>

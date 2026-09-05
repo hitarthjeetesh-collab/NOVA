@@ -24,31 +24,23 @@ export interface ConnectionData
   type: ConnectionType;
   protocol: string;
   description: string;
-
   sourceInterfaceId?: string;
   targetInterfaceId?: string;
 }
 
 interface ConnectionModalProps {
   open: boolean;
-
   sourceName: string;
   targetName: string;
-
   sourceInterfaces: ConnectionInterfaceOption[];
   targetInterfaces: ConnectionInterfaceOption[];
-
   initialData?: ConnectionData;
-
   initialSourceInterfaceId?: string | null;
   initialTargetInterfaceId?: string | null;
-
   onClose: () => void;
-
   onSubmit: (
     data: ConnectionData
   ) => void;
-
   onDelete?: () => void;
 }
 
@@ -134,8 +126,7 @@ export default function ConnectionModal({
     );
 
     setDescription(
-      initialData?.description ??
-        ""
+      initialData?.description ?? ""
     );
 
     setSourceInterfaceId(
@@ -165,7 +156,6 @@ export default function ConnectionModal({
       setError(
         "Select a source interface."
       );
-
       return;
     }
 
@@ -173,7 +163,6 @@ export default function ConnectionModal({
       setError(
         "Select a target interface."
       );
-
       return;
     }
 
@@ -182,15 +171,14 @@ export default function ConnectionModal({
       protocol: protocol.trim(),
       description:
         description.trim(),
-
       sourceInterfaceId,
       targetInterfaceId,
     });
   }
 
   function handleDelete() {
-  onDelete?.();
-}
+    onDelete?.();
+  }
 
   return (
     <Modal
@@ -200,12 +188,12 @@ export default function ConnectionModal({
       <div className="w-[650px] max-w-[95vw]">
         {/* Header */}
         <div className="border-b border-white/10 px-6 py-5">
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold text-[var(--aevra-text)]">
             Connection
           </h2>
 
           <div className="mt-2 flex items-center gap-2 text-xs">
-            <span className="rounded-md bg-white/5 px-2 py-1 text-white/60">
+            <span className="rounded-md bg-[var(--aevra-surface-light)] px-2 py-1 text-[var(--aevra-text-muted)]">
               {sourceName}
             </span>
 
@@ -213,7 +201,7 @@ export default function ConnectionModal({
               →
             </span>
 
-            <span className="rounded-md bg-white/5 px-2 py-1 text-white/60">
+            <span className="rounded-md bg-[var(--aevra-surface-light)] px-2 py-1 text-[var(--aevra-text-muted)]">
               {targetName}
             </span>
           </div>
@@ -225,7 +213,7 @@ export default function ConnectionModal({
           <div className="grid grid-cols-2 gap-4">
             {/* Source */}
             <div>
-              <label className="mb-2 block text-xs font-medium text-white/50">
+              <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
                 Source Interface
               </label>
 
@@ -235,15 +223,14 @@ export default function ConnectionModal({
                 }
                 onChange={(event) =>
                   setSourceInterfaceId(
-                    event.target
-                      .value
+                    event.target.value
                   )
                 }
-                className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+                className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
               >
                 <option
                   value=""
-                  className="bg-[#101419]"
+                  className="bg-[var(--aevra-surface)]"
                 >
                   Select interface
                 </option>
@@ -251,13 +238,9 @@ export default function ConnectionModal({
                 {sourceInterfaces.map(
                   (item) => (
                     <option
-                      key={
-                        item.id
-                      }
-                      value={
-                        item.id
-                      }
-                      className="bg-[#101419]"
+                      key={item.id}
+                      value={item.id}
+                      className="bg-[var(--aevra-surface)]"
                     >
                       {item.name}
                       {" · "}
@@ -270,7 +253,7 @@ export default function ConnectionModal({
 
             {/* Target */}
             <div>
-              <label className="mb-2 block text-xs font-medium text-white/50">
+              <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
                 Target Interface
               </label>
 
@@ -280,15 +263,14 @@ export default function ConnectionModal({
                 }
                 onChange={(event) =>
                   setTargetInterfaceId(
-                    event.target
-                      .value
+                    event.target.value
                   )
                 }
-                className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+                className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
               >
                 <option
                   value=""
-                  className="bg-[#101419]"
+                  className="bg-[var(--aevra-surface)]"
                 >
                   Select interface
                 </option>
@@ -296,13 +278,9 @@ export default function ConnectionModal({
                 {targetInterfaces.map(
                   (item) => (
                     <option
-                      key={
-                        item.id
-                      }
-                      value={
-                        item.id
-                      }
-                      className="bg-[#101419]"
+                      key={item.id}
+                      value={item.id}
+                      className="bg-[var(--aevra-surface)]"
                     >
                       {item.name}
                       {" · "}
@@ -316,7 +294,7 @@ export default function ConnectionModal({
 
           {/* Type */}
           <div>
-            <label className="mb-2 block text-xs font-medium text-white/50">
+            <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
               Connection Type
             </label>
 
@@ -324,22 +302,17 @@ export default function ConnectionModal({
               value={type}
               onChange={(event) =>
                 setType(
-                  event.target
-                    .value as ConnectionType
+                  event.target.value as ConnectionType
                 )
               }
-              className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
             >
               {connectionTypes.map(
                 (item) => (
                   <option
-                    key={
-                      item.value
-                    }
-                    value={
-                      item.value
-                    }
-                    className="bg-[#101419]"
+                    key={item.value}
+                    value={item.value}
+                    className="bg-[var(--aevra-surface)]"
                   >
                     {item.label}
                   </option>
@@ -350,7 +323,7 @@ export default function ConnectionModal({
 
           {/* Protocol */}
           <div>
-            <label className="mb-2 block text-xs font-medium text-white/50">
+            <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
               Protocol / Specification
             </label>
 
@@ -362,13 +335,13 @@ export default function ConnectionModal({
                 )
               }
               placeholder="e.g. USB 3.2 Gen 2, CAN FD, 24V DC"
-              className="w-full rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/20 focus:border-white/30"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="mb-2 block text-xs font-medium text-white/50">
+            <label className="mb-2 block text-xs font-medium text-[var(--aevra-text-muted)]">
               Description
             </label>
 
@@ -381,7 +354,7 @@ export default function ConnectionModal({
               }
               rows={4}
               placeholder="What does this connection carry or provide?"
-              className="w-full resize-none rounded-lg border border-white/10 bg-[#101419] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/20 focus:border-white/30"
+              className="w-full resize-none rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/20 focus:border-white/30"
             />
           </div>
 

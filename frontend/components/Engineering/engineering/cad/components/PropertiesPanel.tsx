@@ -8,23 +8,23 @@ type Props = {
 
 export default function PropertiesPanel({ selectedObject }: Props) {
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-l border-white/[0.07] bg-[#0d0f13]">
-      <div className="flex h-10 items-center border-b border-white/[0.06] px-3">
-        <span className="text-[11px] font-medium uppercase tracking-wider text-white/35">
+    <aside className="flex w-64 shrink-0 flex-col border-l border-[color-mix(in_srgb,var(--aevra-text)_7%,transparent)] bg-[var(--aevra-surface)]">
+      <div className="flex h-10 items-center border-b border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] px-3">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
           Properties
         </span>
       </div>
 
       {!selectedObject ? (
         <div className="flex flex-1 items-center justify-center px-6 text-center">
-          <p className="text-xs leading-5 text-white/25">
+          <p className="text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]">
             Select an object to view its properties.
           </p>
         </div>
       ) : (
         <div className="min-h-0 flex-1 overflow-y-auto">
-          <section className="border-b border-white/[0.06] p-3">
-            <div className="mb-3 text-[10px] uppercase tracking-wider text-white/25">
+          <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] p-3">
+            <div className="mb-3 text-[10px] uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]">
               General
             </div>
 
@@ -33,8 +33,8 @@ export default function PropertiesPanel({ selectedObject }: Props) {
             <Property label="ID" value={selectedObject.id} />
           </section>
 
-          <section className="border-b border-white/[0.06] p-3">
-            <div className="mb-3 text-[10px] uppercase tracking-wider text-white/25">
+          <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] p-3">
+            <div className="mb-3 text-[10px] uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]">
               Transform
             </div>
 
@@ -44,7 +44,7 @@ export default function PropertiesPanel({ selectedObject }: Props) {
           </section>
 
           <section className="p-3">
-            <div className="mb-3 text-[10px] uppercase tracking-wider text-white/25">
+            <div className="mb-3 text-[10px] uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]">
               Appearance
             </div>
 
@@ -66,8 +66,11 @@ function Property({
 }) {
   return (
     <div className="mb-2 flex items-center justify-between gap-3 last:mb-0">
-      <span className="text-[11px] text-white/30">{label}</span>
-      <span className="max-w-[140px] truncate text-right text-[11px] text-white/60">
+      <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
+        {label}
+      </span>
+
+      <span className="max-w-[140px] truncate text-right text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)]">
         {value}
       </span>
     </div>

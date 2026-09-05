@@ -48,7 +48,7 @@ export interface SystemParameter {
   unit?: string;
 }
 
-export interface SystemNodeData 
+export interface SystemNodeData
   extends Record<string, unknown> {
   label: string;
   category: string;
@@ -58,28 +58,15 @@ export interface SystemNodeData
     | "Designed"
     | "Validated"
     | "Manufacturing";
-
   parameters: SystemParameter[];
-
-  /**
-   * Interface IDs are permanent identifiers.
-   * Connections reference these IDs instead of array indexes.
-   */
   interfaces: SystemInterface[];
-
   parentId?: string | null;
-
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
-function getInterfaceTypeLabel(
-  type: InterfaceType
-) {
-  const labels: Record<
-    InterfaceType,
-    string
-  > = {
+function getInterfaceTypeLabel(type: InterfaceType) {
+  const labels: Record<InterfaceType, string> = {
     power: "Power",
     dc_power: "DC Power",
     usb_a: "USB-A",
@@ -100,9 +87,7 @@ function getInterfaceTypeLabel(
   return labels[type];
 }
 
-function getDirectionSymbol(
-  direction: InterfaceDirection
-) {
+function getDirectionSymbol(direction: InterfaceDirection) {
   if (direction === "input") {
     return "←";
   }
@@ -119,28 +104,23 @@ export default function SystemNode({
 }: NodeProps & {
   data: SystemNodeData;
 }) {
-  const parameters = Array.isArray(
-    data.parameters
-  )
+  const parameters = Array.isArray(data.parameters)
     ? data.parameters
     : [];
 
-  const interfaces = Array.isArray(
-    data.interfaces
-  )
+  const interfaces = Array.isArray(data.interfaces)
     ? data.interfaces
     : [];
 
   return (
-    <div className="min-w-[280px] max-w-[340px] overflow-hidden rounded-xl border border-white/15 bg-[#15191f] shadow-xl">
-      {/* Header */}
+    <div className="min-w-[280px] max-w-[340px] overflow-hidden rounded-xl border border-white/15 bg-[var(--aevra-surface-light)] shadow-xl">
       <div className="flex items-start justify-between border-b border-white/10 px-4 py-3">
         <div className="min-w-0">
-          <div className="truncate text-sm font-semibold text-white">
+          <div className="truncate text-sm font-semibold text-[var(--aevra-text)]">
             {data.label}
           </div>
 
-          <div className="mt-1 text-xs text-white/40">
+          <div className="mt-1 text-xs text-[var(--aevra-text-muted)]">
             {data.category}
           </div>
         </div>
@@ -151,31 +131,28 @@ export default function SystemNode({
             event.stopPropagation();
             data.onEdit?.();
           }}
-          className="ml-3 shrink-0 rounded-md px-2 py-1 text-white/30 transition hover:bg-white/10 hover:text-white"
+          className="ml-3 shrink-0 rounded-md px-2 py-1 text-[var(--aevra-text-muted)] transition hover:bg-white/10 hover:text-[var(--aevra-text)]"
         >
           ⋯
         </button>
       </div>
 
-      {/* Status */}
       <div className="border-b border-white/10 px-4 py-2">
-        <span className="rounded-md bg-white/5 px-2 py-1 text-[10px] text-white/50">
+        <span className="rounded-md bg-white/5 px-2 py-1 text-[10px] text-[var(--aevra-text-muted)]">
           {data.status}
         </span>
       </div>
 
-      {/* Description */}
       {data.description && (
-        <div className="border-b border-white/10 px-4 py-3 text-xs leading-5 text-white/50">
+        <div className="border-b border-white/10 px-4 py-3 text-xs leading-5 text-[var(--aevra-text-muted)]">
           {data.description}
         </div>
       )}
 
-      {/* Interfaces */}
       {interfaces.length > 0 && (
         <div className="border-b border-white/10">
           <div className="px-4 pt-3">
-            <div className="text-[10px] font-medium uppercase tracking-wider text-white/30">
+            <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--aevra-text-muted)]">
               Interfaces
             </div>
           </div>
@@ -186,36 +163,26 @@ export default function SystemNode({
                 key={item.id}
                 className="relative mx-2 rounded-md px-2 py-2 transition hover:bg-white/5"
               >
-                {/* Input handle */}
-                {(item.direction ===
-                  "input" ||
-                  item.direction ===
-                    "bidirectional") && (
+                {(item.direction === "input" ||
+                  item.direction === "bidirectional") && (
                   <Handle
                     id={item.id}
                     type="target"
-                    position={
-                      Position.Left
-                    }
-                    className="!h-3 !w-3 !border-2 !border-[#15191f] !bg-white"
+                    position={Position.Left}
+                    className="!h-3 !w-3 !border-2 !border-[var(--aevra-surface-light)] !bg-[var(--aevra-text)]"
                     style={{
                       top: "50%",
                     }}
                   />
                 )}
 
-                {/* Output handle */}
-                {(item.direction ===
-                  "output" ||
-                  item.direction ===
-                    "bidirectional") && (
+                {(item.direction === "output" ||
+                  item.direction === "bidirectional") && (
                   <Handle
                     id={item.id}
                     type="source"
-                    position={
-                      Position.Right
-                    }
-                    className="!h-3 !w-3 !border-2 !border-[#15191f] !bg-white"
+                    position={Position.Right}
+                    className="!h-3 !w-3 !border-2 !border-[var(--aevra-surface-light)] !bg-[var(--aevra-text)]"
                     style={{
                       top: "50%",
                     }}
@@ -224,25 +191,20 @@ export default function SystemNode({
 
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0 pl-1">
-                    <div className="truncate text-xs font-medium text-white/80">
+                    <div className="truncate text-xs font-medium text-[var(--aevra-text)]">
                       {item.name}
                     </div>
 
-                    <div className="mt-0.5 truncate text-[10px] text-white/35">
-                      {getInterfaceTypeLabel(
-                        item.type
-                      )}
-
+                    <div className="mt-0.5 truncate text-[10px] text-[var(--aevra-text-muted)]">
+                      {getInterfaceTypeLabel(item.type)}
                       {item.standard
                         ? ` · ${item.standard}`
                         : ""}
                     </div>
                   </div>
 
-                  <div className="shrink-0 text-[11px] text-white/30">
-                    {getDirectionSymbol(
-                      item.direction
-                    )}
+                  <div className="shrink-0 text-[11px] text-[var(--aevra-text-muted)]">
+                    {getDirectionSymbol(item.direction)}
                   </div>
                 </div>
               </div>
@@ -251,46 +213,33 @@ export default function SystemNode({
         </div>
       )}
 
-      {/* Parameters */}
       {parameters.length > 0 && (
         <div className="px-4 py-3">
-          <div className="mb-2 text-[10px] font-medium uppercase tracking-wider text-white/30">
+          <div className="mb-2 text-[10px] font-medium uppercase tracking-wider text-[var(--aevra-text-muted)]">
             Parameters
           </div>
 
           <div className="space-y-1.5">
-            {parameters
-              .slice(0, 4)
-              .map(
-                (
-                  parameter,
-                  index
-                ) => (
-                  <div
-                    key={
-                      parameter.id ??
-                      `${parameter.name}-${index}`
-                    }
-                    className="flex justify-between gap-4 text-xs"
-                  >
-                    <span className="text-white/40">
-                      {
-                        parameter.name
-                      }
-                    </span>
+            {parameters.slice(0, 4).map((parameter, index) => (
+              <div
+                key={
+                  parameter.id ??
+                  `${parameter.name}-${index}`
+                }
+                className="flex justify-between gap-4 text-xs"
+              >
+                <span className="text-[var(--aevra-text-muted)]">
+                  {parameter.name}
+                </span>
 
-                    <span className="text-right text-white/70">
-                      {
-                        parameter.value
-                      }
-
-                      {parameter.unit
-                        ? ` ${parameter.unit}`
-                        : ""}
-                    </span>
-                  </div>
-                )
-              )}
+                <span className="text-right text-[var(--aevra-text)]">
+                  {parameter.value}
+                  {parameter.unit
+                    ? ` ${parameter.unit}`
+                    : ""}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       )}

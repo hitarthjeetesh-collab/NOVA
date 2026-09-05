@@ -19,9 +19,7 @@ interface ComponentModalProps {
   initialData?: EngineeringComponent;
   architectureNodes: ArchitectureNode[];
   onClose: () => void;
-  onSubmit: (
-    data: EngineeringComponent
-  ) => void;
+  onSubmit: (data: EngineeringComponent) => void;
 }
 
 const categories: ComponentCategory[] = [
@@ -43,78 +41,65 @@ const statuses: ComponentStatus[] = [
 ];
 
 const controlClassName =
-  "w-full rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/20";
+  "w-full rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none placeholder:text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] focus:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)]";
 
-function numberValue(
-  value: string
-): number | null {
+function numberValue(value: string): number | null {
   if (value.trim() === "") {
     return null;
   }
 
   const parsed = Number(value);
 
-  return Number.isFinite(parsed)
-    ? parsed
-    : null;
+  return Number.isFinite(parsed) ? parsed : null;
 }
 
 function getSubsystemPath(
   node: ArchitectureNode,
-  nodes: ArchitectureNode[]
+  nodes: ArchitectureNode[],
 ): string {
-  const parts: string[] = [
-    node.data.label,
-  ];
-
-  let parentId =
-    node.data.parentId ?? null;
+  const parts: string[] = [node.data.label];
+  let parentId = node.data.parentId ?? null;
 
   while (parentId) {
     const parent = nodes.find(
-      (item) => item.id === parentId
+      (item) => item.id === parentId,
     );
 
     if (!parent) {
       break;
     }
 
-    parts.unshift(
-      parent.data.label
-    );
-
-    parentId =
-      parent.data.parentId ?? null;
+    parts.unshift(parent.data.label);
+    parentId = parent.data.parentId ?? null;
   }
 
   return `ORION / ${parts.join(" / ")}`;
 }
 
-const emptyComponent: EngineeringComponent =
-  {
-    id: "",
-    name: "",
-    manufacturer: "",
-    partNumber: "",
-    category: "Other",
-    description: "",
-    quantity: 1,
-    status: "Concept",
-    subsystemId: null,
-    mass: null,
-    length: null,
-    width: null,
-    height: null,
-    voltageMin: null,
-    voltageMax: null,
-    currentMax: null,
-    powerMax: null,
-    unitCost: null,
-    currency: "CAD",
-    interfaces: [],
-    datasheet: "",
-    notes: "",
-  };
+const emptyComponent: EngineeringComponent = {
+  id: "",
+  name: "",
+  manufacturer: "",
+  partNumber: "",
+  category: "Other",
+  description: "",
+  quantity: 1,
+  status: "Concept",
+  subsystemId: null,
+  mass: null,
+  length: null,
+  width: null,
+  height: null,
+  voltageMin: null,
+  voltageMax: null,
+  currentMax: null,
+  powerMax: null,
+  unitCost: null,
+  currency: "CAD",
+  interfaces: [],
+  datasheet: "",
+  notes: "",
+};
 
 export default function ComponentModal({
   open,
@@ -124,9 +109,7 @@ export default function ComponentModal({
   onSubmit,
 }: ComponentModalProps) {
   const [form, setForm] =
-    useState<EngineeringComponent>(
-      emptyComponent
-    );
+    useState<EngineeringComponent>(emptyComponent);
 
   useEffect(() => {
     if (!open) {
@@ -136,9 +119,7 @@ export default function ComponentModal({
     if (initialData) {
       setForm({
         ...initialData,
-        interfaces: [
-          ...initialData.interfaces,
-        ],
+        interfaces: [...initialData.interfaces],
       });
     } else {
       setForm({
@@ -148,28 +129,25 @@ export default function ComponentModal({
     }
   }, [open, initialData]);
 
-  const subsystemOptions =
-    useMemo(() => {
-      return architectureNodes
-        .map((node) => ({
-          id: node.id,
-          label: getSubsystemPath(
-            node,
-            architectureNodes
-          ),
-        }))
-        .sort((a, b) =>
-          a.label.localeCompare(
-            b.label
-          )
-        );
-    }, [architectureNodes]);
+  const subsystemOptions = useMemo(() => {
+    return architectureNodes
+      .map((node) => ({
+        id: node.id,
+        label: getSubsystemPath(
+          node,
+          architectureNodes,
+        ),
+      }))
+      .sort((a, b) =>
+        a.label.localeCompare(b.label),
+      );
+  }, [architectureNodes]);
 
   function updateField<
-    K extends keyof EngineeringComponent
+    K extends keyof EngineeringComponent,
   >(
     field: K,
-    value: EngineeringComponent[K]
+    value: EngineeringComponent[K],
   ) {
     setForm((current) => ({
       ...current,
@@ -178,7 +156,7 @@ export default function ComponentModal({
   }
 
   function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>
+    event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
 
@@ -189,18 +167,13 @@ export default function ComponentModal({
     onSubmit({
       ...form,
       name: form.name.trim(),
-      manufacturer:
-        form.manufacturer.trim(),
-      partNumber:
-        form.partNumber.trim(),
-      description:
-        form.description.trim(),
-      interfaces:
-        form.interfaces
-          .map((item) => item.trim())
-          .filter(Boolean),
-      datasheet:
-        form.datasheet.trim(),
+      manufacturer: form.manufacturer.trim(),
+      partNumber: form.partNumber.trim(),
+      description: form.description.trim(),
+      interfaces: form.interfaces
+        .map((item) => item.trim())
+        .filter(Boolean),
+      datasheet: form.datasheet.trim(),
       notes: form.notes.trim(),
     });
   }
@@ -210,9 +183,9 @@ export default function ComponentModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111419] shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,var(--aevra-background)_70%,transparent)] p-4 backdrop-blur-sm">
+      <div className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] shadow-2xl">
+        <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-6 py-4">
           <div>
             <h2 className="text-base font-semibold">
               {initialData
@@ -220,16 +193,16 @@ export default function ComponentModal({
                 : "Add Component"}
             </h2>
 
-            <p className="mt-1 text-xs text-white/40">
-              Define the physical component and
-              its engineering properties.
+            <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
+              Define the physical component and its
+              engineering properties.
             </p>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="text-lg text-white/30 transition hover:text-white"
+            className="text-lg text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] transition hover:text-[var(--aevra-text)]"
           >
             ×
           </button>
@@ -241,22 +214,17 @@ export default function ComponentModal({
         >
           <div className="space-y-8 p-6">
             <section>
-              <SectionTitle>
-                General
-              </SectionTitle>
+              <SectionTitle>General</SectionTitle>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <Field
-                  label="Name"
-                  required
-                >
+                <Field label="Name" required>
                   <input
                     className={controlClassName}
                     value={form.name}
                     onChange={(event) =>
                       updateField(
                         "name",
-                        event.target.value
+                        event.target.value,
                       )
                     }
                     placeholder="e.g. NVIDIA Jetson Orin NX"
@@ -267,13 +235,11 @@ export default function ComponentModal({
                 <Field label="Manufacturer">
                   <input
                     className={controlClassName}
-                    value={
-                      form.manufacturer
-                    }
+                    value={form.manufacturer}
                     onChange={(event) =>
                       updateField(
                         "manufacturer",
-                        event.target.value
+                        event.target.value,
                       )
                     }
                     placeholder="e.g. NVIDIA"
@@ -283,13 +249,11 @@ export default function ComponentModal({
                 <Field label="Part Number">
                   <input
                     className={controlClassName}
-                    value={
-                      form.partNumber
-                    }
+                    value={form.partNumber}
                     onChange={(event) =>
                       updateField(
                         "partNumber",
-                        event.target.value
+                        event.target.value,
                       )
                     }
                     placeholder="e.g. 699-13767-0000-000"
@@ -299,16 +263,14 @@ export default function ComponentModal({
                 <SelectField
                   label="Category"
                   value={form.category}
-                  options={categories.map(
-                    (category) => ({
-                      value: category,
-                      label: category,
-                    })
-                  )}
+                  options={categories.map((category) => ({
+                    value: category,
+                    label: category,
+                  }))}
                   onChange={(value) =>
                     updateField(
                       "category",
-                      value as ComponentCategory
+                      value as ComponentCategory,
                     )
                   }
                 />
@@ -316,16 +278,14 @@ export default function ComponentModal({
                 <SelectField
                   label="Status"
                   value={form.status}
-                  options={statuses.map(
-                    (status) => ({
-                      value: status,
-                      label: status,
-                    })
-                  )}
+                  options={statuses.map((status) => ({
+                    value: status,
+                    label: status,
+                  }))}
                   onChange={(value) =>
                     updateField(
                       "status",
-                      value as ComponentStatus
+                      value as ComponentStatus,
                     )
                   }
                 />
@@ -334,24 +294,16 @@ export default function ComponentModal({
                   label="Quantity"
                   value={form.quantity}
                   onChange={(value) =>
-                    updateField(
-                      "quantity",
-                      value ?? 1
-                    )
+                    updateField("quantity", value ?? 1)
                   }
                 />
 
                 <div className="md:col-span-2">
                   <TextAreaField
                     label="Description"
-                    value={
-                      form.description
-                    }
+                    value={form.description}
                     onChange={(value) =>
-                      updateField(
-                        "description",
-                        value
-                      )
+                      updateField("description", value)
                     }
                     placeholder="What is this component used for?"
                   />
@@ -366,115 +318,81 @@ export default function ComponentModal({
 
               <Field label="Subsystem">
                 <select
-                  value={
-                    form.subsystemId ?? ""
-                  }
+                  value={form.subsystemId ?? ""}
                   onChange={(event) =>
                     updateField(
                       "subsystemId",
-                      event.target.value ||
-                        null
+                      event.target.value || null,
                     )
                   }
                   className={controlClassName}
                 >
-                  <option value="">
-                    Unassigned
-                  </option>
+                  <option value="">Unassigned</option>
 
-                  {subsystemOptions.map(
-                    (option) => (
-                      <option
-                        key={option.id}
-                        value={option.id}
-                      >
-                        {option.label}
-                      </option>
-                    )
-                  )}
+                  {subsystemOptions.map((option) => (
+                    <option
+                      key={option.id}
+                      value={option.id}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </Field>
 
-              <p className="mt-2 text-xs text-white/30">
-                This component is assigned to a
-                system from the Architecture workspace.
+              <p className="mt-2 text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
+                This component is assigned to a system
+                from the Architecture workspace.
               </p>
             </section>
 
             <section>
-              <SectionTitle>
-                Electrical
-              </SectionTitle>
+              <SectionTitle>Electrical</SectionTitle>
 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <NumberField
                   label="Min Voltage (V)"
-                  value={
-                    form.voltageMin
-                  }
+                  value={form.voltageMin}
                   onChange={(value) =>
-                    updateField(
-                      "voltageMin",
-                      value
-                    )
+                    updateField("voltageMin", value)
                   }
                 />
 
                 <NumberField
                   label="Max Voltage (V)"
-                  value={
-                    form.voltageMax
-                  }
+                  value={form.voltageMax}
                   onChange={(value) =>
-                    updateField(
-                      "voltageMax",
-                      value
-                    )
+                    updateField("voltageMax", value)
                   }
                 />
 
                 <NumberField
                   label="Max Current (A)"
-                  value={
-                    form.currentMax
-                  }
+                  value={form.currentMax}
                   onChange={(value) =>
-                    updateField(
-                      "currentMax",
-                      value
-                    )
+                    updateField("currentMax", value)
                   }
                 />
 
                 <NumberField
                   label="Max Power (W)"
-                  value={
-                    form.powerMax
-                  }
+                  value={form.powerMax}
                   onChange={(value) =>
-                    updateField(
-                      "powerMax",
-                      value
-                    )
+                    updateField("powerMax", value)
                   }
                 />
               </div>
             </section>
 
             <section>
-              <SectionTitle>
-                Physical
-              </SectionTitle>
+              <SectionTitle>Physical</SectionTitle>
 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <NumberField
                   label="Mass (g)"
                   value={form.mass}
                   onChange={(value) =>
-                    updateField(
-                      "mass",
-                      value
-                    )
+                    updateField("mass", value)
                   }
                 />
 
@@ -482,10 +400,7 @@ export default function ComponentModal({
                   label="Length (mm)"
                   value={form.length}
                   onChange={(value) =>
-                    updateField(
-                      "length",
-                      value
-                    )
+                    updateField("length", value)
                   }
                 />
 
@@ -493,10 +408,7 @@ export default function ComponentModal({
                   label="Width (mm)"
                   value={form.width}
                   onChange={(value) =>
-                    updateField(
-                      "width",
-                      value
-                    )
+                    updateField("width", value)
                   }
                 />
 
@@ -504,31 +416,21 @@ export default function ComponentModal({
                   label="Height (mm)"
                   value={form.height}
                   onChange={(value) =>
-                    updateField(
-                      "height",
-                      value
-                    )
+                    updateField("height", value)
                   }
                 />
               </div>
             </section>
 
             <section>
-              <SectionTitle>
-                Cost
-              </SectionTitle>
+              <SectionTitle>Cost</SectionTitle>
 
               <div className="grid gap-4 md:grid-cols-2">
                 <NumberField
                   label="Unit Cost"
-                  value={
-                    form.unitCost
-                  }
+                  value={form.unitCost}
                   onChange={(value) =>
-                    updateField(
-                      "unitCost",
-                      value
-                    )
+                    updateField("unitCost", value)
                   }
                 />
 
@@ -539,7 +441,7 @@ export default function ComponentModal({
                     onChange={(event) =>
                       updateField(
                         "currency",
-                        event.target.value
+                        event.target.value,
                       )
                     }
                     placeholder="CAD"
@@ -549,103 +451,95 @@ export default function ComponentModal({
             </section>
 
             <section>
-  <SectionTitle>
-    Interfaces
-  </SectionTitle>
+              <SectionTitle>Interfaces</SectionTitle>
 
-  <Field label="Interfaces">
-    <div className="space-y-3">
-      {form.interfaces.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {form.interfaces.map(
-            (interfaceName, index) => {
-              const trimmed =
-                interfaceName.trim();
+              <Field label="Interfaces">
+                <div className="space-y-3">
+                  {form.interfaces.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {form.interfaces.map(
+                        (interfaceName, index) => {
+                          const trimmed =
+                            interfaceName.trim();
 
-              if (!trimmed) {
-                return null;
-              }
+                          if (!trimmed) {
+                            return null;
+                          }
 
-              return (
-                <div
-                  key={`${trimmed}-${index}`}
-                  className="flex items-center gap-2 rounded-lg border border-white/10 bg-[#15191f] px-3 py-1.5 text-xs text-white/70"
-                >
-                  <span>
-                    {trimmed}
-                  </span>
+                          return (
+                            <div
+                              key={`${trimmed}-${index}`}
+                              className="flex items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-1.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
+                            >
+                              <span>{trimmed}</span>
 
-                  <button
-                    type="button"
-                    onClick={() =>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setForm((current) => ({
+                                    ...current,
+                                    interfaces:
+                                      current.interfaces.filter(
+                                        (_, itemIndex) =>
+                                          itemIndex !== index,
+                                      ),
+                                  }))
+                                }
+                                className="text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] transition hover:text-[var(--aevra-text)]"
+                                aria-label={`Remove ${trimmed}`}
+                              >
+                                ×
+                              </button>
+                            </div>
+                          );
+                        },
+                      )}
+                    </div>
+                  )}
+
+                  <input
+                    className={controlClassName}
+                    placeholder="Add interface, e.g. USB-C"
+                    onKeyDown={(event) => {
+                      if (
+                        event.key !== "Enter" &&
+                        event.key !== ","
+                      ) {
+                        return;
+                      }
+
+                      event.preventDefault();
+
+                      const value =
+                        event.currentTarget.value.trim();
+
+                      if (!value) {
+                        return;
+                      }
+
+                      const newInterfaces = value
+                        .split(",")
+                        .map((item) => item.trim())
+                        .filter(Boolean);
+
                       setForm((current) => ({
                         ...current,
-                        interfaces:
-                          current.interfaces.filter(
-                            (_, itemIndex) =>
-                              itemIndex !==
-                              index
-                          ),
-                      }))
-                    }
-                    className="text-white/30 transition hover:text-white"
-                    aria-label={`Remove ${trimmed}`}
-                  >
-                    ×
-                  </button>
+                        interfaces: [
+                          ...current.interfaces,
+                          ...newInterfaces,
+                        ],
+                      }));
+
+                      event.currentTarget.value = "";
+                    }}
+                  />
                 </div>
-              );
-            }
-          )}
-        </div>
-      )}
+              </Field>
 
-      <input
-        className={controlClassName}
-        placeholder="Add interface, e.g. USB-C"
-        onKeyDown={(event) => {
-          if (
-            event.key !== "Enter" &&
-            event.key !== ","
-          ) {
-            return;
-          }
-
-          event.preventDefault();
-
-          const value =
-            event.currentTarget.value.trim();
-
-          if (!value) {
-            return;
-          }
-
-          const newInterfaces =
-            value
-              .split(",")
-              .map((item) => item.trim())
-              .filter(Boolean);
-
-          setForm((current) => ({
-            ...current,
-            interfaces: [
-              ...current.interfaces,
-              ...newInterfaces,
-            ],
-          }));
-
-          event.currentTarget.value = "";
-        }}
-      />
-    </div>
-  </Field>
-
-  <p className="mt-2 text-xs text-white/30">
-    Press Enter or comma to add an interface.
-  </p>
+              <p className="mt-2 text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
+                Press Enter or comma to add an interface.
+              </p>
             </section>
-
-
 
             <section>
               <SectionTitle>
@@ -656,13 +550,11 @@ export default function ComponentModal({
                 <Field label="Datasheet URL">
                   <input
                     className={controlClassName}
-                    value={
-                      form.datasheet
-                    }
+                    value={form.datasheet}
                     onChange={(event) =>
                       updateField(
                         "datasheet",
-                        event.target.value
+                        event.target.value,
                       )
                     }
                     placeholder="https://..."
@@ -673,10 +565,7 @@ export default function ComponentModal({
                   label="Notes"
                   value={form.notes}
                   onChange={(value) =>
-                    updateField(
-                      "notes",
-                      value
-                    )
+                    updateField("notes", value)
                   }
                   placeholder="Additional engineering notes..."
                 />
@@ -684,18 +573,18 @@ export default function ComponentModal({
             </section>
           </div>
 
-          <div className="flex justify-end gap-2 border-t border-white/10 bg-[#0f1115] px-6 py-4">
+          <div className="flex justify-end gap-2 border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2%,transparent)] px-6 py-4">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+              className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[var(--aevra-text)]"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90"
+              className="rounded-lg bg-[var(--aevra-text)] px-4 py-2 text-sm font-medium text-[var(--aevra-background)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)]"
             >
               {initialData
                 ? "Save Changes"
@@ -714,7 +603,7 @@ function SectionTitle({
   children: React.ReactNode;
 }) {
   return (
-    <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/50">
+    <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
       {children}
     </h3>
   );
@@ -731,11 +620,11 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-xs text-white/50">
+      <span className="mb-2 block text-xs text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
         {label}
 
         {required && (
-          <span className="ml-1 text-white">
+          <span className="ml-1 text-[var(--aevra-text)]">
             *
           </span>
         )}
@@ -753,9 +642,7 @@ function NumberField({
 }: {
   label: string;
   value: number | null;
-  onChange: (
-    value: number | null
-  ) => void;
+  onChange: (value: number | null) => void;
 }) {
   return (
     <Field label={label}>
@@ -763,15 +650,9 @@ function NumberField({
         className={controlClassName}
         type="number"
         step="any"
-        value={
-          value === null ? "" : value
-        }
+        value={value === null ? "" : value}
         onChange={(event) =>
-          onChange(
-            numberValue(
-              event.target.value
-            )
-          )
+          onChange(numberValue(event.target.value))
         }
       />
     </Field>
@@ -790,9 +671,7 @@ function SelectField({
     value: string;
     label: string;
   }>;
-  onChange: (
-    value: string
-  ) => void;
+  onChange: (value: string) => void;
 }) {
   return (
     <Field label={label}>
@@ -800,9 +679,7 @@ function SelectField({
         className={controlClassName}
         value={value}
         onChange={(event) =>
-          onChange(
-            event.target.value
-          )
+          onChange(event.target.value)
         }
       >
         {options.map((option) => (
@@ -826,9 +703,7 @@ function TextAreaField({
 }: {
   label: string;
   value: string;
-  onChange: (
-    value: string
-  ) => void;
+  onChange: (value: string) => void;
   placeholder?: string;
 }) {
   return (
@@ -838,9 +713,7 @@ function TextAreaField({
         rows={4}
         value={value}
         onChange={(event) =>
-          onChange(
-            event.target.value
-          )
+          onChange(event.target.value)
         }
         placeholder={placeholder}
       />

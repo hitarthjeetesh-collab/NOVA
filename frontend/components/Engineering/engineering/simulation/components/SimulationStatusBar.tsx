@@ -30,7 +30,7 @@ export default function SimulationStatusBar({
             : "Solver: Ready";
 
   return (
-    <div className="flex h-8 shrink-0 items-center border-t border-white/10 bg-[#0d1014] px-3 text-[10px] text-white/30">
+    <div className="flex h-8 shrink-0 items-center border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
       <div className="flex items-center gap-4">
         <span>
           Mesh:{" "}

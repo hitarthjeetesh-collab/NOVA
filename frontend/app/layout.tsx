@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+
 import GoogleAnalytics from "./GoogleAnalytics";
 import "./globals.css";
 

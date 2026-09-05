@@ -6,7 +6,7 @@ export interface ValidationResult {
 }
 
 export function validateSimulation(
-  state: SimulationState
+  state: SimulationState,
 ): ValidationResult {
   const errors: string[] = [];
 
@@ -29,7 +29,7 @@ export function validateSimulation(
   for (const load of state.loads) {
     if (!Number.isFinite(load.value) || load.value <= 0) {
       errors.push(
-        `Load ${load.id} must have a value greater than zero.`
+        `Load ${load.id} must have a value greater than zero.`,
       );
     }
   }

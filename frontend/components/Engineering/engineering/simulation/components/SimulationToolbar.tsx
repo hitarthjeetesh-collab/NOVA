@@ -28,19 +28,19 @@ export default function SimulationToolbar({
   const running = status === "running";
 
   return (
-    <div className="flex h-12 shrink-0 items-center border-b border-white/10 bg-[#0d1014] px-3">
+    <div className="flex h-12 shrink-0 items-center border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3">
       <div className="flex items-center gap-2">
-        <div className="text-sm font-medium text-white">
+        <div className="text-sm font-medium text-[var(--aevra-text)]">
           Simulation
         </div>
 
-        <div className="h-4 w-px bg-white/10" />
+        <div className="h-4 w-px bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]" />
 
         <button
           type="button"
           onClick={onRun}
           disabled={running}
-          className="flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] px-3 text-xs text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-8 items-center gap-1.5 rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] px-3 text-xs text-[var(--aevra-text)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_8%,transparent)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           <span className="text-[10px]">▶</span>
           Run
@@ -50,7 +50,7 @@ export default function SimulationToolbar({
           type="button"
           onClick={onStop}
           disabled={!running}
-          className="flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] px-3 text-xs text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-8 items-center gap-1.5 rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] px-3 text-xs text-[var(--aevra-text)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_8%,transparent)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           <span className="text-[10px]">■</span>
           Stop
@@ -59,7 +59,7 @@ export default function SimulationToolbar({
         <button
           type="button"
           onClick={onReset}
-          className="flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] px-3 text-xs text-white transition hover:bg-white/[0.08]"
+          className="flex h-8 items-center gap-1.5 rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] px-3 text-xs text-[var(--aevra-text)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_8%,transparent)]"
         >
           <span className="text-[11px]">↻</span>
           Reset
@@ -67,15 +67,15 @@ export default function SimulationToolbar({
       </div>
 
       <div className="ml-auto flex items-center gap-3">
-        <div className="hidden text-xs text-white/35 sm:block">
+        <div className="hidden text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)] sm:block">
           {analysisLabels[analysisType]}
         </div>
 
-        <div className="h-4 w-px bg-white/10" />
+        <div className="h-4 w-px bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]" />
 
         <button
           type="button"
-          className="rounded-md px-2 py-1 text-xs text-white/40 transition hover:bg-white/[0.05] hover:text-white/70"
+          className="rounded-md px-2 py-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
         >
           ⋮
         </button>

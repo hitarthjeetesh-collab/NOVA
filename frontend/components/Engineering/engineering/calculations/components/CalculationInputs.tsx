@@ -15,9 +15,9 @@ export default function CalculationInputs({
   onInputChange,
 }: CalculationInputsProps) {
   return (
-    <section className="rounded-xl border border-white/10 bg-white/[0.025]">
-      <div className="border-b border-white/10 px-4 py-3">
-        <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+    <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-3">
+        <p className="text-xs font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
           Inputs
         </p>
       </div>
@@ -28,17 +28,17 @@ export default function CalculationInputs({
             <div className="mb-2 flex items-center justify-between">
               <label
                 htmlFor={`input-${input.id}`}
-                className="text-sm text-white/75"
+                className="text-sm text-[color-mix(in_srgb,var(--aevra-text)_75%,transparent)]"
               >
                 {input.name}
               </label>
 
-              <span className="font-mono text-xs text-white/30">
+              <span className="font-mono text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                 {input.symbol}
               </span>
             </div>
 
-            <div className="flex h-10 overflow-hidden rounded-lg border border-white/10 bg-black/20 focus-within:border-white/20">
+            <div className="flex h-10 overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-background)_80%,transparent)] focus-within:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)]">
               <input
                 id={`input-${input.id}`}
                 type="number"
@@ -49,16 +49,16 @@ export default function CalculationInputs({
                     Number(event.target.value),
                   )
                 }
-                className="min-w-0 flex-1 bg-transparent px-3 text-sm text-white outline-none"
+                className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[var(--aevra-text)] outline-none"
               />
 
-              <div className="flex items-center border-l border-white/10 px-3 text-xs text-white/35">
+              <div className="flex items-center border-l border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-3 text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
                 {input.unit}
               </div>
             </div>
 
             {input.description && (
-              <p className="mt-1.5 text-[11px] text-white/30">
+              <p className="mt-1.5 text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                 {input.description}
               </p>
             )}

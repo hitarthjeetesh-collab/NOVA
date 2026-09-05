@@ -95,16 +95,14 @@ export default function SubsystemModal({
         }
       }}
     >
-      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#111419] shadow-2xl">
+      <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[var(--aevra-surface)] shadow-2xl">
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
           <div>
-            <h2 className="text-lg font-semibold">
-              {editing
-                ? "Edit Subsystem"
-                : "Add Subsystem"}
+            <h2 className="text-lg font-semibold text-[var(--aevra-text)]">
+              {editing ? "Edit Subsystem" : "Add Subsystem"}
             </h2>
 
-            <p className="mt-1 text-xs text-white/40">
+            <p className="mt-1 text-xs text-[var(--aevra-text-muted)]">
               Define a major system within the architecture.
             </p>
           </div>
@@ -112,7 +110,7 @@ export default function SubsystemModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg px-2 py-1 text-white/40 transition hover:bg-white/10 hover:text-white"
+            className="rounded-lg px-2 py-1 text-[var(--aevra-text-muted)] transition hover:bg-white/10 hover:text-[var(--aevra-text)]"
           >
             ×
           </button>
@@ -120,7 +118,7 @@ export default function SubsystemModal({
 
         <form onSubmit={handleSubmit} className="space-y-5 p-6">
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-sm text-[var(--aevra-text-muted)]">
               Name
             </label>
 
@@ -129,19 +127,19 @@ export default function SubsystemModal({
               onChange={(event) => setName(event.target.value)}
               placeholder="Power System"
               autoFocus
-              className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/25 focus:border-[var(--aevra-accent)]"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-sm text-[var(--aevra-text-muted)]">
               Category
             </label>
 
             <select
               value={category}
               onChange={(event) => setCategory(event.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-[var(--aevra-accent)]"
             >
               <option>Mechanical</option>
               <option>Electrical</option>
@@ -157,33 +155,29 @@ export default function SubsystemModal({
           </div>
 
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-sm text-[var(--aevra-text-muted)]">
               Description
             </label>
 
             <textarea
               value={description}
-              onChange={(event) =>
-                setDescription(event.target.value)
-              }
+              onChange={(event) => setDescription(event.target.value)}
               placeholder="What does this subsystem do?"
               rows={3}
-              className="w-full resize-none rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
+              className="w-full resize-none rounded-lg border border-white/10 bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/25 focus:border-[var(--aevra-accent)]"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-sm text-[var(--aevra-text-muted)]">
               Elements
             </label>
 
             <input
               value={elements}
-              onChange={(event) =>
-                setElements(event.target.value)
-              }
+              onChange={(event) => setElements(event.target.value)}
               placeholder="Battery, BMS, Power Distribution"
-              className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/25 focus:border-[var(--aevra-accent)]"
             />
 
             <p className="mt-1 text-xs text-white/25">
@@ -192,7 +186,7 @@ export default function SubsystemModal({
           </div>
 
           <div>
-            <label className="mb-2 block text-sm text-white/60">
+            <label className="mb-2 block text-sm text-[var(--aevra-text-muted)]">
               Status
             </label>
 
@@ -200,12 +194,10 @@ export default function SubsystemModal({
               value={status}
               onChange={(event) =>
                 setStatus(
-                  event.target.value as
-                    | "Defined"
-                    | "Needs Work"
+                  event.target.value as "Defined" | "Needs Work"
                 )
               }
-              className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full rounded-lg border border-white/10 bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-[var(--aevra-accent)]"
             >
               <option>Defined</option>
               <option>Needs Work</option>
@@ -216,7 +208,7 @@ export default function SubsystemModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg px-4 py-2 text-sm text-white/50 transition hover:bg-white/5 hover:text-white"
+              className="rounded-lg px-4 py-2 text-sm text-[var(--aevra-text-muted)] transition hover:bg-white/5 hover:text-[var(--aevra-text)]"
             >
               Cancel
             </button>
@@ -224,7 +216,7 @@ export default function SubsystemModal({
             <button
               type="submit"
               disabled={!name.trim()}
-              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg bg-[var(--aevra-accent)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--aevra-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40"
             >
               {editing ? "Save Changes" : "Add Subsystem"}
             </button>

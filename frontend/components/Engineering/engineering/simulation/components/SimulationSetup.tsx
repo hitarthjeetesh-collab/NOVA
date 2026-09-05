@@ -15,31 +15,28 @@ interface SimulationSetupProps {
   mesh: MeshSettings;
   loads: SimulationLoad[];
   constraints: SimulationConstraint[];
-
   onAnalysisTypeChange: (value: AnalysisType) => void;
   onMaterialChange: (value: MaterialType) => void;
   onMeshChange: (value: Partial<MeshSettings>) => void;
-
   onAddLoad: () => void;
   onUpdateLoad: (
     id: string,
-    updates: Partial<SimulationLoad>
+    updates: Partial<SimulationLoad>,
   ) => void;
   onRemoveLoad: (id: string) => void;
-
   onAddConstraint: () => void;
   onUpdateConstraint: (
     id: string,
-    updates: Partial<SimulationConstraint>
+    updates: Partial<SimulationConstraint>,
   ) => void;
   onRemoveConstraint: (id: string) => void;
 }
 
 const inputClass =
-  "h-8 w-full rounded-md border border-white/10 bg-white/[0.04] px-2.5 text-xs text-white outline-none transition focus:border-white/25";
+  "h-8 w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] px-2.5 text-xs text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]";
 
 const selectClass =
-  "h-8 w-full rounded-md border border-white/10 bg-[#11151a] px-2.5 text-xs text-white outline-none transition focus:border-white/25";
+  "h-8 w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-2.5 text-xs text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]";
 
 export default function SimulationSetup({
   analysisType,
@@ -58,23 +55,24 @@ export default function SimulationSetup({
   onRemoveConstraint,
 }: SimulationSetupProps) {
   return (
-    <aside className="flex w-64 shrink-0 flex-col overflow-hidden border-r border-white/10 bg-[#0d1014]">
-      <div className="border-b border-white/10 px-4 py-3">
-        <div className="text-xs font-medium text-white">
+    <aside className="flex w-64 shrink-0 flex-col overflow-hidden border-r border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-3">
+        <div className="text-xs font-medium text-[var(--aevra-text)]">
           Simulation Setup
         </div>
-        <div className="mt-1 text-[11px] text-white/35">
+
+        <div className="mt-1 text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
           Define the analysis and boundary conditions.
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">
         <section className="mb-6">
-          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
             Analysis
           </div>
 
-          <label className="mb-1.5 block text-[11px] text-white/50">
+          <label className="mb-1.5 block text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
             Type
           </label>
 
@@ -82,7 +80,7 @@ export default function SimulationSetup({
             value={analysisType}
             onChange={(event) =>
               onAnalysisTypeChange(
-                event.target.value as AnalysisType
+                event.target.value as AnalysisType,
               )
             }
             className={selectClass}
@@ -98,11 +96,11 @@ export default function SimulationSetup({
         </section>
 
         <section className="mb-6">
-          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
             Material
           </div>
 
-          <label className="mb-1.5 block text-[11px] text-white/50">
+          <label className="mb-1.5 block text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
             Material
           </label>
 
@@ -110,7 +108,7 @@ export default function SimulationSetup({
             value={material}
             onChange={(event) =>
               onMaterialChange(
-                event.target.value as MaterialType
+                event.target.value as MaterialType,
               )
             }
             className={selectClass}
@@ -126,17 +124,17 @@ export default function SimulationSetup({
         </section>
 
         <section className="mb-6">
-          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-white/30">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
             Mesh
           </div>
 
           <div className="mb-3">
             <div className="mb-1.5 flex items-center justify-between">
-              <label className="text-[11px] text-white/50">
+              <label className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
                 Element Size
               </label>
 
-              <span className="text-[10px] text-white/30">
+              <span className="text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                 mm
               </span>
             </div>
@@ -156,7 +154,7 @@ export default function SimulationSetup({
           </div>
 
           <div className="mb-3">
-            <label className="mb-1.5 block text-[11px] text-white/50">
+            <label className="mb-1.5 block text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
               Quality
             </label>
 
@@ -164,7 +162,8 @@ export default function SimulationSetup({
               value={mesh.quality}
               onChange={(event) =>
                 onMeshChange({
-                  quality: event.target.value as MeshSettings["quality"],
+                  quality:
+                    event.target.value as MeshSettings["quality"],
                 })
               }
               className={selectClass}
@@ -175,7 +174,7 @@ export default function SimulationSetup({
             </select>
           </div>
 
-          <label className="flex cursor-pointer items-center gap-2 text-[11px] text-white/55">
+          <label className="flex cursor-pointer items-center gap-2 text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)]">
             <input
               type="checkbox"
               checked={mesh.adaptive}
@@ -184,7 +183,7 @@ export default function SimulationSetup({
                   adaptive: event.target.checked,
                 })
               }
-              className="h-3.5 w-3.5 accent-white"
+              className="h-3.5 w-3.5 accent-[var(--aevra-text)]"
             />
             Adaptive refinement
           </label>
@@ -192,14 +191,14 @@ export default function SimulationSetup({
 
         <section className="mb-6">
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
               Loads
             </div>
 
             <button
               type="button"
               onClick={onAddLoad}
-              className="text-[11px] text-white/45 transition hover:text-white"
+              className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)] transition hover:text-[var(--aevra-text)]"
             >
               + Add
             </button>
@@ -209,10 +208,10 @@ export default function SimulationSetup({
             {loads.map((load) => (
               <div
                 key={load.id}
-                className="rounded-md border border-white/10 bg-white/[0.025] p-2.5"
+                className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] p-2.5"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[11px] text-white/65">
+                  <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_65%,transparent)]">
                     {load.type === "force"
                       ? "Force"
                       : load.type === "pressure"
@@ -225,7 +224,7 @@ export default function SimulationSetup({
                   <button
                     type="button"
                     onClick={() => onRemoveLoad(load.id)}
-                    className="text-[11px] text-white/25 hover:text-white/70"
+                    className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
                   </button>
@@ -281,14 +280,14 @@ export default function SimulationSetup({
 
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/30">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
               Constraints
             </div>
 
             <button
               type="button"
               onClick={onAddConstraint}
-              className="text-[11px] text-white/45 transition hover:text-white"
+              className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)] transition hover:text-[var(--aevra-text)]"
             >
               + Add
             </button>
@@ -298,10 +297,10 @@ export default function SimulationSetup({
             {constraints.map((constraint) => (
               <div
                 key={constraint.id}
-                className="rounded-md border border-white/10 bg-white/[0.025] p-2.5"
+                className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] p-2.5"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[11px] text-white/65">
+                  <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_65%,transparent)]">
                     Constraint
                   </span>
 
@@ -310,7 +309,7 @@ export default function SimulationSetup({
                     onClick={() =>
                       onRemoveConstraint(constraint.id)
                     }
-                    className="text-[11px] text-white/25 hover:text-white/70"
+                    className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
                   </button>
@@ -320,8 +319,7 @@ export default function SimulationSetup({
                   value={constraint.type}
                   onChange={(event) =>
                     onUpdateConstraint(constraint.id, {
-                      type:
-                        event.target.value as ConstraintType,
+                      type: event.target.value as ConstraintType,
                     })
                   }
                   className={`${selectClass} mb-2`}

@@ -17,17 +17,17 @@ export default function CalculationCard({
       onClick={onClick}
       className={`w-full rounded-xl border p-3 text-left transition ${
         selected
-          ? "border-white/15 bg-white/10"
-          : "border-transparent bg-white/[0.025] hover:border-white/10 hover:bg-white/[0.05]"
+          ? "border-[color-mix(in_srgb,var(--aevra-text)_15%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]"
+          : "border-transparent bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] hover:border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)]"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-white">
+          <p className="truncate text-sm font-medium text-[var(--aevra-text)]">
             {calculation.name}
           </p>
 
-          <p className="mt-1 text-xs text-white/40">
+          <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
             {calculation.category}
           </p>
         </div>
@@ -38,12 +38,12 @@ export default function CalculationCard({
               ? "bg-emerald-400"
               : calculation.status === "warning"
                 ? "bg-amber-400"
-                : "bg-white/30"
+                : "bg-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
           }`}
         />
       </div>
 
-      <p className="mt-2 line-clamp-2 text-xs leading-5 text-white/45">
+      <p className="mt-2 line-clamp-2 text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_45%,transparent)]">
         {calculation.description}
       </p>
     </button>

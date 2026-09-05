@@ -2,7 +2,6 @@
 
 import {
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -36,7 +35,6 @@ import ConnectionModal, {
 import SystemModal from "./SystemModal";
 
 export type ArchitectureNode = Node<SystemNodeData>;
-
 type ArchitectureEdge = Edge<ConnectionData>;
 
 /* -------------------------------------------------------------------------- */
@@ -88,7 +86,6 @@ export const initialArchitectureNodes: ArchitectureNode[] = [
       ],
     },
   },
-
   {
     id: "sensors",
     type: "system",
@@ -144,7 +141,6 @@ export const initialArchitectureNodes: ArchitectureNode[] = [
       ],
     },
   },
-
   {
     id: "computing",
     type: "system",
@@ -214,7 +210,6 @@ export const initialArchitectureNodes: ArchitectureNode[] = [
       ],
     },
   },
-
   {
     id: "control",
     type: "system",
@@ -246,7 +241,6 @@ export const initialArchitectureNodes: ArchitectureNode[] = [
       parameters: [],
     },
   },
-
   {
     id: "jetson",
     type: "system",
@@ -356,7 +350,6 @@ export const initialArchitectureNodes: ArchitectureNode[] = [
       ],
     },
   },
-
   {
     id: "ai",
     type: "system",
@@ -414,7 +407,6 @@ const initialEdges: ArchitectureEdge[] = [
         "computing-power",
     },
   },
-
   {
     id: "sensors-computing",
     source: "sensors",
@@ -433,7 +425,6 @@ const initialEdges: ArchitectureEdge[] = [
         "computing-ethernet",
     },
   },
-
   {
     id: "computing-control",
     source: "computing",
@@ -452,7 +443,6 @@ const initialEdges: ArchitectureEdge[] = [
         "control-can",
     },
   },
-
   {
     id: "jetson-ai",
     source: "jetson",
@@ -582,7 +572,7 @@ export default function Architecture({
   );
 
   /* ------------------------------------------------------------------------ */
-  /* React Flow node changes                                                  */
+  /* React Flow node changes                                                   */
   /* ------------------------------------------------------------------------ */
 
   const onNodesChange =
@@ -599,7 +589,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* React Flow edge changes                                                  */
+  /* React Flow edge changes                                                   */
   /* ------------------------------------------------------------------------ */
 
   const onEdgesChange =
@@ -616,7 +606,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Enter subsystem                                                          */
+  /* Enter subsystem                                                           */
   /* ------------------------------------------------------------------------ */
 
   const enterSystem =
@@ -628,7 +618,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Go back                                                                  */
+  /* Go back                                                                   */
   /* ------------------------------------------------------------------------ */
 
   const goBack = useCallback(() => {
@@ -652,7 +642,7 @@ export default function Architecture({
   }, [currentParentId, nodes]);
 
   /* ------------------------------------------------------------------------ */
-  /* Breadcrumbs                                                              */
+  /* Breadcrumbs                                                               */
   /* ------------------------------------------------------------------------ */
 
   const breadcrumbs =
@@ -672,16 +662,14 @@ export default function Architecture({
         }
 
         result.unshift(node);
-
-        id =
-          node.data.parentId ?? null;
+        id = node.data.parentId ?? null;
       }
 
       return result;
     }, [currentParentId, nodes]);
 
   /* ------------------------------------------------------------------------ */
-  /* Current system                                                           */
+  /* Current system                                                            */
   /* ------------------------------------------------------------------------ */
 
   const currentSystem =
@@ -693,7 +681,7 @@ export default function Architecture({
       : undefined;
 
   /* ------------------------------------------------------------------------ */
-  /* System editor                                                            */
+  /* System editor                                                              */
   /* ------------------------------------------------------------------------ */
 
   const openSystemEditor =
@@ -706,7 +694,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Delete system                                                            */
+  /* Delete system                                                             */
   /* ------------------------------------------------------------------------ */
 
   const deleteSystem =
@@ -788,7 +776,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Visible nodes                                                            */
+  /* Visible nodes                                                             */
   /* ------------------------------------------------------------------------ */
 
   const visibleNodes =
@@ -801,13 +789,10 @@ export default function Architecture({
         )
         .map((node) => ({
           ...node,
-
           data: {
             ...node.data,
-
             onEdit: () =>
               openSystemEditor(node.id),
-
             onDelete: () =>
               deleteSystem(node.id),
           },
@@ -820,7 +805,7 @@ export default function Architecture({
     ]);
 
   /* ------------------------------------------------------------------------ */
-  /* Visible node IDs                                                         */
+  /* Visible node IDs                                                          */
   /* ------------------------------------------------------------------------ */
 
   const visibleNodeIds = useMemo(
@@ -834,7 +819,7 @@ export default function Architecture({
   );
 
   /* ------------------------------------------------------------------------ */
-  /* Visible edges                                                            */
+  /* Visible edges                                                             */
   /* ------------------------------------------------------------------------ */
 
   const visibleEdges =
@@ -847,7 +832,7 @@ export default function Architecture({
     }, [edges, visibleNodeIds]);
 
   /* ------------------------------------------------------------------------ */
-  /* Add system                                                               */
+  /* Add system                                                                */
   /* ------------------------------------------------------------------------ */
 
   function handleAddSystem() {
@@ -856,7 +841,7 @@ export default function Architecture({
   }
 
   /* ------------------------------------------------------------------------ */
-  /* System submit                                                            */
+  /* System submit                                                             */
   /* ------------------------------------------------------------------------ */
 
   function handleSystemSubmit(
@@ -909,7 +894,7 @@ export default function Architecture({
   }
 
   /* ------------------------------------------------------------------------ */
-  /* New connection                                                           */
+  /* New connection                                                            */
   /* ------------------------------------------------------------------------ */
 
   const onConnect: OnConnect =
@@ -933,7 +918,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Connection label                                                         */
+  /* Connection label                                                          */
   /* ------------------------------------------------------------------------ */
 
   function getConnectionLabel(
@@ -963,7 +948,7 @@ export default function Architecture({
   }
 
   /* ------------------------------------------------------------------------ */
-  /* Open connection editor                                                   */
+  /* Open connection editor                                                    */
   /* ------------------------------------------------------------------------ */
 
   const openConnectionEditor =
@@ -977,7 +962,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Delete connection                                                        */
+  /* Delete connection                                                         */
   /* ------------------------------------------------------------------------ */
 
   const deleteConnection =
@@ -1012,13 +997,12 @@ export default function Architecture({
 
         setEdges((current) =>
           current.filter(
-            (item) => item.id !== edgeId
+            (item) =>
+              item.id !== edgeId
           )
         );
 
-        if (
-          editingEdgeId === edgeId
-        ) {
+        if (editingEdgeId === edgeId) {
           setEditingEdgeId(null);
           setConnectionModalOpen(false);
         }
@@ -1027,7 +1011,7 @@ export default function Architecture({
     );
 
   /* ------------------------------------------------------------------------ */
-  /* Connection submit                                                        */
+  /* Connection submit                                                         */
   /* ------------------------------------------------------------------------ */
 
   function handleConnectionSubmit(
@@ -1044,18 +1028,14 @@ export default function Architecture({
 
           return {
             ...edge,
-
             sourceHandle:
               data.sourceInterfaceId ??
               edge.sourceHandle,
-
             targetHandle:
               data.targetInterfaceId ??
               edge.targetHandle,
-
             label:
               getConnectionLabel(data),
-
             data,
           };
         })
@@ -1077,24 +1057,18 @@ export default function Architecture({
 
     const newEdge: ArchitectureEdge = {
       id: crypto.randomUUID(),
-
       source:
         pendingConnection.source,
-
       target:
         pendingConnection.target,
-
       sourceHandle:
         data.sourceInterfaceId ??
         pendingConnection.sourceHandle,
-
       targetHandle:
         data.targetInterfaceId ??
         pendingConnection.targetHandle,
-
       label:
         getConnectionLabel(data),
-
       data,
     };
 
@@ -1110,7 +1084,7 @@ export default function Architecture({
   }
 
   /* ------------------------------------------------------------------------ */
-  /* Editing node                                                             */
+  /* Editing node                                                              */
   /* ------------------------------------------------------------------------ */
 
   const editingNode =
@@ -1122,7 +1096,7 @@ export default function Architecture({
       : undefined;
 
   /* ------------------------------------------------------------------------ */
-  /* Editing edge                                                             */
+  /* Editing edge                                                              */
   /* ------------------------------------------------------------------------ */
 
   const editingEdge =
@@ -1134,7 +1108,7 @@ export default function Architecture({
       : undefined;
 
   /* ------------------------------------------------------------------------ */
-  /* Connection source node                                                   */
+  /* Connection source node                                                    */
   /* ------------------------------------------------------------------------ */
 
   const sourceNode =
@@ -1153,7 +1127,7 @@ export default function Architecture({
         : undefined;
 
   /* ------------------------------------------------------------------------ */
-  /* Connection target node                                                   */
+  /* Connection target node                                                    */
   /* ------------------------------------------------------------------------ */
 
   const targetNode =
@@ -1185,23 +1159,23 @@ export default function Architecture({
     null;
 
   /* ------------------------------------------------------------------------ */
-  /* Render                                                                   */
+  /* Render                                                                    */
   /* ------------------------------------------------------------------------ */
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[#0b0d10]">
+    <div className="relative h-full w-full overflow-hidden bg-[var(--aevra-background)]">
       <div className="absolute left-4 top-4 z-20 flex items-center gap-2">
         {currentParentId && (
           <button
             type="button"
             onClick={goBack}
-            className="rounded-lg border border-white/10 bg-[#15191f] px-3 py-2 text-sm text-white/70 shadow-lg transition hover:bg-[#1c2128] hover:text-white"
+            className="rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text-muted)] shadow-lg transition hover:bg-[var(--aevra-surface-light)] hover:text-[var(--aevra-text)]"
           >
             ← Back
           </button>
         )}
 
-        <div className="flex items-center rounded-lg border border-white/10 bg-[#15191f]/95 px-3 py-2 text-sm shadow-lg backdrop-blur">
+        <div className="flex items-center rounded-lg border border-white/10 bg-[var(--aevra-surface)]/95 px-3 py-2 text-sm shadow-lg backdrop-blur">
           <button
             type="button"
             onClick={() =>
@@ -1209,8 +1183,8 @@ export default function Architecture({
             }
             className={
               currentParentId
-                ? "text-white/40 hover:text-white"
-                : "text-white"
+                ? "text-[var(--aevra-text-muted)] hover:text-[var(--aevra-text)]"
+                : "text-[var(--aevra-text)]"
             }
           >
             ORION
@@ -1233,10 +1207,9 @@ export default function Architecture({
                   )
                 }
                 className={
-                  node.id ===
-                  currentParentId
-                    ? "text-white"
-                    : "text-white/40 hover:text-white"
+                  node.id === currentParentId
+                    ? "text-[var(--aevra-text)]"
+                    : "text-[var(--aevra-text-muted)] hover:text-[var(--aevra-text)]"
                 }
               >
                 {node.data.label}
@@ -1248,18 +1221,18 @@ export default function Architecture({
         <button
           type="button"
           onClick={handleAddSystem}
-          className="rounded-lg border border-white/10 bg-[#15191f] px-4 py-2 text-sm font-medium text-white shadow-lg transition hover:bg-[#1c2128]"
+          className="rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-4 py-2 text-sm font-medium text-[var(--aevra-text)] shadow-lg transition hover:bg-[var(--aevra-surface-light)]"
         >
           + Add System
         </button>
 
-        <div className="rounded-lg border border-white/10 bg-[#15191f]/90 px-3 py-2 text-xs text-white/40 backdrop-blur">
+        <div className="rounded-lg border border-white/10 bg-[var(--aevra-surface)]/90 px-3 py-2 text-xs text-[var(--aevra-text-muted)] backdrop-blur">
           Double-click a system to enter
         </div>
       </div>
 
       {currentSystem && (
-        <div className="absolute bottom-4 left-4 z-10 rounded-lg border border-white/10 bg-[#15191f]/90 px-3 py-2 text-xs text-white/40 backdrop-blur">
+        <div className="absolute bottom-4 left-4 z-10 rounded-lg border border-white/10 bg-[var(--aevra-surface)]/90 px-3 py-2 text-xs text-[var(--aevra-text-muted)] backdrop-blur">
           {currentSystem.data.label}
 
           <span className="mx-2 text-white/20">
@@ -1323,7 +1296,7 @@ export default function Architecture({
         <MiniMap
           pannable
           zoomable
-          nodeColor="#3a424d"
+          nodeColor="var(--aevra-surface-light)"
         />
       </ReactFlow>
 

@@ -76,8 +76,8 @@ export default function Requirements() {
                 ...requirement,
                 ...data,
               }
-            : requirement
-        )
+            : requirement,
+        ),
       );
     } else {
       setRequirements((current) => [
@@ -94,9 +94,7 @@ export default function Requirements() {
 
   function deleteRequirement(id: string) {
     setRequirements((current) =>
-      current.filter(
-        (requirement) => requirement.id !== id
-      )
+      current.filter((requirement) => requirement.id !== id),
     );
   }
 
@@ -115,8 +113,9 @@ export default function Requirements() {
           </div>
 
           <button
+            type="button"
             onClick={openAddModal}
-            className="shrink-0 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-white/90"
+            className="shrink-0 rounded-lg bg-[var(--aevra-accent)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--aevra-accent-hover)]"
           >
             + Add Requirement
           </button>
@@ -140,8 +139,9 @@ export default function Requirements() {
             </p>
 
             <button
+              type="button"
               onClick={openAddModal}
-              className="mt-4 rounded-lg bg-white px-4 py-2 text-sm font-medium text-black"
+              className="mt-4 rounded-lg bg-[var(--aevra-accent)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--aevra-accent-hover)]"
             >
               Add Requirement
             </button>

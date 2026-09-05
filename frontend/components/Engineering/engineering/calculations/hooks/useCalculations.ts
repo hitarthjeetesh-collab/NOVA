@@ -1,14 +1,16 @@
 "use client";
 
 import { useMemo, useState } from "react";
+
 import { INITIAL_CALCULATIONS } from "../constants";
+
 import type {
   Calculation,
   CalculationCategory,
 } from "../types/calculations";
+
 import {
   cloneCalculation,
-  getInputValue,
   validateCalculation,
 } from "../utils/calculationHelpers";
 
@@ -21,6 +23,7 @@ export function useCalculations() {
   );
 
   const [search, setSearch] = useState("");
+
   const [category, setCategory] = useState<
     "All" | CalculationCategory
   >("All");

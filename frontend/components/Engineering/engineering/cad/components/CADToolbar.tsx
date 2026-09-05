@@ -17,7 +17,7 @@ export default function CADToolbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="relative flex h-10 shrink-0 items-center border-b border-white/[0.06] bg-[#0d0f13] px-2">
+    <div className="relative flex h-10 shrink-0 items-center border-b border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] bg-[var(--aevra-surface)] px-2">
       {/* Main tools */}
       <div className="flex items-center gap-0.5">
         {tools.map((tool) => (
@@ -28,8 +28,8 @@ export default function CADToolbar() {
             title={tool.label}
             className={`flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs transition ${
               activeTool === tool.label
-                ? "bg-white/[0.08] text-white"
-                : "text-white/40 hover:bg-white/[0.05] hover:text-white/75"
+                ? "bg-[color-mix(in_srgb,var(--aevra-text)_8%,transparent)] text-[var(--aevra-text)]"
+                : "text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_75%,transparent)]"
             }`}
           >
             <span className="text-sm">{tool.icon}</span>
@@ -38,13 +38,13 @@ export default function CADToolbar() {
         ))}
       </div>
 
-      <div className="mx-2 h-5 w-px bg-white/[0.07]" />
+      <div className="mx-2 h-5 w-px bg-[color-mix(in_srgb,var(--aevra-text)_7%,transparent)]" />
 
       {/* Undo / Redo */}
       <button
         type="button"
         title="Undo"
-        className="flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs text-white/40 transition hover:bg-white/[0.05] hover:text-white/75"
+        className="flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_75%,transparent)]"
       >
         <span>↻</span>
         Undo
@@ -53,7 +53,7 @@ export default function CADToolbar() {
       <button
         type="button"
         title="Redo"
-        className="flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs text-white/40 transition hover:bg-white/[0.05] hover:text-white/75"
+        className="flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_75%,transparent)]"
       >
         <span>↶</span>
         Redo
@@ -63,14 +63,14 @@ export default function CADToolbar() {
       <div className="ml-auto flex items-center gap-1">
         <button
           type="button"
-          className="rounded-md px-2.5 py-1.5 text-xs text-white/35 transition hover:bg-white/[0.05] hover:text-white/70"
+          className="rounded-md px-2.5 py-1.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
         >
           Grid
         </button>
 
         <button
           type="button"
-          className="rounded-md px-2.5 py-1.5 text-xs text-white/35 transition hover:bg-white/[0.05] hover:text-white/70"
+          className="rounded-md px-2.5 py-1.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
         >
           Snap
         </button>
@@ -80,17 +80,17 @@ export default function CADToolbar() {
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             title="More"
-            className="flex h-8 items-center justify-center rounded-md px-2 text-white/35 transition hover:bg-white/[0.05] hover:text-white/70"
+            className="flex h-8 items-center justify-center rounded-md px-2 text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
           >
             ⋯
           </button>
 
           {menuOpen && (
-            <div className="absolute right-0 top-9 z-50 w-40 overflow-hidden rounded-lg border border-white/[0.08] bg-[#111419] p-1 shadow-2xl">
+            <div className="absolute right-0 top-9 z-50 w-40 overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_8%,transparent)] bg-[var(--aevra-surface)] p-1 shadow-2xl">
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-white/55 hover:bg-white/[0.06] hover:text-white"
+                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] hover:text-[var(--aevra-text)]"
               >
                 Save
               </button>
@@ -98,17 +98,17 @@ export default function CADToolbar() {
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-white/55 hover:bg-white/[0.06] hover:text-white"
+                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] hover:text-[var(--aevra-text)]"
               >
                 Export
               </button>
 
-              <div className="my-1 h-px bg-white/[0.06]" />
+              <div className="my-1 h-px bg-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)]" />
 
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-white/55 hover:bg-white/[0.06] hover:text-white"
+                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] hover:text-[var(--aevra-text)]"
               >
                 Document settings
               </button>
@@ -116,7 +116,7 @@ export default function CADToolbar() {
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-white/55 hover:bg-white/[0.06] hover:text-white"
+                className="flex w-full rounded-md px-3 py-2 text-left text-xs text-[color-mix(in_srgb,var(--aevra-text)_55%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] hover:text-[var(--aevra-text)]"
               >
                 Keyboard shortcuts
               </button>

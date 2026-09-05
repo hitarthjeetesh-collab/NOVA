@@ -9,7 +9,7 @@ import type {
 interface ManufacturingSetupProps {
   settings: ManufacturingSettings;
   onChange: (
-    updates: Partial<ManufacturingSettings>
+    updates: Partial<ManufacturingSettings>,
   ) => void;
 }
 
@@ -41,15 +41,15 @@ export default function ManufacturingSetup({
   onChange,
 }: ManufacturingSetupProps) {
   return (
-    <aside className="w-60 shrink-0 overflow-y-auto border-r border-white/10">
-      <div className="border-b border-white/10 p-4">
-        <p className="text-xs font-semibold text-white/80">
+    <aside className="w-60 shrink-0 overflow-y-auto border-r border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)]">
+      <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
+        <p className="text-xs font-semibold text-[color-mix(in_srgb,var(--aevra-text)_80%,transparent)]">
           Manufacturing Setup
         </p>
       </div>
 
-      <section className="border-b border-white/10 p-4">
-        <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-white/30">
+      <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
+        <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
           Process
         </p>
 
@@ -57,17 +57,17 @@ export default function ManufacturingSetup({
           value={settings.process}
           onChange={(event) =>
             onChange({
-              process: event.target
-                .value as ManufacturingProcess,
+              process:
+                event.target.value as ManufacturingProcess,
             })
           }
-          className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs text-white outline-none"
+          className="w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-3 py-2 text-xs text-[var(--aevra-text)] outline-none"
         >
           {processes.map((item) => (
             <option
               key={item.value}
               value={item.value}
-              className="bg-[#101318]"
+              className="bg-[var(--aevra-surface)]"
             >
               {item.label}
             </option>
@@ -75,8 +75,8 @@ export default function ManufacturingSetup({
         </select>
       </section>
 
-      <section className="border-b border-white/10 p-4">
-        <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-white/30">
+      <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
+        <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
           Material
         </p>
 
@@ -84,17 +84,17 @@ export default function ManufacturingSetup({
           value={settings.material}
           onChange={(event) =>
             onChange({
-              material: event.target
-                .value as ManufacturingMaterial,
+              material:
+                event.target.value as ManufacturingMaterial,
             })
           }
-          className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-xs text-white outline-none"
+          className="w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-3 py-2 text-xs text-[var(--aevra-text)] outline-none"
         >
           {materials.map((item) => (
             <option
               key={item.value}
               value={item.value}
-              className="bg-[#101318]"
+              className="bg-[var(--aevra-surface)]"
             >
               {item.label}
             </option>
@@ -103,7 +103,7 @@ export default function ManufacturingSetup({
       </section>
 
       <section className="p-4">
-        <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-white/30">
+        <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
           Parameters
         </p>
 
@@ -160,11 +160,11 @@ function NumberField({
 }: NumberFieldProps) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs text-white/50">
+      <span className="mb-1.5 block text-xs text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
         {label}
       </span>
 
-      <div className="flex items-center rounded-md border border-white/10 bg-white/5">
+      <div className="flex items-center rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)]">
         <input
           type="number"
           value={value}
@@ -173,10 +173,10 @@ function NumberField({
           onChange={(event) =>
             onChange(Number(event.target.value))
           }
-          className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none"
+          className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-[var(--aevra-text)] outline-none"
         />
 
-        <span className="pr-3 text-[11px] text-white/30">
+        <span className="pr-3 text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
           {unit}
         </span>
       </div>

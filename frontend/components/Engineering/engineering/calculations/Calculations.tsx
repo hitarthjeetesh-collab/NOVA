@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+
 import type { Calculation } from "./types/calculations";
+
 import { useCalculations } from "./hooks/useCalculations";
+
 import CalculationList from "./components/CalculationList";
 import CalculationWorkspace from "./components/CalculationWorkspace";
 import NewCalculationModal from "./components/modals/NewCalculationModal";
+
 import ResizablePanel from "../ui/ResizablePanel";
 
 interface CalculationsProps {
@@ -29,14 +33,9 @@ export default function Calculations({
     addCalculation,
   } = useCalculations();
 
-  const [newCalculationOpen, setNewCalculationOpen] =
-    useState(false);
-
-  const [libraryWidth, setLibraryWidth] =
-    useState(300);
-
-  const [libraryCollapsed, setLibraryCollapsed] =
-    useState(false);
+  const [newCalculationOpen, setNewCalculationOpen] = useState(false);
+  const [libraryWidth, setLibraryWidth] = useState(300);
+  const [libraryCollapsed, setLibraryCollapsed] = useState(false);
 
   function handleCreate(calculation: Calculation) {
     addCalculation(calculation);
@@ -53,9 +52,7 @@ export default function Calculations({
           maxSize={500}
           onSizeChange={setLibraryWidth}
           collapsed={false}
-          onToggleCollapse={() =>
-            setLibraryCollapsed(true)
-          }
+          onToggleCollapse={() => setLibraryCollapsed(true)}
           className="h-full"
         >
           <CalculationList
@@ -66,20 +63,16 @@ export default function Calculations({
             onSearchChange={setSearch}
             onCategoryChange={setCategory}
             onSelect={setSelectedId}
-            onNewCalculation={() =>
-              setNewCalculationOpen(true)
-            }
+            onNewCalculation={() => setNewCalculationOpen(true)}
           />
         </ResizablePanel>
       ) : (
-        <div className="flex w-9 shrink-0 items-start justify-center border-r border-white/10 bg-[#0e1115] pt-3">
+        <div className="flex w-9 shrink-0 items-start justify-center border-r border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] pt-3">
           <button
             type="button"
-            onClick={() =>
-              setLibraryCollapsed(false)
-            }
+            onClick={() => setLibraryCollapsed(false)}
             title="Show Calculation Library"
-            className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-xs text-white/40 transition hover:border-white/20 hover:bg-white/[0.07] hover:text-white"
+            className="flex h-7 w-7 items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)] transition hover:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_7%,transparent)] hover:text-[var(--aevra-text)]"
           >
             ›
           </button>
@@ -94,20 +87,14 @@ export default function Calculations({
           onDuplicate={duplicateCalculation}
           onInputChange={(inputId, value) =>
             selectedCalculation &&
-            updateInput(
-              selectedCalculation.id,
-              inputId,
-              value,
-            )
+            updateInput(selectedCalculation.id, inputId, value)
           }
         />
       </main>
 
       <NewCalculationModal
         open={newCalculationOpen}
-        onClose={() =>
-          setNewCalculationOpen(false)
-        }
+        onClose={() => setNewCalculationOpen(false)}
         onCreate={handleCreate}
       />
     </div>
