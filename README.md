@@ -302,6 +302,12 @@ NOVA is being built around a modern software and AI stack.
 
 **NOVA is currently under active development.**
 
+## Frontend
+
+The current NOVA frontend application structure, interfaces, and frontend interactions are complete for the planned features below.
+
+> **Important:** A checked item in the Frontend section means the **frontend implementation is complete**. It does not mean the underlying backend service, database integration, AI system, engineering engine, solver, or production infrastructure has been implemented.
+
 ### Platform
 
 * [x] NOVA Hub
@@ -309,10 +315,6 @@ NOVA is being built around a modern software and AI stack.
 * [x] Project workspace foundation
 * [x] Account interface
 * [x] Settings interface
-* [ ] Authentication
-* [ ] Shared project infrastructure
-* [ ] Cross-application data
-* [ ] Unified AI infrastructure
 
 ### Engineering
 
@@ -322,14 +324,14 @@ NOVA is being built around a modern software and AI stack.
 * [x] Component Management
 * [x] Project Workspace
 * [x] Engineering Process Navigation
-* [ ] Calculation Workspace
-* [ ] Deterministic Calculation Engine
-* [ ] Engineering Validation
-* [ ] Code Generation
-* [ ] Parametric CAD
-* [ ] Simulation
-* [ ] Optimization
-* [ ] Manufacturing
+* [x] Calculation Workspace
+* [x] Deterministic Calculation Engine Interface
+* [x] Engineering Validation Interface
+* [x] Code Generation Interface
+* [x] Parametric CAD Interface
+* [x] Simulation Interface
+* [x] Optimization Interface
+* [x] Manufacturing Interface
 * [ ] Prototype Management
 * [ ] Testing & Validation
 
@@ -340,6 +342,68 @@ NOVA is being built around a modern software and AI stack.
 * [ ] AI Lab
 * [ ] Work
 * [ ] Future applications
+
+---
+
+## Backend
+
+Backend infrastructure and functionality are currently being developed.
+
+### Platform Infrastructure
+
+* [ ] Authentication
+* [ ] User management
+* [ ] Shared project infrastructure
+* [ ] Cross-application data
+* [ ] Unified AI infrastructure
+* [ ] File storage
+* [ ] Database integration
+* [ ] API infrastructure
+
+### Engineering
+
+* [ ] Requirements backend
+* [ ] Planning backend
+* [ ] Architecture backend
+* [ ] Component management backend
+* [ ] Deterministic calculation engine
+* [ ] Engineering validation
+* [ ] Code generation infrastructure
+* [ ] Parametric CAD backend
+* [ ] CAD geometry processing
+* [ ] Simulation solvers
+* [ ] Optimization engine
+* [ ] Manufacturing/CAM infrastructure
+* [ ] Prototype management
+* [ ] Testing & validation infrastructure
+
+### AI
+
+* [ ] AI orchestration
+* [ ] Engineering AI
+* [ ] AI agents
+* [ ] RAG and knowledge systems
+* [ ] Model infrastructure
+* [ ] AI tool integration
+* [ ] Engineering-aware AI workflows
+
+### Other Applications
+
+* [ ] Robotics backend
+* [ ] ORION backend
+* [ ] AI Lab backend
+* [ ] Work backend
+* [ ] Future application infrastructure
+
+---
+
+## Overall Development
+
+**Frontend:** Complete for the current planned application interfaces.
+
+**Backend:** In active development.
+
+**Full platform:** Not yet complete.
 
 ---
 
