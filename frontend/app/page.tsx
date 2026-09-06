@@ -1,6 +1,16 @@
 "use client";
 
+import { useState } from "react";
+
+import Hub from "@/components/hub/page";
+
 export default function Home() {
+  const [showHub, setShowHub] = useState(false);
+
+  if (showHub) {
+    return <Hub />;
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-[var(--aevra-background)] px-6 text-[var(--aevra-text)]">
       <div className="w-full max-w-lg text-center">
@@ -40,12 +50,13 @@ export default function Home() {
           </p>
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="/hub"
+            <button
+              type="button"
+              onClick={() => setShowHub(true)}
               className="inline-flex items-center justify-center rounded-lg bg-[var(--aevra-text)] px-5 py-2.5 text-sm font-medium text-[var(--aevra-background)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)]"
             >
               Go to NOVA Hub
-            </a>
+            </button>
 
             <a
               href="https://github.com/hitarthjeetesh-collab/NOVA"
