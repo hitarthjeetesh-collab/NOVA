@@ -1,23 +1,23 @@
-# AEVRA
+# NOVA
 
 ### Intelligent Workspace for Building What's Next
 
-**AEVRA** is an intelligent workspace for building, developing, and managing advanced technical projects.
+**NOVA** is an intelligent workspace for building, developing, and managing advanced technical projects.
 
 It brings together specialized applications for **engineering, robotics, AI, wearable systems, software development, and future technical workflows** into one connected environment.
 
-Instead of building a collection of disconnected tools, AEVRA is designed as a unified platform where projects, knowledge, AI systems, tools, and workflows can work together.
+Instead of building a collection of disconnected tools, NOVA is designed as a unified platform where projects, knowledge, AI systems, tools, and workflows can work together.
 
 ---
 
 ## The Vision
 
-AEVRA is designed to become a platform where an idea can move from an initial concept to a real-world result.
+NOVA is designed to become a platform where an idea can move from an initial concept to a real-world result.
 
 ```text
                          ┌──────────────┐
-                         │    AEVRA     │
-                         │   Workspace  │
+                         │     NOVA     │
+                         │  Workspace   │
                          └───────┬──────┘
                                  │
           ┌──────────────────────┼──────────────────────┐
@@ -42,11 +42,11 @@ The goal is to create a connected environment where specialized applications can
 
 ---
 
-# AEVRA Applications
+# NOVA Applications
 
 ## Engineering
 
-**AEVRA Engineering** is an AI-powered engineering development environment designed to help engineers design, analyze, simulate, optimize, manufacture, and validate physical systems.
+**NOVA Engineering** is an AI-powered engineering development environment designed to help engineers design, analyze, simulate, optimize, manufacture, and validate physical systems.
 
 Its workflow can include:
 
@@ -84,7 +84,7 @@ The workflow is adaptive. Projects can enable, skip, reorder, or add stages depe
 
 ## Robotics
 
-**AEVRA Robotics** is intended to provide tools for developing intelligent robotic systems.
+**NOVA Robotics** is intended to provide tools for developing intelligent robotic systems.
 
 Potential capabilities include:
 
@@ -103,7 +103,7 @@ Potential capabilities include:
 
 ## ORION
 
-**AEVRA ORION** focuses on advanced wearable and human-machine systems.
+**NOVA ORION** focuses on advanced wearable and human-machine systems.
 
 ORION is intended to provide a dedicated environment for developing systems involving:
 
@@ -122,7 +122,7 @@ ORION is intended to provide a dedicated environment for developing systems invo
 
 ## AI Lab
 
-**AEVRA AI Lab** is the environment for experimenting with intelligent systems.
+**NOVA AI Lab** is the environment for experimenting with intelligent systems.
 
 It is intended for:
 
@@ -140,18 +140,18 @@ It is intended for:
 
 ## Work
 
-**AEVRA Work** is intended to provide general-purpose tools for organizing projects, information, collaboration, and technical work.
+**NOVA Work** is intended to provide general-purpose tools for organizing projects, information, collaboration, and technical work.
 
 ---
 
 # Connected Projects
 
-A core idea behind AEVRA is that applications should not exist as completely isolated tools.
+A core idea behind NOVA is that applications should not exist as completely isolated tools.
 
 A project could potentially connect information across applications:
 
 ```text
-                         AEVRA Project
+                         NOVA Project
                               │
           ┌───────────────────┼───────────────────┐
           │                   │                   │
@@ -164,32 +164,32 @@ A project could potentially connect information across applications:
                          AI Systems
                               │
                               ▼
-                         AI Lab
+                           AI Lab
 ```
 
 For example, an engineering project could eventually use robotics components, AI models, simulation tools, and ORION hardware while maintaining shared project context.
 
 ---
 
-# AI Across AEVRA
+# AI Across NOVA
 
 AI is intended to become a foundational capability across the platform rather than a separate chatbot.
 
 ```text
-                         AEVRA AI
+                         NOVA AI
                             │
           ┌─────────────────┼─────────────────┐
           ▼                 ▼                 ▼
-     Engineering         Robotics           ORION
+     Engineering         Robotics            ORION
           │                 │                 │
           ▼                 ▼                 ▼
-     CAD AI              Robot AI          Wearable AI
-     Code AI             Vision AI         Control AI
-     Calc AI             Planning AI       Design AI
+       CAD AI            Robot AI          Wearable AI
+       Code AI           Vision AI         Control AI
+       Calc AI           Planning AI       Design AI
           │                 │                 │
           └─────────────────┼─────────────────┘
                             ▼
-                       AI Lab
+                         AI Lab
 ```
 
 Different applications can use specialized AI systems while sharing common infrastructure and project context.
@@ -198,7 +198,7 @@ Different applications can use specialized AI systems while sharing common infra
 
 # Engineering-First AI
 
-For engineering applications, AEVRA follows an important principle:
+For engineering applications, NOVA follows an important principle:
 
 > **AI should reason about engineering. Deterministic tools should perform critical engineering calculations.**
 
@@ -228,10 +228,10 @@ This approach is intended to make technical workflows more reliable, reproducibl
 
 # Platform Architecture
 
-AEVRA is designed as a collection of specialized applications built on shared platform infrastructure.
+NOVA is designed as a collection of specialized applications built on shared platform infrastructure.
 
 ```text
-                           AEVRA
+                           NOVA
                              │
              ┌───────────────┼───────────────┐
              │               │               │
@@ -242,9 +242,9 @@ AEVRA is designed as a collection of specialized applications built on shared pl
      │       │       │       │               │
      ▼       ▼       ▼       ▼               ▼
  Engineering Robotics ORION AI Lab      Projects
-     │       │       │       │           Knowledge
-     └───────┴───────┴───────┘           Files
-             │                           Settings
+     │       │       │       │            Knowledge
+     └───────┴───────┴───────┘            Files
+             │                            Settings
              ▼
        Shared Platform
              │
@@ -259,7 +259,7 @@ The architecture allows individual applications to evolve independently while re
 
 # Technology
 
-AEVRA is being built around a modern software and AI stack.
+NOVA is being built around a modern software and AI stack.
 
 ### Frontend
 
@@ -300,11 +300,11 @@ AEVRA is being built around a modern software and AI stack.
 
 # Project Status
 
-**AEVRA is currently under active development.**
+**NOVA is currently under active development.**
 
 ### Platform
 
-* [x] AEVRA Hub
+* [x] NOVA Hub
 * [x] Application structure
 * [x] Project workspace foundation
 * [x] Account interface
@@ -351,16 +351,16 @@ For example:
 
 > **Design an autonomous rover capable of carrying 20 kg over rough terrain for 4 hours.**
 
-AEVRA could eventually coordinate the process across its applications:
+NOVA could eventually coordinate the process across its applications:
 
 ```text
-                         AEVRA
+                         NOVA
                            │
                            ▼
                         Objective
                            │
                            ▼
-                    AEVRA Engineering
+                    NOVA Engineering
                            │
              ┌─────────────┼─────────────┐
              ▼             ▼             ▼
@@ -371,30 +371,30 @@ AEVRA could eventually coordinate the process across its applications:
                      Calculations
                            │
                            ▼
-                         CAD
+                          CAD
                            │
                            ▼
-                      Simulation
+                       Simulation
                            │
                            ▼
-                     Optimization
+                      Optimization
                            │
                            ▼
-                    Manufacturing
+                     Manufacturing
                            │
                            ▼
-                      Prototype
+                       Prototype
                            │
                            ▼
                         Testing
                            │
                            ▼
-                  ┌─────────────────┐
-                  │ Validated System│
-                  └─────────────────┘
+                 ┌─────────────────┐
+                 │ Validated System│
+                 └─────────────────┘
 ```
 
-while other AEVRA applications can provide robotics, AI, wearable-system, and general development capabilities where required.
+while other NOVA applications can provide robotics, AI, wearable-system, and general development capabilities where required.
 
 The goal is not simply to create another collection of software tools.
 
@@ -402,6 +402,6 @@ It is to build a **connected technical workspace for turning ideas into real sys
 
 ---
 
-# AEVRA
+# NOVA
 
 **Build what's next.**
