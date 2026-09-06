@@ -37,16 +37,16 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen bg-[#0b0d10] text-white">
+    <main className="min-h-screen bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       {/* HEADER */}
-      <header className="flex h-16 items-center justify-between border-b border-white/10 px-6 lg:px-8">
+      <header className="flex h-16 items-center justify-between border-b border-[var(--aevra-border)] px-6 lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] text-xs font-semibold">
-            A
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--aevra-border)] bg-[var(--aevra-hover)] text-xs font-semibold">
+            N
           </div>
 
           <span className="text-sm font-semibold tracking-wide">
-            AEVRA
+            NOVA
           </span>
         </div>
 
@@ -54,7 +54,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => router.push("/settings")}
-            className="rounded-lg px-3 py-2 text-xs text-white/40 transition hover:bg-white/[0.05] hover:text-white"
+            className="rounded-lg px-3 py-2 text-xs text-[var(--aevra-text-tertiary)] transition hover:bg-[var(--aevra-hover)] hover:text-[var(--aevra-text)]"
           >
             Settings
           </button>
@@ -62,7 +62,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => router.push("/account")}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-xs text-white/50 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--aevra-border)] bg-[var(--aevra-hover)] text-xs text-[var(--aevra-text-tertiary)] transition hover:border-[var(--aevra-border-strong)] hover:bg-[var(--aevra-hover-strong)] hover:text-[var(--aevra-text)]"
           >
             H
           </button>
@@ -72,15 +72,15 @@ export default function Home() {
       {/* CONTENT */}
       <div className="mx-auto w-full max-w-6xl px-6 py-12 lg:px-8 lg:py-16">
         <section>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/30">
-            Aevra Workspace
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--aevra-text-subtle)]">
+            Nova Workspace
           </p>
 
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
             Build what&apos;s next.
           </h1>
 
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/40">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--aevra-text-tertiary)]">
             Your workspace for engineering, robotics, intelligent
             systems, and the products you create with them.
           </p>
@@ -89,18 +89,19 @@ export default function Home() {
         {/* APPS */}
         <section className="mt-12">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-white/40">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--aevra-text-tertiary)]">
               Applications
             </h2>
 
-            <span className="text-[11px] text-white/20">
+            <span className="text-[11px] text-[var(--aevra-text-faint)]">
               {apps.length} applications
             </span>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {apps.map((app) => {
-              const available = app.status === "Available";
+              const available =
+                app.status === "Available";
 
               return (
                 <button
@@ -114,20 +115,20 @@ export default function Home() {
                   }}
                   className={`group relative overflow-hidden rounded-2xl border p-6 text-left transition ${
                     available
-                      ? "border-white/10 bg-[#101318] hover:border-white/20 hover:bg-[#13171d]"
-                      : "cursor-default border-white/[0.06] bg-white/[0.015] opacity-60"
+                      ? "border-[var(--aevra-border)] bg-[var(--aevra-surface)] hover:border-[var(--aevra-border-strong)] hover:bg-[var(--aevra-surface-light)]"
+                      : "cursor-default border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_1.5%,transparent)] opacity-60"
                   }`}
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sm font-semibold text-white/60">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--aevra-border)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] text-sm font-semibold text-[var(--aevra-text-secondary)]">
                       {app.name.charAt(0)}
                     </div>
 
                     <span
                       className={`rounded-full border px-2 py-1 text-[10px] ${
                         available
-                          ? "border-white/10 bg-white/[0.04] text-white/40"
-                          : "border-white/[0.06] text-white/20"
+                          ? "border-[var(--aevra-border)] bg-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] text-[var(--aevra-text-tertiary)]"
+                          : "border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] text-[var(--aevra-text-faint)]"
                       }`}
                     >
                       {app.status}
@@ -138,12 +139,12 @@ export default function Home() {
                     {app.name}
                   </h3>
 
-                  <p className="mt-2 max-w-md text-xs leading-5 text-white/35">
+                  <p className="mt-2 max-w-md text-xs leading-5 text-[var(--aevra-text-subtle)]">
                     {app.description}
                   </p>
 
                   {available && (
-                    <div className="mt-6 text-xs text-white/40 transition group-hover:text-white/70">
+                    <div className="mt-6 text-xs text-[var(--aevra-text-tertiary)] transition group-hover:text-[var(--aevra-text-secondary)]">
                       Open application →
                     </div>
                   )}
@@ -156,35 +157,37 @@ export default function Home() {
         {/* RECENT PROJECTS */}
         <section className="mt-12">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-white/40">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--aevra-text-tertiary)]">
               Recent Projects
             </h2>
 
             <button
               type="button"
-              className="text-[11px] text-white/25 transition hover:text-white/60"
+              className="text-[11px] text-[var(--aevra-text-faint)] transition hover:text-[var(--aevra-text-secondary)]"
             >
               View all
             </button>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-[#101318]">
+          <div className="rounded-2xl border border-[var(--aevra-border)] bg-[var(--aevra-surface)]">
             <button
               type="button"
-              onClick={() => router.push("/engineering")}
-              className="flex w-full items-center justify-between px-5 py-4 text-left transition hover:bg-white/[0.03]"
+              onClick={() =>
+                router.push("/engineering")
+              }
+              className="flex w-full items-center justify-between px-5 py-4 text-left transition hover:bg-[var(--aevra-hover)]"
             >
               <div>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-[var(--aevra-text)]">
                   ORION
                 </p>
 
-                <p className="mt-1 text-xs text-white/30">
+                <p className="mt-1 text-xs text-[var(--aevra-text-subtle)]">
                   Engineering workspace
                 </p>
               </div>
 
-              <span className="text-xs text-white/25">
+              <span className="text-xs text-[var(--aevra-text-faint)]">
                 Open →
               </span>
             </button>
