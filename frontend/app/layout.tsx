@@ -5,10 +5,13 @@ import GoogleAnalytics from "./GoogleAnalytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AEVRA",
+  title: "NOVA",
   description: "An intelligent workspace for building what's next.",
   icons: {
     icon: "/favicon.svg",
+  },
+  verification: {
+    google: "-1K-5zDv2IfZpq2qklfaronV8VuFZiGpnE_L6yWJ6mY",
   },
 };
 
