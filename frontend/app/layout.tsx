@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "NOVA",
   description: "An intelligent workspace for building what's next.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon.png",
   },
   verification: {
     google: "-1K-5zDv2IfZpq2qklfaronV8VuFZiGpnE_L6yWJ6mY",
