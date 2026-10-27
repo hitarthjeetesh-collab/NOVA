@@ -15,13 +15,9 @@ export function ApproachCard({
     <div className="rounded-xl border border-white/10 bg-[#111419] p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h3 className="text-sm font-semibold">
-            {approach.name}
-          </h3>
+          <h3 className="text-sm font-semibold">{approach.name}</h3>
 
-          <p className="mt-1 text-xs text-white/35">
-            Approach concept
-          </p>
+          <p className="mt-1 text-xs text-white/35">Approach concept</p>
         </div>
 
         <span className="rounded-full border border-white/10 px-2.5 py-1 text-[10px] text-white/50">
@@ -35,8 +31,7 @@ export function ApproachCard({
         </p>
 
         <p className="mt-2 text-sm leading-6 text-white/55">
-          {approach.reason ||
-            "No reason provided."}
+          {approach.reason || "No reason provided."}
         </p>
       </div>
 
@@ -47,22 +42,17 @@ export function ApproachCard({
           </p>
 
           <ul className="mt-2 space-y-2">
-            {approach.pros.length >
-            0 ? (
-              approach.pros.map(
-                (pro, index) => (
-                  <li
-                    key={`${pro}-${index}`}
-                    className="text-xs leading-5 text-white/50"
-                  >
-                    + {pro}
-                  </li>
-                )
-              )
+            {approach.pros.length > 0 ? (
+              approach.pros.map((pro, index) => (
+                <li
+                  key={`${pro}-${index}`}
+                  className="text-xs leading-5 text-white/50"
+                >
+                  + {pro}
+                </li>
+              ))
             ) : (
-              <li className="text-xs text-white/25">
-                None added
-              </li>
+              <li className="text-xs text-white/25">None added</li>
             )}
           </ul>
         </div>
@@ -73,22 +63,17 @@ export function ApproachCard({
           </p>
 
           <ul className="mt-2 space-y-2">
-            {approach.cons.length >
-            0 ? (
-              approach.cons.map(
-                (con, index) => (
-                  <li
-                    key={`${con}-${index}`}
-                    className="text-xs leading-5 text-white/50"
-                  >
-                    − {con}
-                  </li>
-                )
-              )
+            {approach.cons.length > 0 ? (
+              approach.cons.map((con, index) => (
+                <li
+                  key={`${con}-${index}`}
+                  className="text-xs leading-5 text-white/50"
+                >
+                  − {con}
+                </li>
+              ))
             ) : (
-              <li className="text-xs text-white/25">
-                None added
-              </li>
+              <li className="text-xs text-white/25">None added</li>
             )}
           </ul>
         </div>
@@ -98,9 +83,7 @@ export function ApproachCard({
         <button
           type="button"
           onClick={onEdit}
-          className={
-            secondaryButtonClassName
-          }
+          className={secondaryButtonClassName}
         >
           Edit
         </button>
@@ -108,9 +91,7 @@ export function ApproachCard({
         <button
           type="button"
           onClick={onDelete}
-          className={
-            secondaryButtonClassName
-          }
+          className={secondaryButtonClassName}
         >
           Delete
         </button>

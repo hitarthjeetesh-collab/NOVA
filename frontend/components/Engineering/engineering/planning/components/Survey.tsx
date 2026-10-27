@@ -1,5 +1,9 @@
 import type { Constraint, Priority } from "../types/planning";
-import { controlClassName, secondaryButtonClassName, removeButtonClassName } from "../constants";
+import {
+  controlClassName,
+  secondaryButtonClassName,
+  removeButtonClassName,
+} from "../constants";
 import { SectionHeading } from "./ui/SectionHeading";
 import { EmptyState } from "./ui/EmptyState";
 import { PriorityMap } from "./PriorityMap";
@@ -37,11 +41,7 @@ export function Survey({
 
         <textarea
           value={mainGoal}
-          onChange={(event) =>
-            setMainGoal(
-              event.target.value
-            )
-          }
+          onChange={(event) => setMainGoal(event.target.value)}
           rows={4}
           className={controlClassName}
           placeholder="Describe the main goal..."
@@ -58,9 +58,7 @@ export function Survey({
           <button
             type="button"
             onClick={onAddConstraint}
-            className={
-              secondaryButtonClassName
-            }
+            className={secondaryButtonClassName}
           >
             + Add Constraint
           </button>
@@ -70,38 +68,28 @@ export function Survey({
           <EmptyState text="No hard constraints added yet." />
         ) : (
           <div className="grid gap-3 md:grid-cols-2">
-            {constraints.map(
-              (constraint) => (
-                <div
-                  key={constraint.id}
-                  className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-[#111419] p-4"
-                >
-                  <div>
-                    <p className="text-sm font-medium">
-                      {constraint.name}
-                    </p>
+            {constraints.map((constraint) => (
+              <div
+                key={constraint.id}
+                className="flex items-start justify-between gap-4 rounded-xl border border-white/10 bg-[#111419] p-4"
+              >
+                <div>
+                  <p className="text-sm font-medium">{constraint.name}</p>
 
-                    <p className="mt-1 text-xs text-white/40">
-                      {constraint.value}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onRemoveConstraint(
-                        constraint.id
-                      )
-                    }
-                    className={
-                      removeButtonClassName
-                    }
-                  >
-                    ×
-                  </button>
+                  <p className="mt-1 text-xs text-white/40">
+                    {constraint.value}
+                  </p>
                 </div>
-              )
-            )}
+
+                <button
+                  type="button"
+                  onClick={() => onRemoveConstraint(constraint.id)}
+                  className={removeButtonClassName}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
           </div>
         )}
       </section>
@@ -116,9 +104,7 @@ export function Survey({
           <button
             type="button"
             onClick={onAddPriority}
-            className={
-              secondaryButtonClassName
-            }
+            className={secondaryButtonClassName}
           >
             + Add Priority
           </button>
@@ -126,90 +112,62 @@ export function Survey({
 
         <PriorityMap
           priorities={priorities}
-          onUpdateWeight={
-            onUpdatePriorityWeight
-          }
+          onUpdateWeight={onUpdatePriorityWeight}
           onRemove={onRemovePriority}
         />
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {priorities.map(
-            (priority) => (
-              <div
-                key={priority.id}
-                className="rounded-xl border border-white/10 bg-[#111419] p-4"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-medium">
-                      {priority.name}
-                    </p>
+          {priorities.map((priority) => (
+            <div
+              key={priority.id}
+              className="rounded-xl border border-white/10 bg-[#111419] p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium">{priority.name}</p>
 
-                    <p className="mt-1 text-xs leading-5 text-white/35">
-                      {
-                        priority.description
-                      }
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onRemovePriority(
-                        priority.id
-                      )
-                    }
-                    disabled={
-                      priorities.length <=
-                      3
-                    }
-                    className={`text-xs ${
-                      priorities.length <=
-                      3
-                        ? "cursor-not-allowed text-white/10"
-                        : "text-white/30 hover:text-white"
-                    }`}
-                  >
-                    ×
-                  </button>
+                  <p className="mt-1 text-xs leading-5 text-white/35">
+                    {priority.description}
+                  </p>
                 </div>
 
-                <div className="mt-4">
-                  <div className="mb-2 flex justify-between text-[11px] text-white/30">
-                    <span>
-                      Importance
-                    </span>
-
-                    <span>
-                      {Math.round(
-                        priority.weight
-                      )}
-                      %
-                    </span>
-                  </div>
-
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={Math.round(
-                      priority.weight
-                    )}
-                    onChange={(event) =>
-                      onUpdatePriorityWeight(
-                        priority.id,
-                        Number(
-                          event.target
-                            .value
-                        )
-                      )
-                    }
-                    className="w-full accent-white"
-                  />
-                </div>
+                <button
+                  type="button"
+                  onClick={() => onRemovePriority(priority.id)}
+                  disabled={priorities.length <= 3}
+                  className={`text-xs ${
+                    priorities.length <= 3
+                      ? "cursor-not-allowed text-white/10"
+                      : "text-white/30 hover:text-white"
+                  }`}
+                >
+                  ×
+                </button>
               </div>
-            )
-          )}
+
+              <div className="mt-4">
+                <div className="mb-2 flex justify-between text-[11px] text-white/30">
+                  <span>Importance</span>
+
+                  <span>{Math.round(priority.weight)}%</span>
+                </div>
+
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={Math.round(priority.weight)}
+                  onChange={(event) =>
+                    onUpdatePriorityWeight(
+                      priority.id,
+                      Number(event.target.value),
+                    )
+                  }
+                  className="w-full accent-white"
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </div>

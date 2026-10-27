@@ -32,8 +32,9 @@ export default function Workspace({
   stage,
   onStageChange,
 }: WorkspaceProps) {
-  const [architectureNodes, setArchitectureNodes] =
-    useState<ArchitectureNode[]>(initialArchitectureNodes);
+  const [architectureNodes, setArchitectureNodes] = useState<
+    ArchitectureNode[]
+  >(initialArchitectureNodes);
 
   return (
     <div className="flex min-h-0 flex-1">
@@ -63,18 +64,14 @@ export default function Workspace({
           )}
 
           {stage === "components" && (
-            <Components
-              architectureNodes={architectureNodes}
-            />
+            <Components architectureNodes={architectureNodes} />
           )}
 
           {stage === "calculations" && (
             <Calculations projectName={projectName} />
           )}
 
-          {stage === "code" && (
-            <Code projectName={projectName} />
-          )}
+          {stage === "code" && <Code projectName={projectName} />}
 
           {stage === "cad" && <CAD />}
 
@@ -86,10 +83,7 @@ export default function Workspace({
         </div>
       </section>
 
-      <EngineeringProcess
-        stage={stage}
-        onStageChange={onStageChange}
-      />
+      <EngineeringProcess stage={stage} onStageChange={onStageChange} />
     </div>
   );
 }
@@ -136,10 +130,7 @@ interface PlaceholderProps {
   description: string;
 }
 
-function Placeholder({
-  title,
-  description,
-}: PlaceholderProps) {
+function Placeholder({ title, description }: PlaceholderProps) {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="max-w-md text-center">

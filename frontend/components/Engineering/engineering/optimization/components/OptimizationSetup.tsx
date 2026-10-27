@@ -16,9 +16,7 @@ interface OptimizationSetupProps {
   constraints: OptimizationConstraint[];
   variables: OptimizationVariable[];
   onMethodChange: (value: OptimizationMethod) => void;
-  onSettingsChange: (
-    value: Partial<OptimizationSettings>,
-  ) => void;
+  onSettingsChange: (value: Partial<OptimizationSettings>) => void;
   onAddObjective: () => void;
   onUpdateObjective: (
     id: string,
@@ -88,21 +86,13 @@ export default function OptimizationSetup({
           <select
             value={method}
             onChange={(event) =>
-              onMethodChange(
-                event.target.value as OptimizationMethod,
-              )
+              onMethodChange(event.target.value as OptimizationMethod)
             }
             className={selectClass}
           >
-            <option value="topology">
-              Topology Optimization
-            </option>
-            <option value="shape">
-              Shape Optimization
-            </option>
-            <option value="parameter">
-              Parameter Optimization
-            </option>
+            <option value="topology">Topology Optimization</option>
+            <option value="shape">Shape Optimization</option>
+            <option value="parameter">Parameter Optimization</option>
           </select>
         </section>
 
@@ -148,9 +138,7 @@ export default function OptimizationSetup({
               value={settings.convergenceTolerance}
               onChange={(event) =>
                 onSettingsChange({
-                  convergenceTolerance: Number(
-                    event.target.value,
-                  ),
+                  convergenceTolerance: Number(event.target.value),
                 })
               }
               className={inputClass}
@@ -168,7 +156,6 @@ export default function OptimizationSetup({
               }
               className="h-3.5 w-3.5 accent-[var(--aevra-text)]"
             />
-
             Preserve mass
           </label>
         </section>
@@ -201,9 +188,7 @@ export default function OptimizationSetup({
 
                   <button
                     type="button"
-                    onClick={() =>
-                      onRemoveObjective(objective.id)
-                    }
+                    onClick={() => onRemoveObjective(objective.id)}
                     className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
@@ -214,21 +199,14 @@ export default function OptimizationSetup({
                   value={objective.type}
                   onChange={(event) =>
                     onUpdateObjective(objective.id, {
-                      type: event.target
-                        .value as OptimizationObjective["type"],
+                      type: event.target.value as OptimizationObjective["type"],
                     })
                   }
                   className={`${selectClass} mb-2`}
                 >
-                  <option value="minimize-mass">
-                    Minimize Mass
-                  </option>
-                  <option value="minimize-volume">
-                    Minimize Volume
-                  </option>
-                  <option value="minimize-stress">
-                    Minimize Stress
-                  </option>
+                  <option value="minimize-mass">Minimize Mass</option>
+                  <option value="minimize-volume">Minimize Volume</option>
+                  <option value="minimize-stress">Minimize Stress</option>
                   <option value="minimize-displacement">
                     Minimize Displacement
                   </option>
@@ -245,9 +223,7 @@ export default function OptimizationSetup({
                     value={objective.weight}
                     onChange={(event) =>
                       onUpdateObjective(objective.id, {
-                        weight: Number(
-                          event.target.value,
-                        ),
+                        weight: Number(event.target.value),
                       })
                     }
                     className={inputClass}
@@ -290,9 +266,7 @@ export default function OptimizationSetup({
 
                   <button
                     type="button"
-                    onClick={() =>
-                      onRemoveConstraint(constraint.id)
-                    }
+                    onClick={() => onRemoveConstraint(constraint.id)}
                     className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
@@ -303,24 +277,19 @@ export default function OptimizationSetup({
                   value={constraint.type}
                   onChange={(event) =>
                     onUpdateConstraint(constraint.id, {
-                      type: event.target
-                        .value as OptimizationConstraintType,
+                      type: event.target.value as OptimizationConstraintType,
                     })
                   }
                   className={`${selectClass} mb-2`}
                 >
-                  <option value="maximum-stress">
-                    Maximum Stress
-                  </option>
+                  <option value="maximum-stress">Maximum Stress</option>
                   <option value="maximum-displacement">
                     Maximum Displacement
                   </option>
                   <option value="minimum-safety-factor">
                     Minimum Safety Factor
                   </option>
-                  <option value="preserve-region">
-                    Preserve Region
-                  </option>
+                  <option value="preserve-region">Preserve Region</option>
                 </select>
 
                 <div className="grid grid-cols-[1fr_65px] gap-2">
@@ -331,9 +300,7 @@ export default function OptimizationSetup({
                     value={constraint.value}
                     onChange={(event) =>
                       onUpdateConstraint(constraint.id, {
-                        value: Number(
-                          event.target.value,
-                        ),
+                        value: Number(event.target.value),
                       })
                     }
                     className={inputClass}
@@ -386,9 +353,7 @@ export default function OptimizationSetup({
 
                   <button
                     type="button"
-                    onClick={() =>
-                      onRemoveVariable(variable.id)
-                    }
+                    onClick={() => onRemoveVariable(variable.id)}
                     className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×
@@ -412,9 +377,7 @@ export default function OptimizationSetup({
                     value={variable.minimum}
                     onChange={(event) =>
                       onUpdateVariable(variable.id, {
-                        minimum: Number(
-                          event.target.value,
-                        ),
+                        minimum: Number(event.target.value),
                       })
                     }
                     className={inputClass}
@@ -426,9 +389,7 @@ export default function OptimizationSetup({
                     value={variable.maximum}
                     onChange={(event) =>
                       onUpdateVariable(variable.id, {
-                        maximum: Number(
-                          event.target.value,
-                        ),
+                        maximum: Number(event.target.value),
                       })
                     }
                     className={inputClass}

@@ -7,10 +7,7 @@ interface HeaderProps {
   onMenuClick: () => void;
 }
 
-export default function Header({
-  projectName,
-  onMenuClick,
-}: HeaderProps) {
+export default function Header({ projectName, onMenuClick }: HeaderProps) {
   const router = useRouter();
 
   return (

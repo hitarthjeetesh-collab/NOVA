@@ -20,14 +20,11 @@ export type WorkspaceStage =
   | "manufacturing";
 
 export default function Home() {
-  const [activeProject, setActiveProject] =
-    useState("ORION");
+  const [activeProject, setActiveProject] = useState("ORION");
 
-  const [sidebarOpen, setSidebarOpen] =
-    useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const [stage, setStage] =
-    useState<WorkspaceStage>("chat");
+  const [stage, setStage] = useState<WorkspaceStage>("chat");
 
   return (
     <main className="flex h-screen overflow-hidden bg-[var(--aevra-background)] text-[var(--aevra-text)]">
@@ -40,9 +37,7 @@ export default function Home() {
       <div className="flex min-w-0 flex-1 flex-col">
         <Header
           projectName={activeProject}
-          onMenuClick={() =>
-            setSidebarOpen((open) => !open)
-          }
+          onMenuClick={() => setSidebarOpen((open) => !open)}
         />
 
         <Workspace

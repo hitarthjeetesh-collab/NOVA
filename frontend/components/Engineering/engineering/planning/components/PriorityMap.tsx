@@ -37,15 +37,9 @@ export function PriorityMap({
             ref={svgRef}
             viewBox={`0 0 ${size} ${size}`}
             className="h-auto w-full overflow-visible touch-none select-none"
-            onPointerMove={
-              handlePointerMove
-            }
-            onPointerUp={
-              handlePointerUp
-            }
-            onPointerCancel={
-              handlePointerUp
-            }
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
           >
             {/* Polygon */}
 
@@ -72,91 +66,64 @@ export function PriorityMap({
 
             {/* Priority vertices */}
 
-            {points.map(
-              (point) => (
-                <g
-                  key={
-                    point.priority.id
-                  }
+            {points.map((point) => (
+              <g key={point.priority.id}>
+                {/* Connection */}
+
+                <line
+                  x1={center}
+                  y1={center}
+                  x2={point.x}
+                  y2={point.y}
+                  stroke="rgba(255,255,255,0.08)"
+                  strokeWidth="1"
+                  pointerEvents="none"
+                />
+
+                {/* Vertex */}
+
+                <circle
+                  cx={point.x}
+                  cy={point.y}
+                  r="7"
+                  fill="#0f1115"
+                  stroke="rgba(255,255,255,0.45)"
+                  strokeWidth="2"
+                  pointerEvents="none"
+                />
+
+                {/* Label */}
+
+                <foreignObject
+                  x={point.x - 80}
+                  y={point.y < center ? point.y - 55 : point.y + 15}
+                  width="160"
+                  height="65"
+                  pointerEvents="none"
                 >
-                  {/* Connection */}
+                  <div className="pointer-events-none text-center">
+                    <p className="truncate text-xs font-medium text-white/80">
+                      {point.priority.name}
+                    </p>
 
-                  <line
-                    x1={center}
-                    y1={center}
-                    x2={point.x}
-                    y2={point.y}
-                    stroke="rgba(255,255,255,0.08)"
-                    strokeWidth="1"
-                    pointerEvents="none"
-                  />
+                    <p className="mt-1 text-[10px] text-white/30">
+                      {Math.round(point.priority.weight)}%
+                    </p>
+                  </div>
+                </foreignObject>
 
-                  {/* Vertex */}
+                {/* Delete */}
 
-                  <circle
-                    cx={point.x}
-                    cy={point.y}
-                    r="7"
-                    fill="#0f1115"
-                    stroke="rgba(255,255,255,0.45)"
-                    strokeWidth="2"
-                    pointerEvents="none"
-                  />
-
-                  {/* Label */}
-
-                  <foreignObject
-                    x={
-                      point.x - 80
-                    }
-                    y={
-                      point.y < center
-                        ? point.y - 55
-                        : point.y + 15
-                    }
-                    width="160"
-                    height="65"
-                    pointerEvents="none"
-                  >
-                    <div className="pointer-events-none text-center">
-                      <p className="truncate text-xs font-medium text-white/80">
-                        {
-                          point
-                            .priority
-                            .name
-                        }
-                      </p>
-
-                      <p className="mt-1 text-[10px] text-white/30">
-                        {Math.round(
-                          point
-                            .priority
-                            .weight
-                        )}
-                        %
-                      </p>
-                    </div>
-                  </foreignObject>
-
-                  {/* Delete */}
-
-                  <circle
-                    cx={point.x}
-                    cy={point.y}
-                    r="18"
-                    fill="transparent"
-                    className="cursor-pointer"
-                    onClick={() =>
-                      onRemove(
-                        point
-                          .priority
-                          .id
-                      )
-                    }
-                  />
-                </g>
-              )
-            )}
+                <circle
+                  cx={point.x}
+                  cy={point.y}
+                  r="18"
+                  fill="transparent"
+                  className="cursor-pointer"
+                  onClick={() => onRemove(point.priority.id)}
+                />
+              </g>
+            ))}
 
             {/* =================================================
                 CENTER DRAG HANDLE
@@ -167,14 +134,8 @@ export function PriorityMap({
               cy={displayCenter.y}
               r="25"
               fill="transparent"
-              className={
-                dragging
-                  ? "cursor-grabbing"
-                  : "cursor-grab"
-              }
-              onPointerDown={
-                handlePointerDown
-              }
+              className={dragging ? "cursor-grabbing" : "cursor-grab"}
+              onPointerDown={handlePointerDown}
             />
 
             {/* Visible center */}
@@ -184,14 +145,8 @@ export function PriorityMap({
               cy={displayCenter.y}
               r="11"
               fill="white"
-              className={
-                dragging
-                  ? "cursor-grabbing"
-                  : "cursor-grab"
-              }
-              onPointerDown={
-                handlePointerDown
-              }
+              className={dragging ? "cursor-grabbing" : "cursor-grab"}
+              onPointerDown={handlePointerDown}
             />
 
             {/* Center ring */}
@@ -202,22 +157,16 @@ export function PriorityMap({
               r="18"
               fill="none"
               stroke={
-                dragging
-                  ? "rgba(255,255,255,0.55)"
-                  : "rgba(255,255,255,0.18)"
+                dragging ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.18)"
               }
-              strokeWidth={
-                dragging ? 2 : 1
-              }
+              strokeWidth={dragging ? 2 : 1}
               pointerEvents="none"
             />
           </svg>
         </div>
 
         <p className="mt-2 text-center text-xs text-white/30">
-          Drag the center point toward
-          a priority to increase its
-          importance.
+          Drag the center point toward a priority to increase its importance.
         </p>
       </div>
     </div>

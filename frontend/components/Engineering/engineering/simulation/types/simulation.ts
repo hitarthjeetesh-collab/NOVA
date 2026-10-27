@@ -1,34 +1,15 @@
 export type AnalysisType =
-  | "static-structural"
-  | "thermal"
-  | "modal"
-  | "transient"
-  | "fluid";
+  "static-structural" | "thermal" | "modal" | "transient" | "fluid";
 
 export type SimulationStatus =
-  | "ready"
-  | "running"
-  | "completed"
-  | "stopped"
-  | "error";
+  "ready" | "running" | "completed" | "stopped" | "error";
 
 export type MaterialType =
-  | "aluminum"
-  | "steel"
-  | "stainless-steel"
-  | "titanium"
-  | "carbon-fiber";
+  "aluminum" | "steel" | "stainless-steel" | "titanium" | "carbon-fiber";
 
-export type LoadType =
-  | "force"
-  | "pressure"
-  | "gravity"
-  | "torque";
+export type LoadType = "force" | "pressure" | "gravity" | "torque";
 
-export type ConstraintType =
-  | "fixed"
-  | "pinned"
-  | "roller";
+export type ConstraintType = "fixed" | "pinned" | "roller";
 
 export interface SimulationLoad {
   id: string;

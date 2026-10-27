@@ -24,11 +24,7 @@ export function ModalActions({
         Cancel
       </button>
 
-      <button
-        type="button"
-        onClick={onSave}
-        className={primaryButtonClassName}
-      >
+      <button type="button" onClick={onSave} className={primaryButtonClassName}>
         {saveLabel}
       </button>
     </div>

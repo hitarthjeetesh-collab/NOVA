@@ -12,14 +12,9 @@ type Props = {
   onCreate: (file: CodeFile) => void;
 };
 
-export default function NewFileModal({
-  open,
-  onClose,
-  onCreate,
-}: Props) {
+export default function NewFileModal({ open, onClose, onCreate }: Props) {
   const [name, setName] = useState("");
-  const [language, setLanguage] =
-    useState<CodeLanguage>("python");
+  const [language, setLanguage] = useState<CodeLanguage>("python");
 
   if (!open) {
     return null;
@@ -31,9 +26,7 @@ export default function NewFileModal({
     }
 
     const extension = getFileExtension(language);
-    const fileName = name.includes(".")
-      ? name
-      : `${name}.${extension}`;
+    const fileName = name.includes(".") ? name : `${name}.${extension}`;
 
     onCreate({
       id: `${Date.now()}-${fileName}`,
@@ -69,9 +62,7 @@ export default function NewFileModal({
 
             <input
               value={name}
-              onChange={(event) =>
-                setName(event.target.value)
-              }
+              onChange={(event) => setName(event.target.value)}
               placeholder="controller"
               autoFocus
               className="w-full rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)] focus:border-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]"
@@ -86,9 +77,7 @@ export default function NewFileModal({
             <select
               value={language}
               onChange={(event) =>
-                setLanguage(
-                  event.target.value as CodeLanguage,
-                )
+                setLanguage(event.target.value as CodeLanguage)
               }
               className="w-full rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none"
             >

@@ -10,14 +10,10 @@ export interface ConstraintModalProps {
   onSave: (constraint: Constraint) => void;
 }
 
-export function ConstraintModal({  onClose,
-  onSave,
-}: ConstraintModalProps) {
-  const [name, setName] =
-    useState("");
+export function ConstraintModal({ onClose, onSave }: ConstraintModalProps) {
+  const [name, setName] = useState("");
 
-  const [value, setValue] =
-    useState("");
+  const [value, setValue] = useState("");
 
   function submit() {
     if (!name.trim()) {
@@ -32,19 +28,12 @@ export function ConstraintModal({  onClose,
   }
 
   return (
-    <Modal
-      title="Add Constraint"
-      onClose={onClose}
-    >
+    <Modal title="Add Constraint" onClose={onClose}>
       <Field label="Constraint">
         <input
           autoFocus
           value={name}
-          onChange={(event) =>
-            setName(
-              event.target.value
-            )
-          }
+          onChange={(event) => setName(event.target.value)}
           className={controlClassName}
           placeholder="Maximum mass"
         />
@@ -53,11 +42,7 @@ export function ConstraintModal({  onClose,
       <Field label="Value">
         <input
           value={value}
-          onChange={(event) =>
-            setValue(
-              event.target.value
-            )
-          }
+          onChange={(event) => setValue(event.target.value)}
           className={controlClassName}
           placeholder="20 kg"
         />

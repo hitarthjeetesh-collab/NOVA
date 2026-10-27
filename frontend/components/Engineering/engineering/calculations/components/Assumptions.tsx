@@ -2,9 +2,7 @@ interface AssumptionsProps {
   assumptions: string[];
 }
 
-export default function Assumptions({
-  assumptions,
-}: AssumptionsProps) {
+export default function Assumptions({ assumptions }: AssumptionsProps) {
   return (
     <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)]">
       <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-3">

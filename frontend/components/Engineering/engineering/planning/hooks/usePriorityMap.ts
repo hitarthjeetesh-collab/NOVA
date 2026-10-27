@@ -30,8 +30,7 @@ export function usePriorityMap({
     if (priorities.length === 0) return [];
 
     return priorities.map((priority, index) => {
-      const angle =
-        -Math.PI / 2 + (index * 2 * Math.PI) / priorities.length;
+      const angle = -Math.PI / 2 + (index * 2 * Math.PI) / priorities.length;
 
       return {
         priority,
@@ -78,9 +77,7 @@ export function usePriorityMap({
     });
   }
 
-  function handlePointerDown(
-    event: ReactPointerEvent<SVGCircleElement>,
-  ) {
+  function handlePointerDown(event: ReactPointerEvent<SVGCircleElement>) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -95,9 +92,7 @@ export function usePriorityMap({
     updateFromPosition(position);
   }
 
-  function handlePointerMove(
-    event: ReactPointerEvent<SVGSVGElement>,
-  ) {
+  function handlePointerMove(event: ReactPointerEvent<SVGSVGElement>) {
     if (!dragging) return;
     if (capturedPointerId.current !== event.pointerId) return;
 

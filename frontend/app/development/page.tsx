@@ -13,47 +13,56 @@ const systems = [
   {
     name: "Core Workspace",
     status: "complete",
-    description: "The foundation of NOVA: navigation, projects, workspace structure, and core interface systems.",
+    description:
+      "The foundation of NOVA: navigation, projects, workspace structure, and core interface systems.",
   },
   {
     name: "Engineering",
     status: "development",
-    description: "The first major NOVA application, connecting the engineering development workflow into one workspace.",
+    description:
+      "The first major NOVA application, connecting the engineering development workflow into one workspace.",
   },
   {
     name: "Authentication",
     status: "development",
-    description: "Identity, accounts, sessions, and secure access across the NOVA ecosystem.",
+    description:
+      "Identity, accounts, sessions, and secure access across the NOVA ecosystem.",
   },
   {
     name: "Database",
     status: "development",
-    description: "Persistent project data, user data, engineering information, and application state.",
+    description:
+      "Persistent project data, user data, engineering information, and application state.",
   },
   {
     name: "File Storage",
     status: "development",
-    description: "Persistent project files and engineering assets through object storage.",
+    description:
+      "Persistent project files and engineering assets through object storage.",
   },
   {
     name: "AI Systems",
     status: "planned",
-    description: "AI capabilities built as a layer over NOVA's structured and deterministic systems.",
+    description:
+      "AI capabilities built as a layer over NOVA's structured and deterministic systems.",
   },
   {
     name: "Engineering Engine",
     status: "planned",
-    description: "Deterministic calculations, formulas, units, constants, materials, and engineering data.",
+    description:
+      "Deterministic calculations, formulas, units, constants, materials, and engineering data.",
   },
   {
     name: "CAD",
     status: "planned",
-    description: "Parametric and solid-modeling capabilities connected directly to the engineering workflow.",
+    description:
+      "Parametric and solid-modeling capabilities connected directly to the engineering workflow.",
   },
   {
     name: "Simulation",
     status: "planned",
-    description: "Engineering simulation and analysis integrated with project requirements and designs.",
+    description:
+      "Engineering simulation and analysis integrated with project requirements and designs.",
   },
 ];
 
@@ -181,8 +190,7 @@ export default function DevelopmentPage() {
         <div
           className="absolute right-[-10rem] top-[25%] h-[28rem] w-[28rem] rounded-full blur-3xl"
           style={{
-            background:
-              "color-mix(in srgb, var(--aevra-info) 7%, transparent)",
+            background: "color-mix(in srgb, var(--aevra-info) 7%, transparent)",
           }}
         />
 
@@ -275,8 +283,8 @@ export default function DevelopmentPage() {
 
               <p className="mt-7 max-w-2xl text-base leading-8 text-[var(--aevra-text-secondary)] sm:text-lg">
                 This is the public development portal for NOVA — its
-                architecture, progress, roadmap, releases, and the systems
-                being built to create one connected engineering workspace.
+                architecture, progress, roadmap, releases, and the systems being
+                built to create one connected engineering workspace.
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -343,9 +351,7 @@ export default function DevelopmentPage() {
                     <p className="text-xs font-medium text-[var(--aevra-text-faint)]">
                       SYSTEM STATUS
                     </p>
-                    <p className="mt-1 text-sm font-semibold">
-                      NOVA Platform
-                    </p>
+                    <p className="mt-1 text-sm font-semibold">NOVA Platform</p>
                   </div>
 
                   <StatusDot status="development" />
@@ -398,9 +404,7 @@ export default function DevelopmentPage() {
                           <div className="flex items-center gap-2">
                             <span
                               className={`h-1.5 w-1.5 rounded-full ${
-                                status === "development"
-                                  ? "animate-pulse"
-                                  : ""
+                                status === "development" ? "animate-pulse" : ""
                               }`}
                               style={{
                                 background:
@@ -409,9 +413,7 @@ export default function DevelopmentPage() {
                                     : "var(--aevra-text-tertiary)",
                               }}
                             />
-                            <span className="text-xs font-medium">
-                              {name}
-                            </span>
+                            <span className="text-xs font-medium">{name}</span>
                           </div>
 
                           <p className="mt-2 text-[10px] uppercase tracking-wide text-[var(--aevra-text-faint)]">
@@ -445,8 +447,8 @@ export default function DevelopmentPage() {
 
             <p className="mt-4 text-sm leading-7 text-[var(--aevra-text-tertiary)]">
               NOVA is intentionally being built from the foundation upward.
-              These statuses represent the current state of the actual
-              systems, not artificial completion percentages.
+              These statuses represent the current state of the actual systems,
+              not artificial completion percentages.
             </p>
           </div>
 
@@ -470,7 +472,11 @@ export default function DevelopmentPage() {
                 <div className="relative">
                   <div className="flex items-start justify-between gap-4">
                     <h3 className="text-sm font-semibold">{system.name}</h3>
-                    <StatusDot status={system.status as "complete" | "development" | "planned"} />
+                    <StatusDot
+                      status={
+                        system.status as "complete" | "development" | "planned"
+                      }
+                    />
                   </div>
 
                   <p className="mt-4 text-xs leading-6 text-[var(--aevra-text-tertiary)]">
@@ -494,8 +500,8 @@ export default function DevelopmentPage() {
             </h2>
 
             <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--aevra-text-tertiary)]">
-              NOVA is designed as a connected platform rather than a
-              collection of isolated applications.
+              NOVA is designed as a connected platform rather than a collection
+              of isolated applications.
             </p>
           </div>
 
@@ -563,10 +569,7 @@ export default function DevelopmentPage() {
                       "Engineering Systems",
                       "Calculations · CAD · Simulation · Optimization",
                     ],
-                    [
-                      "Platform",
-                      "Projects · Identity · Data · Files · APIs",
-                    ],
+                    ["Platform", "Projects · Identity · Data · Files · APIs"],
                     [
                       "Infrastructure",
                       "Firebase · Neon · Filebase · Render · Cloudflare",
@@ -631,10 +634,7 @@ export default function DevelopmentPage() {
                       <h3 className="text-sm font-semibold">{item.title}</h3>
                       <StatusDot
                         status={
-                          item.status as
-                            | "complete"
-                            | "development"
-                            | "planned"
+                          item.status as "complete" | "development" | "planned"
                         }
                       />
                     </div>
@@ -671,9 +671,9 @@ export default function DevelopmentPage() {
                 </h2>
 
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--aevra-text-tertiary)]">
-                  Public version history will begin when NOVA reaches its
-                  first stable production release. Development changes are
-                  tracked internally until then.
+                  Public version history will begin when NOVA reaches its first
+                  stable production release. Development changes are tracked
+                  internally until then.
                 </p>
               </div>
 
@@ -787,8 +787,8 @@ export default function DevelopmentPage() {
                 </h2>
 
                 <p className="mt-3 max-w-xl text-sm leading-6 text-[var(--aevra-text-tertiary)]">
-                  Follow the source, architecture, and future development of
-                  the platform.
+                  Follow the source, architecture, and future development of the
+                  platform.
                 </p>
               </div>
 

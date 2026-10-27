@@ -17,13 +17,8 @@ export function validateManufacturingSettings(
     errors.push("Resolution must be greater than zero.");
   }
 
-  if (
-    settings.process === "3d-printing" &&
-    settings.resolution > 1
-  ) {
-    errors.push(
-      "3D printing resolution should not exceed 1 mm.",
-    );
+  if (settings.process === "3d-printing" && settings.resolution > 1) {
+    errors.push("3D printing resolution should not exceed 1 mm.");
   }
 
   return errors;

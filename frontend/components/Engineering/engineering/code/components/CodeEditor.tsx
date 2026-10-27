@@ -5,10 +5,7 @@ type Props = {
   onChange: (value: string) => void;
 };
 
-export default function CodeEditor({
-  value,
-  onChange,
-}: Props) {
+export default function CodeEditor({ value, onChange }: Props) {
   const lines = value.split("\n");
 
   return (

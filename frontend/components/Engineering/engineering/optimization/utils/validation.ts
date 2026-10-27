@@ -11,34 +11,23 @@ export function validateOptimization(
   const errors: string[] = [];
 
   if (state.objectives.length === 0) {
-    errors.push(
-      "At least one optimization objective is required.",
-    );
+    errors.push("At least one optimization objective is required.");
   }
 
   if (state.constraints.length === 0) {
-    errors.push(
-      "At least one optimization constraint is required.",
-    );
+    errors.push("At least one optimization constraint is required.");
   }
 
   if (state.settings.maxIterations <= 0) {
-    errors.push(
-      "Maximum iterations must be greater than zero.",
-    );
+    errors.push("Maximum iterations must be greater than zero.");
   }
 
   if (state.settings.convergenceTolerance <= 0) {
-    errors.push(
-      "Convergence tolerance must be greater than zero.",
-    );
+    errors.push("Convergence tolerance must be greater than zero.");
   }
 
   for (const objective of state.objectives) {
-    if (
-      !Number.isFinite(objective.weight) ||
-      objective.weight <= 0
-    ) {
+    if (!Number.isFinite(objective.weight) || objective.weight <= 0) {
       errors.push(
         `Objective ${objective.id} must have a weight greater than zero.`,
       );
@@ -46,10 +35,7 @@ export function validateOptimization(
   }
 
   for (const constraint of state.constraints) {
-    if (
-      !Number.isFinite(constraint.value) ||
-      constraint.value <= 0
-    ) {
+    if (!Number.isFinite(constraint.value) || constraint.value <= 0) {
       errors.push(
         `Constraint ${constraint.id} must have a value greater than zero.`,
       );
@@ -61,9 +47,7 @@ export function validateOptimization(
       !Number.isFinite(variable.minimum) ||
       !Number.isFinite(variable.maximum)
     ) {
-      errors.push(
-        `Variable ${variable.id} must have valid bounds.`,
-      );
+      errors.push(`Variable ${variable.id} must have valid bounds.`);
     }
 
     if (variable.minimum >= variable.maximum) {

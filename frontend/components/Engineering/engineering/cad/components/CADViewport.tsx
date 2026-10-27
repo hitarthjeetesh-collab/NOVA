@@ -26,8 +26,7 @@ export default function CADViewport({ selectedObject }: Props) {
           <div
             className="absolute left-16 top-14 h-32 w-56 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)] bg-gradient-to-br from-[color-mix(in_srgb,var(--aevra-text)_16%,transparent)] to-[color-mix(in_srgb,var(--aevra-text)_4%,transparent)] shadow-2xl"
             style={{
-              transform:
-                "perspective(700px) rotateX(8deg) rotateY(-18deg)",
+              transform: "perspective(700px) rotateX(8deg) rotateY(-18deg)",
             }}
           >
             <div className="absolute left-8 top-8 h-16 w-32 rounded border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-background)_20%,transparent)]" />

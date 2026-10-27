@@ -28,18 +28,12 @@ export default function ResizablePanel({
 
   return (
     <div
-      style={
-        direction === "horizontal"
-          ? { width: size }
-          : { height: size }
-      }
+      style={direction === "horizontal" ? { width: size } : { height: size }}
       className={`group relative shrink-0 ${
         direction === "horizontal" ? "h-full" : "w-full"
       } ${className}`}
     >
-      <div className="h-full w-full overflow-hidden">
-        {children}
-      </div>
+      <div className="h-full w-full overflow-hidden">{children}</div>
 
       {onToggleCollapse && (
         <button

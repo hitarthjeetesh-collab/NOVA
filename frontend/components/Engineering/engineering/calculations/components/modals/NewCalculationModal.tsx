@@ -116,9 +116,7 @@ export default function NewCalculationModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,var(--aevra-background)_70%,transparent)] p-4 backdrop-blur-sm">
       <div className="w-full max-w-lg rounded-2xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] shadow-2xl">
         <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-4">
-          <h2 className="text-base font-semibold">
-            New Calculation
-          </h2>
+          <h2 className="text-base font-semibold">New Calculation</h2>
 
           <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_35%,transparent)]">
             Choose a calculation template to start with.
@@ -142,9 +140,7 @@ export default function NewCalculationModal({
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">
-                      {template.name}
-                    </span>
+                    <span className="text-sm font-medium">{template.name}</span>
 
                     <span className="text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                       {template.category}

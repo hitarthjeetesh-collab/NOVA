@@ -36,8 +36,7 @@ export default function SubsystemModal({
   const [category, setCategory] = useState("Mechanical");
   const [description, setDescription] = useState("");
   const [elements, setElements] = useState("");
-  const [status, setStatus] =
-    useState<"Defined" | "Needs Work">("Defined");
+  const [status, setStatus] = useState<"Defined" | "Needs Work">("Defined");
 
   const editing = Boolean(subsystem);
 
@@ -193,9 +192,7 @@ export default function SubsystemModal({
             <select
               value={status}
               onChange={(event) =>
-                setStatus(
-                  event.target.value as "Defined" | "Needs Work"
-                )
+                setStatus(event.target.value as "Defined" | "Needs Work")
               }
               className="w-full rounded-lg border border-white/10 bg-[var(--aevra-background)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-[var(--aevra-accent)]"
             >

@@ -4,12 +4,8 @@ interface ValidationPanelProps {
   validation: ValidationItem[];
 }
 
-export default function ValidationPanel({
-  validation,
-}: ValidationPanelProps) {
-  const errors = validation.filter(
-    (item) => item.status === "error",
-  ).length;
+export default function ValidationPanel({ validation }: ValidationPanelProps) {
+  const errors = validation.filter((item) => item.status === "error").length;
 
   const warnings = validation.filter(
     (item) => item.status === "warning",
@@ -36,9 +32,7 @@ export default function ValidationPanel({
           )}
 
           {errors === 0 && warnings === 0 && (
-            <span className="text-emerald-400">
-              All checks passed
-            </span>
+            <span className="text-emerald-400">All checks passed</span>
           )}
         </div>
       </div>

@@ -1,19 +1,12 @@
 "use client";
 
-import type {
-  InputHTMLAttributes,
-} from "react";
+import type { InputHTMLAttributes } from "react";
 
-export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-export default function Input({
-  label,
-  className = "",
-  ...props
-}: InputProps) {
+export default function Input({ label, className = "", ...props }: InputProps) {
   return (
     <div className="w-full">
       {label && (

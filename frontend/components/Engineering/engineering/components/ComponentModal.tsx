@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import type { ArchitectureNode } from "../architecture/Architecture";
 
@@ -61,9 +57,7 @@ function getSubsystemPath(
   let parentId = node.data.parentId ?? null;
 
   while (parentId) {
-    const parent = nodes.find(
-      (item) => item.id === parentId,
-    );
+    const parent = nodes.find((item) => item.id === parentId);
 
     if (!parent) {
       break;
@@ -108,8 +102,7 @@ export default function ComponentModal({
   onClose,
   onSubmit,
 }: ComponentModalProps) {
-  const [form, setForm] =
-    useState<EngineeringComponent>(emptyComponent);
+  const [form, setForm] = useState<EngineeringComponent>(emptyComponent);
 
   useEffect(() => {
     if (!open) {
@@ -133,19 +126,12 @@ export default function ComponentModal({
     return architectureNodes
       .map((node) => ({
         id: node.id,
-        label: getSubsystemPath(
-          node,
-          architectureNodes,
-        ),
+        label: getSubsystemPath(node, architectureNodes),
       }))
-      .sort((a, b) =>
-        a.label.localeCompare(b.label),
-      );
+      .sort((a, b) => a.label.localeCompare(b.label));
   }, [architectureNodes]);
 
-  function updateField<
-    K extends keyof EngineeringComponent,
-  >(
+  function updateField<K extends keyof EngineeringComponent>(
     field: K,
     value: EngineeringComponent[K],
   ) {
@@ -155,9 +141,7 @@ export default function ComponentModal({
     }));
   }
 
-  function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!form.name.trim()) {
@@ -170,9 +154,7 @@ export default function ComponentModal({
       manufacturer: form.manufacturer.trim(),
       partNumber: form.partNumber.trim(),
       description: form.description.trim(),
-      interfaces: form.interfaces
-        .map((item) => item.trim())
-        .filter(Boolean),
+      interfaces: form.interfaces.map((item) => item.trim()).filter(Boolean),
       datasheet: form.datasheet.trim(),
       notes: form.notes.trim(),
     });
@@ -188,14 +170,11 @@ export default function ComponentModal({
         <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-6 py-4">
           <div>
             <h2 className="text-base font-semibold">
-              {initialData
-                ? "Edit Component"
-                : "Add Component"}
+              {initialData ? "Edit Component" : "Add Component"}
             </h2>
 
             <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-              Define the physical component and its
-              engineering properties.
+              Define the physical component and its engineering properties.
             </p>
           </div>
 
@@ -222,10 +201,7 @@ export default function ComponentModal({
                     className={controlClassName}
                     value={form.name}
                     onChange={(event) =>
-                      updateField(
-                        "name",
-                        event.target.value,
-                      )
+                      updateField("name", event.target.value)
                     }
                     placeholder="e.g. NVIDIA Jetson Orin NX"
                     required
@@ -237,10 +213,7 @@ export default function ComponentModal({
                     className={controlClassName}
                     value={form.manufacturer}
                     onChange={(event) =>
-                      updateField(
-                        "manufacturer",
-                        event.target.value,
-                      )
+                      updateField("manufacturer", event.target.value)
                     }
                     placeholder="e.g. NVIDIA"
                   />
@@ -251,10 +224,7 @@ export default function ComponentModal({
                     className={controlClassName}
                     value={form.partNumber}
                     onChange={(event) =>
-                      updateField(
-                        "partNumber",
-                        event.target.value,
-                      )
+                      updateField("partNumber", event.target.value)
                     }
                     placeholder="e.g. 699-13767-0000-000"
                   />
@@ -268,10 +238,7 @@ export default function ComponentModal({
                     label: category,
                   }))}
                   onChange={(value) =>
-                    updateField(
-                      "category",
-                      value as ComponentCategory,
-                    )
+                    updateField("category", value as ComponentCategory)
                   }
                 />
 
@@ -283,28 +250,21 @@ export default function ComponentModal({
                     label: status,
                   }))}
                   onChange={(value) =>
-                    updateField(
-                      "status",
-                      value as ComponentStatus,
-                    )
+                    updateField("status", value as ComponentStatus)
                   }
                 />
 
                 <NumberField
                   label="Quantity"
                   value={form.quantity}
-                  onChange={(value) =>
-                    updateField("quantity", value ?? 1)
-                  }
+                  onChange={(value) => updateField("quantity", value ?? 1)}
                 />
 
                 <div className="md:col-span-2">
                   <TextAreaField
                     label="Description"
                     value={form.description}
-                    onChange={(value) =>
-                      updateField("description", value)
-                    }
+                    onChange={(value) => updateField("description", value)}
                     placeholder="What is this component used for?"
                   />
                 </div>
@@ -312,28 +272,20 @@ export default function ComponentModal({
             </section>
 
             <section>
-              <SectionTitle>
-                Architecture Assignment
-              </SectionTitle>
+              <SectionTitle>Architecture Assignment</SectionTitle>
 
               <Field label="Subsystem">
                 <select
                   value={form.subsystemId ?? ""}
                   onChange={(event) =>
-                    updateField(
-                      "subsystemId",
-                      event.target.value || null,
-                    )
+                    updateField("subsystemId", event.target.value || null)
                   }
                   className={controlClassName}
                 >
                   <option value="">Unassigned</option>
 
                   {subsystemOptions.map((option) => (
-                    <option
-                      key={option.id}
-                      value={option.id}
-                    >
+                    <option key={option.id} value={option.id}>
                       {option.label}
                     </option>
                   ))}
@@ -341,8 +293,8 @@ export default function ComponentModal({
               </Field>
 
               <p className="mt-2 text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
-                This component is assigned to a system
-                from the Architecture workspace.
+                This component is assigned to a system from the Architecture
+                workspace.
               </p>
             </section>
 
@@ -353,33 +305,25 @@ export default function ComponentModal({
                 <NumberField
                   label="Min Voltage (V)"
                   value={form.voltageMin}
-                  onChange={(value) =>
-                    updateField("voltageMin", value)
-                  }
+                  onChange={(value) => updateField("voltageMin", value)}
                 />
 
                 <NumberField
                   label="Max Voltage (V)"
                   value={form.voltageMax}
-                  onChange={(value) =>
-                    updateField("voltageMax", value)
-                  }
+                  onChange={(value) => updateField("voltageMax", value)}
                 />
 
                 <NumberField
                   label="Max Current (A)"
                   value={form.currentMax}
-                  onChange={(value) =>
-                    updateField("currentMax", value)
-                  }
+                  onChange={(value) => updateField("currentMax", value)}
                 />
 
                 <NumberField
                   label="Max Power (W)"
                   value={form.powerMax}
-                  onChange={(value) =>
-                    updateField("powerMax", value)
-                  }
+                  onChange={(value) => updateField("powerMax", value)}
                 />
               </div>
             </section>
@@ -391,33 +335,25 @@ export default function ComponentModal({
                 <NumberField
                   label="Mass (g)"
                   value={form.mass}
-                  onChange={(value) =>
-                    updateField("mass", value)
-                  }
+                  onChange={(value) => updateField("mass", value)}
                 />
 
                 <NumberField
                   label="Length (mm)"
                   value={form.length}
-                  onChange={(value) =>
-                    updateField("length", value)
-                  }
+                  onChange={(value) => updateField("length", value)}
                 />
 
                 <NumberField
                   label="Width (mm)"
                   value={form.width}
-                  onChange={(value) =>
-                    updateField("width", value)
-                  }
+                  onChange={(value) => updateField("width", value)}
                 />
 
                 <NumberField
                   label="Height (mm)"
                   value={form.height}
-                  onChange={(value) =>
-                    updateField("height", value)
-                  }
+                  onChange={(value) => updateField("height", value)}
                 />
               </div>
             </section>
@@ -429,9 +365,7 @@ export default function ComponentModal({
                 <NumberField
                   label="Unit Cost"
                   value={form.unitCost}
-                  onChange={(value) =>
-                    updateField("unitCost", value)
-                  }
+                  onChange={(value) => updateField("unitCost", value)}
                 />
 
                 <Field label="Currency">
@@ -439,10 +373,7 @@ export default function ComponentModal({
                     className={controlClassName}
                     value={form.currency}
                     onChange={(event) =>
-                      updateField(
-                        "currency",
-                        event.target.value,
-                      )
+                      updateField("currency", event.target.value)
                     }
                     placeholder="CAD"
                   />
@@ -457,43 +388,38 @@ export default function ComponentModal({
                 <div className="space-y-3">
                   {form.interfaces.length > 0 && (
                     <div className="flex flex-wrap gap-2">
-                      {form.interfaces.map(
-                        (interfaceName, index) => {
-                          const trimmed =
-                            interfaceName.trim();
+                      {form.interfaces.map((interfaceName, index) => {
+                        const trimmed = interfaceName.trim();
 
-                          if (!trimmed) {
-                            return null;
-                          }
+                        if (!trimmed) {
+                          return null;
+                        }
 
-                          return (
-                            <div
-                              key={`${trimmed}-${index}`}
-                              className="flex items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-1.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
+                        return (
+                          <div
+                            key={`${trimmed}-${index}`}
+                            className="flex items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-1.5 text-xs text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
+                          >
+                            <span>{trimmed}</span>
+
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setForm((current) => ({
+                                  ...current,
+                                  interfaces: current.interfaces.filter(
+                                    (_, itemIndex) => itemIndex !== index,
+                                  ),
+                                }))
+                              }
+                              className="text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] transition hover:text-[var(--aevra-text)]"
+                              aria-label={`Remove ${trimmed}`}
                             >
-                              <span>{trimmed}</span>
-
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  setForm((current) => ({
-                                    ...current,
-                                    interfaces:
-                                      current.interfaces.filter(
-                                        (_, itemIndex) =>
-                                          itemIndex !== index,
-                                      ),
-                                  }))
-                                }
-                                className="text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] transition hover:text-[var(--aevra-text)]"
-                                aria-label={`Remove ${trimmed}`}
-                              >
-                                ×
-                              </button>
-                            </div>
-                          );
-                        },
-                      )}
+                              ×
+                            </button>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
 
@@ -501,17 +427,13 @@ export default function ComponentModal({
                     className={controlClassName}
                     placeholder="Add interface, e.g. USB-C"
                     onKeyDown={(event) => {
-                      if (
-                        event.key !== "Enter" &&
-                        event.key !== ","
-                      ) {
+                      if (event.key !== "Enter" && event.key !== ",") {
                         return;
                       }
 
                       event.preventDefault();
 
-                      const value =
-                        event.currentTarget.value.trim();
+                      const value = event.currentTarget.value.trim();
 
                       if (!value) {
                         return;
@@ -524,10 +446,7 @@ export default function ComponentModal({
 
                       setForm((current) => ({
                         ...current,
-                        interfaces: [
-                          ...current.interfaces,
-                          ...newInterfaces,
-                        ],
+                        interfaces: [...current.interfaces, ...newInterfaces],
                       }));
 
                       event.currentTarget.value = "";
@@ -542,9 +461,7 @@ export default function ComponentModal({
             </section>
 
             <section>
-              <SectionTitle>
-                Documentation
-              </SectionTitle>
+              <SectionTitle>Documentation</SectionTitle>
 
               <div className="space-y-4">
                 <Field label="Datasheet URL">
@@ -552,10 +469,7 @@ export default function ComponentModal({
                     className={controlClassName}
                     value={form.datasheet}
                     onChange={(event) =>
-                      updateField(
-                        "datasheet",
-                        event.target.value,
-                      )
+                      updateField("datasheet", event.target.value)
                     }
                     placeholder="https://..."
                   />
@@ -564,9 +478,7 @@ export default function ComponentModal({
                 <TextAreaField
                   label="Notes"
                   value={form.notes}
-                  onChange={(value) =>
-                    updateField("notes", value)
-                  }
+                  onChange={(value) => updateField("notes", value)}
                   placeholder="Additional engineering notes..."
                 />
               </div>
@@ -586,9 +498,7 @@ export default function ComponentModal({
               type="submit"
               className="rounded-lg bg-[var(--aevra-text)] px-4 py-2 text-sm font-medium text-[var(--aevra-background)] transition hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)]"
             >
-              {initialData
-                ? "Save Changes"
-                : "Add Component"}
+              {initialData ? "Save Changes" : "Add Component"}
             </button>
           </div>
         </form>
@@ -597,11 +507,7 @@ export default function ComponentModal({
   );
 }
 
-function SectionTitle({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
       {children}
@@ -623,11 +529,7 @@ function Field({
       <span className="mb-2 block text-xs text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
         {label}
 
-        {required && (
-          <span className="ml-1 text-[var(--aevra-text)]">
-            *
-          </span>
-        )}
+        {required && <span className="ml-1 text-[var(--aevra-text)]">*</span>}
       </span>
 
       {children}
@@ -651,9 +553,7 @@ function NumberField({
         type="number"
         step="any"
         value={value === null ? "" : value}
-        onChange={(event) =>
-          onChange(numberValue(event.target.value))
-        }
+        onChange={(event) => onChange(numberValue(event.target.value))}
       />
     </Field>
   );
@@ -678,15 +578,10 @@ function SelectField({
       <select
         className={controlClassName}
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
       >
         {options.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-          >
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
@@ -712,9 +607,7 @@ function TextAreaField({
         className={controlClassName}
         rows={4}
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
-        }
+        onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
       />
     </Field>

@@ -32,29 +32,13 @@
      Common UI colors
      ============================================================ */
 
-  --aevra-border: color-mix(
-    in srgb,
-    var(--aevra-text) 10%,
-    transparent
-  );
+  --aevra-border: color-mix(in srgb, var(--aevra-text) 10%, transparent);
 
-  --aevra-border-strong: color-mix(
-    in srgb,
-    var(--aevra-text) 20%,
-    transparent
-  );
+  --aevra-border-strong: color-mix(in srgb, var(--aevra-text) 20%, transparent);
 
-  --aevra-hover: color-mix(
-    in srgb,
-    var(--aevra-text) 5%,
-    transparent
-  );
+  --aevra-hover: color-mix(in srgb, var(--aevra-text) 5%, transparent);
 
-  --aevra-hover-strong: color-mix(
-    in srgb,
-    var(--aevra-text) 10%,
-    transparent
-  );
+  --aevra-hover-strong: color-mix(in srgb, var(--aevra-text) 10%, transparent);
 
   /* ============================================================
      Text hierarchy
@@ -66,23 +50,11 @@
     transparent
   );
 
-  --aevra-text-tertiary: color-mix(
-    in srgb,
-    var(--aevra-text) 50%,
-    transparent
-  );
+  --aevra-text-tertiary: color-mix(in srgb, var(--aevra-text) 50%, transparent);
 
-  --aevra-text-subtle: color-mix(
-    in srgb,
-    var(--aevra-text) 30%,
-    transparent
-  );
+  --aevra-text-subtle: color-mix(in srgb, var(--aevra-text) 30%, transparent);
 
-  --aevra-text-faint: color-mix(
-    in srgb,
-    var(--aevra-text) 20%,
-    transparent
-  );
+  --aevra-text-faint: color-mix(in srgb, var(--aevra-text) 20%, transparent);
 }
 
 /* ==============================================================
@@ -131,11 +103,7 @@ textarea:disabled {
    ============================================================== */
 
 ::selection {
-  background: color-mix(
-    in srgb,
-    var(--aevra-accent) 30%,
-    transparent
-  );
+  background: color-mix(in srgb, var(--aevra-accent) 30%, transparent);
 
   color: var(--aevra-text);
 }
@@ -146,9 +114,7 @@ textarea:disabled {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color:
-    var(--aevra-surface-light)
-    var(--aevra-background);
+  scrollbar-color: var(--aevra-surface-light) var(--aevra-background);
 }
 
 *::-webkit-scrollbar {

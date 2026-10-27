@@ -1,13 +1,6 @@
-export type ManufacturingProcess =
-  | "cnc"
-  | "3d-printing"
-  | "sheet-metal";
+export type ManufacturingProcess = "cnc" | "3d-printing" | "sheet-metal";
 
-export type ManufacturingStatus =
-  | "ready"
-  | "preparing"
-  | "completed"
-  | "error";
+export type ManufacturingStatus = "ready" | "preparing" | "completed" | "error";
 
 export type ManufacturingMaterial =
   | "aluminum-6061"

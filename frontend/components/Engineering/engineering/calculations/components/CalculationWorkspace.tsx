@@ -14,10 +14,7 @@ interface CalculationWorkspaceProps {
   calculation?: Calculation;
   projectName: string;
   onDuplicate: () => void;
-  onInputChange: (
-    inputId: string,
-    value: number,
-  ) => void;
+  onInputChange: (inputId: string, value: number) => void;
 }
 
 export default function CalculationWorkspace({
@@ -65,9 +62,7 @@ export default function CalculationWorkspace({
           <div className="grid gap-5 lg:grid-cols-2">
             <Assumptions assumptions={calculation.assumptions} />
 
-            <ValidationPanel
-              validation={calculation.validation}
-            />
+            <ValidationPanel validation={calculation.validation} />
           </div>
         </div>
       </div>

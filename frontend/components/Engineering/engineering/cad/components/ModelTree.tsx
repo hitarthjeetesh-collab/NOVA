@@ -23,11 +23,7 @@ function getIcon(type: CADObject["type"]) {
   }
 }
 
-export default function ModelTree({
-  objects,
-  selectedId,
-  onSelect,
-}: Props) {
+export default function ModelTree({ objects, selectedId, onSelect }: Props) {
   return (
     <aside className="flex w-56 shrink-0 flex-col border-r border-[color-mix(in_srgb,var(--aevra-text)_7%,transparent)] bg-[var(--aevra-surface)]">
       <div className="flex h-10 items-center justify-between border-b border-[color-mix(in_srgb,var(--aevra-text)_6%,transparent)] px-3">

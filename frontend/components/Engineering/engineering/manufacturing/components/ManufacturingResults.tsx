@@ -48,45 +48,29 @@ export default function ManufacturingResults({
         </div>
 
         {error && (
-          <p className="mt-3 text-xs leading-5 text-red-300">
-            {error}
-          </p>
+          <p className="mt-3 text-xs leading-5 text-red-300">{error}</p>
         )}
       </section>
 
       <section className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] p-4">
         <Metric
           label="Estimated Time"
-          value={
-            results
-              ? formatHours(results.estimatedTime)
-              : "—"
-          }
+          value={results ? formatHours(results.estimatedTime) : "—"}
         />
 
         <Metric
           label="Material Usage"
-          value={
-            results
-              ? `${results.materialUsage.toFixed(2)} kg`
-              : "—"
-          }
+          value={results ? `${results.materialUsage.toFixed(2)} kg` : "—"}
         />
 
         <Metric
           label="Estimated Cost"
-          value={
-            results
-              ? `$${results.estimatedCost.toFixed(2)}`
-              : "—"
-          }
+          value={results ? `$${results.estimatedCost.toFixed(2)}` : "—"}
         />
 
         <Metric
           label="Toolpaths"
-          value={
-            results ? String(results.toolpaths) : "—"
-          }
+          value={results ? String(results.toolpaths) : "—"}
         />
       </section>
 
@@ -118,13 +102,7 @@ export default function ManufacturingResults({
   );
 }
 
-function Metric({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="mb-4 last:mb-0">
       <p className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
@@ -156,9 +134,7 @@ function getStatusLabel(status: ManufacturingStatus) {
 
 function formatHours(hours: number) {
   const wholeHours = Math.floor(hours);
-  const minutes = Math.round(
-    (hours - wholeHours) * 60,
-  );
+  const minutes = Math.round((hours - wholeHours) * 60);
 
   return `${wholeHours}h ${minutes}m`;
 }

@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import type {
   OptimizationConstraint,
@@ -85,12 +80,9 @@ function createInitialState(): OptimizationState {
 }
 
 export function useOptimization() {
-  const [state, setState] =
-    useState<OptimizationState>(createInitialState);
+  const [state, setState] = useState<OptimizationState>(createInitialState);
 
-  const timerRef = useRef<
-    ReturnType<typeof setInterval> | null
-  >(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const clearOptimizationTimer = useCallback(() => {
     if (timerRef.current) {
@@ -105,41 +97,33 @@ export function useOptimization() {
     };
   }, [clearOptimizationTimer]);
 
-  const setMethod = useCallback(
-    (method: OptimizationMethod) => {
-      setState((current) => ({
-        ...current,
+  const setMethod = useCallback((method: OptimizationMethod) => {
+    setState((current) => ({
+      ...current,
+      method,
+      settings: {
+        ...current.settings,
         method,
-        settings: {
-          ...current.settings,
-          method,
-        },
-        results: null,
-        error: null,
-      }));
-    },
-    [],
-  );
+      },
+      results: null,
+      error: null,
+    }));
+  }, []);
 
-  const setSettings = useCallback(
-    (settings: Partial<OptimizationSettings>) => {
-      setState((current) => ({
-        ...current,
-        settings: {
-          ...current.settings,
-          ...settings,
-        },
-        results: null,
-        error: null,
-      }));
-    },
-    [],
-  );
+  const setSettings = useCallback((settings: Partial<OptimizationSettings>) => {
+    setState((current) => ({
+      ...current,
+      settings: {
+        ...current.settings,
+        ...settings,
+      },
+      results: null,
+      error: null,
+    }));
+  }, []);
 
   const addObjective = useCallback(
-    (
-      objective: Omit<OptimizationObjective, "id">,
-    ) => {
+    (objective: Omit<OptimizationObjective, "id">) => {
       setState((current) => ({
         ...current,
         objectives: [
@@ -157,20 +141,16 @@ export function useOptimization() {
   );
 
   const updateObjective = useCallback(
-    (
-      id: string,
-      updates: Partial<OptimizationObjective>,
-    ) => {
+    (id: string, updates: Partial<OptimizationObjective>) => {
       setState((current) => ({
         ...current,
-        objectives: current.objectives.map(
-          (objective) =>
-            objective.id === id
-              ? {
-                  ...objective,
-                  ...updates,
-                }
-              : objective,
+        objectives: current.objectives.map((objective) =>
+          objective.id === id
+            ? {
+                ...objective,
+                ...updates,
+              }
+            : objective,
         ),
         results: null,
         error: null,
@@ -182,18 +162,14 @@ export function useOptimization() {
   const removeObjective = useCallback((id: string) => {
     setState((current) => ({
       ...current,
-      objectives: current.objectives.filter(
-        (objective) => objective.id !== id,
-      ),
+      objectives: current.objectives.filter((objective) => objective.id !== id),
       results: null,
       error: null,
     }));
   }, []);
 
   const addConstraint = useCallback(
-    (
-      constraint: Omit<OptimizationConstraint, "id">,
-    ) => {
+    (constraint: Omit<OptimizationConstraint, "id">) => {
       setState((current) => ({
         ...current,
         constraints: [
@@ -211,20 +187,16 @@ export function useOptimization() {
   );
 
   const updateConstraint = useCallback(
-    (
-      id: string,
-      updates: Partial<OptimizationConstraint>,
-    ) => {
+    (id: string, updates: Partial<OptimizationConstraint>) => {
       setState((current) => ({
         ...current,
-        constraints: current.constraints.map(
-          (constraint) =>
-            constraint.id === id
-              ? {
-                  ...constraint,
-                  ...updates,
-                }
-              : constraint,
+        constraints: current.constraints.map((constraint) =>
+          constraint.id === id
+            ? {
+                ...constraint,
+                ...updates,
+              }
+            : constraint,
         ),
         results: null,
         error: null,
@@ -245,9 +217,7 @@ export function useOptimization() {
   }, []);
 
   const addVariable = useCallback(
-    (
-      variable: Omit<OptimizationVariable, "id">,
-    ) => {
+    (variable: Omit<OptimizationVariable, "id">) => {
       setState((current) => ({
         ...current,
         variables: [
@@ -265,20 +235,16 @@ export function useOptimization() {
   );
 
   const updateVariable = useCallback(
-    (
-      id: string,
-      updates: Partial<OptimizationVariable>,
-    ) => {
+    (id: string, updates: Partial<OptimizationVariable>) => {
       setState((current) => ({
         ...current,
-        variables: current.variables.map(
-          (variable) =>
-            variable.id === id
-              ? {
-                  ...variable,
-                  ...updates,
-                }
-              : variable,
+        variables: current.variables.map((variable) =>
+          variable.id === id
+            ? {
+                ...variable,
+                ...updates,
+              }
+            : variable,
         ),
         results: null,
         error: null,
@@ -290,9 +256,7 @@ export function useOptimization() {
   const removeVariable = useCallback((id: string) => {
     setState((current) => ({
       ...current,
-      variables: current.variables.filter(
-        (variable) => variable.id !== id,
-      ),
+      variables: current.variables.filter((variable) => variable.id !== id),
       results: null,
       error: null,
     }));
@@ -344,17 +308,13 @@ export function useOptimization() {
         }
 
         if (progress >= 100) {
-          const iterationRatio =
-            current.settings.maxIterations / 100;
+          const iterationRatio = current.settings.maxIterations / 100;
 
           const iterations = Math.min(
             current.settings.maxIterations,
             Math.max(
               20,
-              Math.round(
-                defaultResults.iterations *
-                  iterationRatio,
-              ),
+              Math.round(defaultResults.iterations * iterationRatio),
             ),
           );
 
@@ -392,10 +352,7 @@ export function useOptimization() {
 
     setState((current) => ({
       ...current,
-      status:
-        current.status === "running"
-          ? "stopped"
-          : current.status,
+      status: current.status === "running" ? "stopped" : current.status,
     }));
   }, [clearOptimizationTimer]);
 

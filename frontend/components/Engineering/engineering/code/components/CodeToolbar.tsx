@@ -1,13 +1,7 @@
 "use client";
 
 export default function CodeToolbar() {
-  const buttons = [
-    "Run",
-    "Format",
-    "Explain",
-    "Fix",
-    "Generate",
-  ];
+  const buttons = ["Run", "Format", "Explain", "Fix", "Generate"];
 
   return (
     <div className="flex items-center gap-2 border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_2.5%,transparent)] px-4 py-2">

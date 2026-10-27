@@ -27,9 +27,7 @@ export function Brainstorming({
         <button
           type="button"
           onClick={onAdd}
-          className={
-            primaryButtonClassName
-          }
+          className={primaryButtonClassName}
         >
           + Add Approach
         </button>
@@ -39,24 +37,14 @@ export function Brainstorming({
         <EmptyState text="No approaches yet. Start brainstorming by adding one." />
       ) : (
         <div className="grid gap-4 lg:grid-cols-2">
-          {approaches.map(
-            (approach) => (
-              <ApproachCard
-                key={approach.id}
-                approach={approach}
-                onEdit={() =>
-                  onEdit(
-                    approach.id
-                  )
-                }
-                onDelete={() =>
-                  onDelete(
-                    approach.id
-                  )
-                }
-              />
-            )
-          )}
+          {approaches.map((approach) => (
+            <ApproachCard
+              key={approach.id}
+              approach={approach}
+              onEdit={() => onEdit(approach.id)}
+              onDelete={() => onDelete(approach.id)}
+            />
+          ))}
         </div>
       )}
     </div>

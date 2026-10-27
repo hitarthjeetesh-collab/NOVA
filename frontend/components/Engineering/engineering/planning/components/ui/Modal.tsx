@@ -7,12 +7,7 @@ export interface ModalProps {
   wide?: boolean;
 }
 
-export function Modal({
-  title,
-  onClose,
-  children,
-  wide = false,
-}: ModalProps) {
+export function Modal({ title, onClose, children, wide = false }: ModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6 backdrop-blur-sm">
       <div

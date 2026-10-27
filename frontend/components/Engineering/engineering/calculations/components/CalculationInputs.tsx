@@ -4,10 +4,7 @@ import type { Calculation } from "../types/calculations";
 
 interface CalculationInputsProps {
   calculation: Calculation;
-  onInputChange: (
-    inputId: string,
-    value: number,
-  ) => void;
+  onInputChange: (inputId: string, value: number) => void;
 }
 
 export default function CalculationInputs({
@@ -44,10 +41,7 @@ export default function CalculationInputs({
                 type="number"
                 value={input.value}
                 onChange={(event) =>
-                  onInputChange(
-                    input.id,
-                    Number(event.target.value),
-                  )
+                  onInputChange(input.id, Number(event.target.value))
                 }
                 className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[var(--aevra-text)] outline-none"
               />

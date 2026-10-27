@@ -1,15 +1,11 @@
-import type {
-  EngineeringSystem,
-  SystemConnection,
-} from "./types";
+import type { EngineeringSystem, SystemConnection } from "./types";
 
 export const initialSystems: EngineeringSystem[] = [
   {
     id: "orion",
     name: "ORION",
     category: "System",
-    description:
-      "Modular wearable engineering platform.",
+    description: "Modular wearable engineering platform.",
     status: "Concept",
     parameters: [],
   },
@@ -18,8 +14,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "power",
     name: "Power System",
     category: "Power",
-    description:
-      "Provides and distributes electrical power.",
+    description: "Provides and distributes electrical power.",
     status: "Designed",
     parentId: "orion",
     parameters: [
@@ -42,8 +37,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "battery",
     name: "Battery",
     category: "Power",
-    description:
-      "Primary energy storage system.",
+    description: "Primary energy storage system.",
     status: "Concept",
     parentId: "power",
     parameters: [
@@ -60,8 +54,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "bms",
     name: "Battery Management System",
     category: "Power",
-    description:
-      "Monitors and protects the battery.",
+    description: "Monitors and protects the battery.",
     status: "Concept",
     parentId: "power",
     parameters: [],
@@ -71,8 +64,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "perception",
     name: "Perception System",
     category: "Sensors",
-    description:
-      "Collects environmental and motion data.",
+    description: "Collects environmental and motion data.",
     status: "Concept",
     parentId: "orion",
     parameters: [],
@@ -82,8 +74,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "camera",
     name: "Camera",
     category: "Sensors",
-    description:
-      "Visual perception sensor.",
+    description: "Visual perception sensor.",
     status: "Concept",
     parentId: "perception",
     parameters: [
@@ -100,8 +91,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "lidar",
     name: "LiDAR",
     category: "Sensors",
-    description:
-      "Provides depth and ranging information.",
+    description: "Provides depth and ranging information.",
     status: "Concept",
     parentId: "perception",
     parameters: [],
@@ -111,8 +101,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "imu",
     name: "IMU",
     category: "Sensors",
-    description:
-      "Measures acceleration and orientation.",
+    description: "Measures acceleration and orientation.",
     status: "Concept",
     parentId: "perception",
     parameters: [],
@@ -122,8 +111,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "computing",
     name: "Computing System",
     category: "Computing",
-    description:
-      "Main onboard computing and AI system.",
+    description: "Main onboard computing and AI system.",
     status: "Designed",
     parentId: "orion",
     parameters: [],
@@ -133,8 +121,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "jetson",
     name: "Jetson Orin NX",
     category: "Computing",
-    description:
-      "Main onboard computing platform.",
+    description: "Main onboard computing platform.",
     status: "Designed",
     parentId: "computing",
     parameters: [
@@ -157,8 +144,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "ai",
     name: "AI System",
     category: "Software",
-    description:
-      "AI inference and intelligence subsystem.",
+    description: "AI inference and intelligence subsystem.",
     status: "Concept",
     parentId: "computing",
     parameters: [],
@@ -168,8 +154,7 @@ export const initialSystems: EngineeringSystem[] = [
     id: "control",
     name: "Control System",
     category: "Control",
-    description:
-      "Controls actuators and system behavior.",
+    description: "Controls actuators and system behavior.",
     status: "Concept",
     parentId: "orion",
     parameters: [],
@@ -183,8 +168,7 @@ export const initialConnections: SystemConnection[] = [
     targetId: "power",
     type: "power",
     protocol: "DC",
-    description:
-      "Battery supplies power to the power system.",
+    description: "Battery supplies power to the power system.",
   },
 
   {
@@ -193,8 +177,7 @@ export const initialConnections: SystemConnection[] = [
     targetId: "computing",
     type: "power",
     protocol: "24V DC",
-    description:
-      "Power system supplies the computing system.",
+    description: "Power system supplies the computing system.",
   },
 
   {
@@ -203,8 +186,7 @@ export const initialConnections: SystemConnection[] = [
     targetId: "jetson",
     type: "sensor_data",
     protocol: "USB 3",
-    description:
-      "Camera feed sent to the Jetson.",
+    description: "Camera feed sent to the Jetson.",
   },
 
   {
@@ -213,8 +195,7 @@ export const initialConnections: SystemConnection[] = [
     targetId: "jetson",
     type: "sensor_data",
     protocol: "Ethernet",
-    description:
-      "LiDAR data sent to the Jetson.",
+    description: "LiDAR data sent to the Jetson.",
   },
 
   {
@@ -223,8 +204,7 @@ export const initialConnections: SystemConnection[] = [
     targetId: "ai",
     type: "communication",
     protocol: "Internal",
-    description:
-      "AI inference runs on the Jetson.",
+    description: "AI inference runs on the Jetson.",
   },
 
   {
@@ -233,7 +213,6 @@ export const initialConnections: SystemConnection[] = [
     targetId: "control",
     type: "control",
     protocol: "CAN",
-    description:
-      "Computing system sends control commands.",
+    description: "Computing system sends control commands.",
   },
 ];

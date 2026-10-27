@@ -25,10 +25,7 @@ const stages: {
   { id: "manufacturing", label: "Manufacturing" },
 ];
 
-export default function EngineeringProcess({
-  stage,
-  onStageChange,
-}: Props) {
+export default function EngineeringProcess({ stage, onStageChange }: Props) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -81,9 +78,7 @@ export default function EngineeringProcess({
                     {index + 1}
                   </span>
 
-                  <span className="truncate text-xs">
-                    {item.label}
-                  </span>
+                  <span className="truncate text-xs">{item.label}</span>
                 </button>
               );
             })}

@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  type ReactNode,
-} from "react";
+import { useEffect, type ReactNode } from "react";
 
 interface ModalProps {
   open: boolean;
@@ -11,11 +8,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export default function Modal({
-  open,
-  onClose,
-  children,
-}: ModalProps) {
+export default function Modal({ open, onClose, children }: ModalProps) {
   useEffect(() => {
     if (!open) {
       return;
@@ -27,24 +20,16 @@ export default function Modal({
       }
     }
 
-    document.addEventListener(
-      "keydown",
-      handleKeyDown,
-    );
+    document.addEventListener("keydown", handleKeyDown);
 
-    const previousOverflow =
-      document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
 
     document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener(
-        "keydown",
-        handleKeyDown,
-      );
+      document.removeEventListener("keydown", handleKeyDown);
 
-      document.body.style.overflow =
-        previousOverflow;
+      document.body.style.overflow = previousOverflow;
     };
   }, [open, onClose]);
 
@@ -63,9 +48,7 @@ export default function Modal({
     >
       <div
         className="max-h-[90vh] max-w-[95vw] overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface-light)] shadow-2xl"
-        onMouseDown={(event) =>
-          event.stopPropagation()
-        }
+        onMouseDown={(event) => event.stopPropagation()}
       >
         {children}
       </div>

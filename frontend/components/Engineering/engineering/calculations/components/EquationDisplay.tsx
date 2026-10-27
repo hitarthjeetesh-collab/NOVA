@@ -27,8 +27,7 @@ export default function EquationDisplay({
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
 
-    const nextValue =
-      value.slice(0, start) + text + value.slice(end);
+    const nextValue = value.slice(0, start) + text + value.slice(end);
 
     setValue(nextValue);
 
@@ -36,10 +35,7 @@ export default function EquationDisplay({
       textarea.focus();
 
       const cursorPosition = start + text.length;
-      textarea.setSelectionRange(
-        cursorPosition,
-        cursorPosition,
-      );
+      textarea.setSelectionRange(cursorPosition, cursorPosition);
     });
   };
 

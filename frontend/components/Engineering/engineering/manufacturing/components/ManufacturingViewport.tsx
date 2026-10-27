@@ -53,8 +53,7 @@ export default function ManufacturingViewport({
               </div>
 
               <p className="mt-2 text-center text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-                Preparing manufacturing process...{" "}
-                {progress}%
+                Preparing manufacturing process... {progress}%
               </p>
             </div>
           )}
@@ -84,9 +83,7 @@ export default function ManufacturingViewport({
   );
 }
 
-function getProcessLabel(
-  process: ManufacturingProcess,
-) {
+function getProcessLabel(process: ManufacturingProcess) {
   switch (process) {
     case "cnc":
       return "CNC Machining";

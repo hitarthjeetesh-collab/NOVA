@@ -56,9 +56,7 @@ export default function AccountPage() {
             >
               <input
                 value={name}
-                onChange={(event) =>
-                  setName(event.target.value)
-                }
+                onChange={(event) => setName(event.target.value)}
                 className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               />
             </AccountRow>
@@ -69,9 +67,7 @@ export default function AccountPage() {
             >
               <input
                 value={username}
-                onChange={(event) =>
-                  setUsername(event.target.value)
-                }
+                onChange={(event) => setUsername(event.target.value)}
                 className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               />
             </AccountRow>
@@ -83,9 +79,7 @@ export default function AccountPage() {
               <input
                 type="email"
                 value={email}
-                onChange={(event) =>
-                  setEmail(event.target.value)
-                }
+                onChange={(event) => setEmail(event.target.value)}
                 className="w-64 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none transition focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               />
             </AccountRow>
@@ -104,17 +98,11 @@ export default function AccountPage() {
                 defaultValue="ORION"
                 className="min-w-48 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-background)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               >
-                <option value="ORION">
-                  ORION
-                </option>
+                <option value="ORION">ORION</option>
 
-                <option value="Autonomous Rover">
-                  Autonomous Rover
-                </option>
+                <option value="Autonomous Rover">Autonomous Rover</option>
 
-                <option value="Drone">
-                  Drone
-                </option>
+                <option value="Drone">Drone</option>
               </select>
             </AccountRow>
           </AccountGroup>
@@ -163,9 +151,7 @@ export default function AccountPage() {
 
             <div className="flex items-center justify-between gap-8 px-5 py-5">
               <div>
-                <p className="text-sm font-medium">
-                  Delete account
-                </p>
+                <p className="text-sm font-medium">Delete account</p>
 
                 <p className="mt-1 text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
                   Permanently delete your account and associated data.
@@ -192,17 +178,11 @@ interface AccountGroupProps {
   children: React.ReactNode;
 }
 
-function AccountGroup({
-  title,
-  description,
-  children,
-}: AccountGroupProps) {
+function AccountGroup({ title, description, children }: AccountGroupProps) {
   return (
     <section className="overflow-hidden rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)]">
       <div className="border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-4">
-        <h2 className="text-sm font-semibold">
-          {title}
-        </h2>
+        <h2 className="text-sm font-semibold">{title}</h2>
 
         <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
@@ -220,26 +200,18 @@ interface AccountRowProps {
   children: React.ReactNode;
 }
 
-function AccountRow({
-  title,
-  description,
-  children,
-}: AccountRowProps) {
+function AccountRow({ title, description, children }: AccountRowProps) {
   return (
     <div className="flex items-center justify-between gap-8 border-b border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-5 py-5 last:border-b-0">
       <div className="min-w-0">
-        <p className="text-sm font-medium">
-          {title}
-        </p>
+        <p className="text-sm font-medium">{title}</p>
 
         <p className="mt-1 max-w-xl text-xs leading-5 text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
           {description}
         </p>
       </div>
 
-      <div className="shrink-0">
-        {children}
-      </div>
+      <div className="shrink-0">{children}</div>
     </div>
   );
 }

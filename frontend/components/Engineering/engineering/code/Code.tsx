@@ -21,9 +21,7 @@ type Props = {
   projectName?: string;
 };
 
-export default function Code({
-  projectName = "ORION",
-}: Props) {
+export default function Code({ projectName = "ORION" }: Props) {
   const {
     files,
     activeFile,
@@ -41,13 +39,9 @@ export default function Code({
   const [explorerWidth, setExplorerWidth] = useState(224);
   const [suggestionsWidth, setSuggestionsWidth] = useState(256);
 
-  const [explorerCollapsed, setExplorerCollapsed] =
-    useState(false);
+  const [explorerCollapsed, setExplorerCollapsed] = useState(false);
 
-  const [
-    suggestionsCollapsed,
-    setSuggestionsCollapsed,
-  ] = useState(false);
+  const [suggestionsCollapsed, setSuggestionsCollapsed] = useState(false);
 
   /*
    * Vertical panels
@@ -55,11 +49,9 @@ export default function Code({
   const [contextHeight, setContextHeight] = useState(150);
   const [consoleHeight, setConsoleHeight] = useState(144);
 
-  const [contextCollapsed, setContextCollapsed] =
-    useState(false);
+  const [contextCollapsed, setContextCollapsed] = useState(false);
 
-  const [consoleCollapsed, setConsoleCollapsed] =
-    useState(false);
+  const [consoleCollapsed, setConsoleCollapsed] = useState(false);
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[var(--aevra-background)]">
@@ -76,9 +68,7 @@ export default function Code({
             maxSize={420}
             onSizeChange={setExplorerWidth}
             collapsed={false}
-            onToggleCollapse={() =>
-              setExplorerCollapsed(true)
-            }
+            onToggleCollapse={() => setExplorerCollapsed(true)}
             className="h-full"
           >
             <CodeExplorer
@@ -114,10 +104,7 @@ export default function Code({
 
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
             {activeFile ? (
-              <CodeEditor
-                value={activeFile.content}
-                onChange={updateContent}
-              />
+              <CodeEditor value={activeFile.content} onChange={updateContent} />
             ) : (
               <div className="flex flex-1 items-center justify-center text-sm text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)]">
                 Select a file to begin editing.
@@ -137,9 +124,7 @@ export default function Code({
               maxSize={320}
               onSizeChange={setContextHeight}
               collapsed={false}
-              onToggleCollapse={() =>
-                setContextCollapsed(true)
-              }
+              onToggleCollapse={() => setContextCollapsed(true)}
               className="w-full"
             >
               <CodeContext />
@@ -169,9 +154,7 @@ export default function Code({
               maxSize={320}
               onSizeChange={setConsoleHeight}
               collapsed={false}
-              onToggleCollapse={() =>
-                setConsoleCollapsed(true)
-              }
+              onToggleCollapse={() => setConsoleCollapsed(true)}
               className="w-full"
             >
               <CodeConsole />
@@ -206,9 +189,7 @@ export default function Code({
             maxSize={420}
             onSizeChange={setSuggestionsWidth}
             collapsed={false}
-            onToggleCollapse={() =>
-              setSuggestionsCollapsed(true)
-            }
+            onToggleCollapse={() => setSuggestionsCollapsed(true)}
             className="h-full"
           >
             <CodeSuggestions />

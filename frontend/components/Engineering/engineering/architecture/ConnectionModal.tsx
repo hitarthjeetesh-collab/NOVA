@@ -19,8 +19,7 @@ export interface ConnectionInterfaceOption {
   type: string;
 }
 
-export interface ConnectionData
-  extends Record<string, unknown> {
+export interface ConnectionData extends Record<string, unknown> {
   type: ConnectionType;
   protocol: string;
   description: string;
@@ -38,9 +37,7 @@ interface ConnectionModalProps {
   initialSourceInterfaceId?: string | null;
   initialTargetInterfaceId?: string | null;
   onClose: () => void;
-  onSubmit: (
-    data: ConnectionData
-  ) => void;
+  onSubmit: (data: ConnectionData) => void;
   onDelete?: () => void;
 }
 
@@ -87,58 +84,35 @@ export default function ConnectionModal({
   onSubmit,
   onDelete,
 }: ConnectionModalProps) {
-  const [type, setType] =
-    useState<ConnectionType>(
-      "communication"
-    );
+  const [type, setType] = useState<ConnectionType>("communication");
 
-  const [protocol, setProtocol] =
-    useState("");
+  const [protocol, setProtocol] = useState("");
 
-  const [description, setDescription] =
-    useState("");
+  const [description, setDescription] = useState("");
 
-  const [
-    sourceInterfaceId,
-    setSourceInterfaceId,
-  ] = useState("");
+  const [sourceInterfaceId, setSourceInterfaceId] = useState("");
 
-  const [
-    targetInterfaceId,
-    setTargetInterfaceId,
-  ] = useState("");
+  const [targetInterfaceId, setTargetInterfaceId] = useState("");
 
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    setType(
-      initialData?.type ??
-        "communication"
-    );
+    setType(initialData?.type ?? "communication");
 
-    setProtocol(
-      initialData?.protocol ?? ""
-    );
+    setProtocol(initialData?.protocol ?? "");
 
-    setDescription(
-      initialData?.description ?? ""
-    );
+    setDescription(initialData?.description ?? "");
 
     setSourceInterfaceId(
-      initialSourceInterfaceId ??
-        sourceInterfaces[0]?.id ??
-        ""
+      initialSourceInterfaceId ?? sourceInterfaces[0]?.id ?? "",
     );
 
     setTargetInterfaceId(
-      initialTargetInterfaceId ??
-        targetInterfaces[0]?.id ??
-        ""
+      initialTargetInterfaceId ?? targetInterfaces[0]?.id ?? "",
     );
 
     setError("");
@@ -153,24 +127,19 @@ export default function ConnectionModal({
 
   function handleSubmit() {
     if (!sourceInterfaceId) {
-      setError(
-        "Select a source interface."
-      );
+      setError("Select a source interface.");
       return;
     }
 
     if (!targetInterfaceId) {
-      setError(
-        "Select a target interface."
-      );
+      setError("Select a target interface.");
       return;
     }
 
     onSubmit({
       type,
       protocol: protocol.trim(),
-      description:
-        description.trim(),
+      description: description.trim(),
       sourceInterfaceId,
       targetInterfaceId,
     });
@@ -181,10 +150,7 @@ export default function ConnectionModal({
   }
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-    >
+    <Modal open={open} onClose={onClose}>
       <div className="w-[650px] max-w-[95vw]">
         {/* Header */}
         <div className="border-b border-white/10 px-6 py-5">
@@ -197,9 +163,7 @@ export default function ConnectionModal({
               {sourceName}
             </span>
 
-            <span className="text-white/20">
-              →
-            </span>
+            <span className="text-white/20">→</span>
 
             <span className="rounded-md bg-[var(--aevra-surface-light)] px-2 py-1 text-[var(--aevra-text-muted)]">
               {targetName}
@@ -218,36 +182,25 @@ export default function ConnectionModal({
               </label>
 
               <select
-                value={
-                  sourceInterfaceId
-                }
-                onChange={(event) =>
-                  setSourceInterfaceId(
-                    event.target.value
-                  )
-                }
+                value={sourceInterfaceId}
+                onChange={(event) => setSourceInterfaceId(event.target.value)}
                 className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
               >
-                <option
-                  value=""
-                  className="bg-[var(--aevra-surface)]"
-                >
+                <option value="" className="bg-[var(--aevra-surface)]">
                   Select interface
                 </option>
 
-                {sourceInterfaces.map(
-                  (item) => (
-                    <option
-                      key={item.id}
-                      value={item.id}
-                      className="bg-[var(--aevra-surface)]"
-                    >
-                      {item.name}
-                      {" · "}
-                      {item.type}
-                    </option>
-                  )
-                )}
+                {sourceInterfaces.map((item) => (
+                  <option
+                    key={item.id}
+                    value={item.id}
+                    className="bg-[var(--aevra-surface)]"
+                  >
+                    {item.name}
+                    {" · "}
+                    {item.type}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -258,36 +211,25 @@ export default function ConnectionModal({
               </label>
 
               <select
-                value={
-                  targetInterfaceId
-                }
-                onChange={(event) =>
-                  setTargetInterfaceId(
-                    event.target.value
-                  )
-                }
+                value={targetInterfaceId}
+                onChange={(event) => setTargetInterfaceId(event.target.value)}
                 className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
               >
-                <option
-                  value=""
-                  className="bg-[var(--aevra-surface)]"
-                >
+                <option value="" className="bg-[var(--aevra-surface)]">
                   Select interface
                 </option>
 
-                {targetInterfaces.map(
-                  (item) => (
-                    <option
-                      key={item.id}
-                      value={item.id}
-                      className="bg-[var(--aevra-surface)]"
-                    >
-                      {item.name}
-                      {" · "}
-                      {item.type}
-                    </option>
-                  )
-                )}
+                {targetInterfaces.map((item) => (
+                  <option
+                    key={item.id}
+                    value={item.id}
+                    className="bg-[var(--aevra-surface)]"
+                  >
+                    {item.name}
+                    {" · "}
+                    {item.type}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -301,23 +243,19 @@ export default function ConnectionModal({
             <select
               value={type}
               onChange={(event) =>
-                setType(
-                  event.target.value as ConnectionType
-                )
+                setType(event.target.value as ConnectionType)
               }
               className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none focus:border-white/30"
             >
-              {connectionTypes.map(
-                (item) => (
-                  <option
-                    key={item.value}
-                    value={item.value}
-                    className="bg-[var(--aevra-surface)]"
-                  >
-                    {item.label}
-                  </option>
-                )
-              )}
+              {connectionTypes.map((item) => (
+                <option
+                  key={item.value}
+                  value={item.value}
+                  className="bg-[var(--aevra-surface)]"
+                >
+                  {item.label}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -329,11 +267,7 @@ export default function ConnectionModal({
 
             <input
               value={protocol}
-              onChange={(event) =>
-                setProtocol(
-                  event.target.value
-                )
-              }
+              onChange={(event) => setProtocol(event.target.value)}
               placeholder="e.g. USB 3.2 Gen 2, CAN FD, 24V DC"
               className="w-full rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/20 focus:border-white/30"
             />
@@ -347,11 +281,7 @@ export default function ConnectionModal({
 
             <textarea
               value={description}
-              onChange={(event) =>
-                setDescription(
-                  event.target.value
-                )
-              }
+              onChange={(event) => setDescription(event.target.value)}
               rows={4}
               placeholder="What does this connection carry or provide?"
               className="w-full resize-none rounded-lg border border-white/10 bg-[var(--aevra-surface)] px-3 py-2.5 text-sm text-[var(--aevra-text)] outline-none placeholder:text-white/20 focus:border-white/30"
@@ -369,33 +299,18 @@ export default function ConnectionModal({
         <div className="flex items-center justify-between border-t border-white/10 px-6 py-4">
           <div>
             {onDelete && (
-              <Button
-                type="button"
-                variant="danger"
-                onClick={
-                  handleDelete
-                }
-              >
+              <Button type="button" variant="danger" onClick={handleDelete}>
                 Delete Connection
               </Button>
             )}
           </div>
 
           <div className="flex gap-2">
-            <Button
-              type="button"
-              onClick={onClose}
-            >
+            <Button type="button" onClick={onClose}>
               Cancel
             </Button>
 
-            <Button
-              type="button"
-              variant="primary"
-              onClick={
-                handleSubmit
-              }
-            >
+            <Button type="button" variant="primary" onClick={handleSubmit}>
               Save Connection
             </Button>
           </div>

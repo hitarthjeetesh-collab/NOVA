@@ -7,17 +7,12 @@ import { INITIAL_CODE_FILES } from "../constants";
 import type { CodeFile } from "../types/code";
 
 export function useCode() {
-  const [files, setFiles] = useState<CodeFile[]>(
-    INITIAL_CODE_FILES,
-  );
+  const [files, setFiles] = useState<CodeFile[]>(INITIAL_CODE_FILES);
 
-  const [activeFileId, setActiveFileId] = useState(
-    INITIAL_CODE_FILES[0].id,
-  );
+  const [activeFileId, setActiveFileId] = useState(INITIAL_CODE_FILES[0].id);
 
   const activeFile = useMemo(
-    () =>
-      files.find((file) => file.id === activeFileId) ?? null,
+    () => files.find((file) => file.id === activeFileId) ?? null,
     [files, activeFileId],
   );
 
@@ -42,9 +37,7 @@ export function useCode() {
 
   const deleteFile = (id: string) => {
     setFiles((current) => {
-      const remaining = current.filter(
-        (file) => file.id !== id,
-      );
+      const remaining = current.filter((file) => file.id !== id);
 
       if (id === activeFileId && remaining.length > 0) {
         setActiveFileId(remaining[0].id);

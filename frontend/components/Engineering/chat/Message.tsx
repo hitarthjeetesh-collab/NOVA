@@ -3,18 +3,11 @@ interface MessageProps {
   content: string;
 }
 
-export default function Message({
-  role,
-  content,
-}: MessageProps) {
+export default function Message({ role, content }: MessageProps) {
   const isUser = role === "user";
 
   return (
-    <div
-      className={`flex ${
-        isUser ? "justify-end" : "justify-start"
-      }`}
-    >
+    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
         className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-6 ${
           isUser

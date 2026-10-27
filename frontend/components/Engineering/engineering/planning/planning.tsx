@@ -22,44 +22,31 @@ export default function Planning() {
     "Define the main objective of the engineering project.",
   );
 
-  const [constraints, setConstraints] =
-    useState<Constraint[]>([]);
+  const [constraints, setConstraints] = useState<Constraint[]>([]);
 
-  const [priorities, setPriorities] =
-    useState<Priority[]>(initialPriorities);
+  const [priorities, setPriorities] = useState<Priority[]>(initialPriorities);
 
-  const [approaches, setApproaches] =
-    useState<Approach[]>(initialApproaches);
+  const [approaches, setApproaches] = useState<Approach[]>(initialApproaches);
 
-  const [constraintModalOpen, setConstraintModalOpen] =
-    useState(false);
+  const [constraintModalOpen, setConstraintModalOpen] = useState(false);
 
-  const [priorityModalOpen, setPriorityModalOpen] =
-    useState(false);
+  const [priorityModalOpen, setPriorityModalOpen] = useState(false);
 
-  const [approachModalOpen, setApproachModalOpen] =
-    useState(false);
+  const [approachModalOpen, setApproachModalOpen] = useState(false);
 
-  const [editingApproachId, setEditingApproachId] =
-    useState<string | null>(null);
+  const [editingApproachId, setEditingApproachId] = useState<string | null>(
+    null,
+  );
 
   const selectedApproach = useMemo(
-    () =>
-      approaches.find(
-        (approach) => approach.id === editingApproachId,
-      ),
+    () => approaches.find((approach) => approach.id === editingApproachId),
     [approaches, editingApproachId],
   );
 
-  function updatePriorityWeight(
-    priorityId: string,
-    weight: number,
-  ) {
+  function updatePriorityWeight(priorityId: string, weight: number) {
     setPriorities((current) =>
       current.map((priority) =>
-        priority.id === priorityId
-          ? { ...priority, weight }
-          : priority,
+        priority.id === priorityId ? { ...priority, weight } : priority,
       ),
     );
   }
@@ -69,26 +56,20 @@ export default function Planning() {
 
     setPriorities((current) =>
       normalizePriorityWeights(
-        current.filter(
-          (priority) => priority.id !== priorityId,
-        ),
+        current.filter((priority) => priority.id !== priorityId),
       ),
     );
   }
 
   function removeConstraint(constraintId: string) {
     setConstraints((current) =>
-      current.filter(
-        (constraint) => constraint.id !== constraintId,
-      ),
+      current.filter((constraint) => constraint.id !== constraintId),
     );
   }
 
   function removeApproach(approachId: string) {
     setApproaches((current) =>
-      current.filter(
-        (approach) => approach.id !== approachId,
-      ),
+      current.filter((approach) => approach.id !== approachId),
     );
   }
 
@@ -104,9 +85,7 @@ export default function Planning() {
 
   function saveApproach(approach: Approach) {
     setApproaches((current) => {
-      const exists = current.some(
-        (item) => item.id === approach.id,
-      );
+      const exists = current.some((item) => item.id === approach.id);
 
       if (exists) {
         return current.map((item) =>
@@ -125,14 +104,11 @@ export default function Planning() {
     <div className="h-full overflow-y-auto">
       <div className="mx-auto max-w-6xl px-6 py-8">
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold">
-            Planning
-          </h2>
+          <h2 className="text-2xl font-semibold">Planning</h2>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/40">
-            Define what matters, explore possible approaches,
-            and establish a design direction before building
-            the system architecture.
+            Define what matters, explore possible approaches, and establish a
+            design direction before building the system architecture.
           </p>
         </div>
 
@@ -168,13 +144,9 @@ export default function Planning() {
             setMainGoal={setMainGoal}
             constraints={constraints}
             priorities={priorities}
-            onAddConstraint={() =>
-              setConstraintModalOpen(true)
-            }
+            onAddConstraint={() => setConstraintModalOpen(true)}
             onRemoveConstraint={removeConstraint}
-            onAddPriority={() =>
-              setPriorityModalOpen(true)
-            }
+            onAddPriority={() => setPriorityModalOpen(true)}
             onRemovePriority={removePriority}
             onUpdatePriorityWeight={updatePriorityWeight}
           />
@@ -194,10 +166,7 @@ export default function Planning() {
         <ConstraintModal
           onClose={() => setConstraintModalOpen(false)}
           onSave={(constraint) => {
-            setConstraints((current) => [
-              ...current,
-              constraint,
-            ]);
+            setConstraints((current) => [...current, constraint]);
 
             setConstraintModalOpen(false);
           }}
@@ -209,10 +178,7 @@ export default function Planning() {
           onClose={() => setPriorityModalOpen(false)}
           onSave={(priority) => {
             setPriorities((current) =>
-              normalizePriorityWeights([
-                ...current,
-                priority,
-              ]),
+              normalizePriorityWeights([...current, priority]),
             );
 
             setPriorityModalOpen(false);

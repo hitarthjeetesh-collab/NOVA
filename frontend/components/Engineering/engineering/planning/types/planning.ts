@@ -14,11 +14,7 @@ export type Constraint = {
 };
 
 export type ApproachStatus =
-  | "Idea"
-  | "Candidate"
-  | "Preferred"
-  | "Rejected"
-  | "Needs Investigation";
+  "Idea" | "Candidate" | "Preferred" | "Rejected" | "Needs Investigation";
 
 export type Approach = {
   id: string;

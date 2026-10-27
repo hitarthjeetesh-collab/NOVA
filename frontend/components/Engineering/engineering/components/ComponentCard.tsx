@@ -25,14 +25,11 @@ export default function ComponentCard({
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <h3 className="truncate text-sm font-semibold">
-            {component.name}
-          </h3>
+          <h3 className="truncate text-sm font-semibold">{component.name}</h3>
 
           <p className="mt-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
             {component.manufacturer}
-            {component.partNumber &&
-              ` · ${component.partNumber}`}
+            {component.partNumber && ` · ${component.partNumber}`}
           </p>
         </div>
 
@@ -80,24 +77,22 @@ export default function ComponentCard({
           </p>
 
           <div className="mt-2 flex flex-wrap gap-2">
-            {component.interfaces.map(
-              (interfaceName, index) => {
-                const trimmed = interfaceName.trim();
+            {component.interfaces.map((interfaceName, index) => {
+              const trimmed = interfaceName.trim();
 
-                if (!trimmed) {
-                  return null;
-                }
+              if (!trimmed) {
+                return null;
+              }
 
-                return (
-                  <span
-                    key={`${trimmed}-${index}`}
-                    className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface-light)] px-2 py-1 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)]"
-                  >
-                    {trimmed}
-                  </span>
-                );
-              },
-            )}
+              return (
+                <span
+                  key={`${trimmed}-${index}`}
+                  className="rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface-light)] px-2 py-1 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)]"
+                >
+                  {trimmed}
+                </span>
+              );
+            })}
           </div>
         </div>
       )}

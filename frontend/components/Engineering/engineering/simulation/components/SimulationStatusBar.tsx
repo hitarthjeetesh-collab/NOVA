@@ -1,9 +1,6 @@
 "use client";
 
-import type {
-  MeshSettings,
-  SimulationStatus,
-} from "../types/simulation";
+import type { MeshSettings, SimulationStatus } from "../types/simulation";
 
 interface SimulationStatusBarProps {
   status: SimulationStatus;

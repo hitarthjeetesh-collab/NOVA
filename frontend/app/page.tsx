@@ -37,8 +37,7 @@ export default function Home() {
         <div
           className="absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
           style={{
-            background:
-              "color-mix(in srgb, var(--aevra-text) 2%, transparent)",
+            background: "color-mix(in srgb, var(--aevra-text) 2%, transparent)",
           }}
         />
 
@@ -103,7 +102,6 @@ export default function Home() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--aevra-accent)] opacity-60" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--aevra-accent)]" />
                 </span>
-
                 NOVA is actively being built
               </div>
             </div>
@@ -117,8 +115,8 @@ export default function Home() {
 
             <p className="mx-auto mt-5 max-w-lg text-center text-sm leading-7 text-[var(--aevra-text-secondary)]">
               NOVA is currently in early development. The platform is being
-              built from its core workspace and infrastructure upward, with
-              new systems being introduced as they become ready.
+              built from its core workspace and infrastructure upward, with new
+              systems being introduced as they become ready.
             </p>
 
             {/* Development status */}
@@ -126,9 +124,7 @@ export default function Home() {
               <div className="rounded-xl border border-[var(--aevra-border)] bg-[var(--aevra-hover)] p-4">
                 <div className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--aevra-success)] shadow-[0_0_10px_var(--aevra-success)]" />
-                  <span className="text-xs font-medium">
-                    Core workspace
-                  </span>
+                  <span className="text-xs font-medium">Core workspace</span>
                 </div>
 
                 <p className="mt-2 text-[10px] uppercase tracking-wide text-[var(--aevra-text-faint)]">
@@ -139,9 +135,7 @@ export default function Home() {
               <div className="rounded-xl border border-[var(--aevra-border)] bg-[var(--aevra-hover)] p-4">
                 <div className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--aevra-accent)] shadow-[0_0_10px_var(--aevra-accent)]" />
-                  <span className="text-xs font-medium">
-                    Platform
-                  </span>
+                  <span className="text-xs font-medium">Platform</span>
                 </div>
 
                 <p className="mt-2 text-[10px] uppercase tracking-wide text-[var(--aevra-text-faint)]">
@@ -152,9 +146,7 @@ export default function Home() {
               <div className="rounded-xl border border-[var(--aevra-border)] bg-[var(--aevra-hover)] p-4">
                 <div className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--aevra-text-tertiary)]" />
-                  <span className="text-xs font-medium">
-                    AI systems
-                  </span>
+                  <span className="text-xs font-medium">AI systems</span>
                 </div>
 
                 <p className="mt-2 text-[10px] uppercase tracking-wide text-[var(--aevra-text-faint)]">
@@ -171,7 +163,6 @@ export default function Home() {
                 className="group inline-flex h-11 items-center justify-center rounded-xl bg-[var(--aevra-text)] px-6 text-sm font-semibold text-[var(--aevra-background)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[var(--aevra-text)] focus:ring-offset-2 focus:ring-offset-[var(--aevra-background)]"
               >
                 Enter NOVA Hub
-
                 <span
                   aria-hidden="true"
                   className="ml-2 transition-transform duration-200 group-hover:translate-x-1"
@@ -185,7 +176,6 @@ export default function Home() {
                 className="group inline-flex h-11 items-center justify-center rounded-xl border border-[var(--aevra-border)] bg-[var(--aevra-hover)] px-6 text-sm font-medium text-[var(--aevra-text-secondary)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--aevra-accent)_25%,var(--aevra-border))] hover:bg-[var(--aevra-hover-strong)] hover:text-[var(--aevra-text)] focus:outline-none focus:ring-2 focus:ring-[var(--aevra-accent)] focus:ring-offset-2 focus:ring-offset-[var(--aevra-background)]"
               >
                 Development
-
                 <span
                   aria-hidden="true"
                   className="ml-2 transition-transform duration-200 group-hover:translate-x-1"

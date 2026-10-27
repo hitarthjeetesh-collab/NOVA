@@ -80,29 +80,25 @@ export const INITIAL_SUGGESTIONS: CodeSuggestion[] = [
   {
     id: "explain",
     title: "Explain this code",
-    description:
-      "Get an engineering-focused explanation of the selected code.",
+    description: "Get an engineering-focused explanation of the selected code.",
     type: "explain",
   },
   {
     id: "generate",
     title: "Generate implementation",
-    description:
-      "Generate code for the current engineering task.",
+    description: "Generate code for the current engineering task.",
     type: "generate",
   },
   {
     id: "fix",
     title: "Fix code",
-    description:
-      "Identify and propose fixes for the selected code.",
+    description: "Identify and propose fixes for the selected code.",
     type: "fix",
   },
   {
     id: "optimize",
     title: "Optimize",
-    description:
-      "Look for opportunities to improve the implementation.",
+    description: "Look for opportunities to improve the implementation.",
     type: "optimize",
   },
 ];

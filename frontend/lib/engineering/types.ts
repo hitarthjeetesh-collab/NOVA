@@ -1,8 +1,5 @@
 export type SystemStatus =
-  | "Concept"
-  | "Designed"
-  | "Validated"
-  | "Manufacturing";
+  "Concept" | "Designed" | "Validated" | "Manufacturing";
 
 export type ConnectionType =
   | "power"

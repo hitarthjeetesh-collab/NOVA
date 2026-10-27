@@ -1,10 +1,5 @@
 export type CalculationCategory =
-  | "Mechanical"
-  | "Electrical"
-  | "Thermal"
-  | "Structural"
-  | "Power"
-  | "Geometry";
+  "Mechanical" | "Electrical" | "Thermal" | "Structural" | "Power" | "Geometry";
 
 export type CalculationStatus = "ready" | "draft" | "warning";
 

@@ -12,16 +12,11 @@ export function getInput(
   return calculation.inputs.find((input) => input.id === id);
 }
 
-export function getInputValue(
-  calculation: Calculation,
-  id: string,
-): number {
+export function getInputValue(calculation: Calculation, id: string): number {
   return getInput(calculation, id)?.value ?? 0;
 }
 
-export function calculateResult(
-  calculation: Calculation,
-): CalculationResult {
+export function calculateResult(calculation: Calculation): CalculationResult {
   const value = calculation.inputs.reduce((result, input) => {
     return result + input.value;
   }, 0);
@@ -88,9 +83,7 @@ export function validateCalculation(
   });
 }
 
-export function cloneCalculation(
-  calculation: Calculation,
-): Calculation {
+export function cloneCalculation(calculation: Calculation): Calculation {
   return {
     ...calculation,
     id: `${calculation.id}-${Date.now()}`,

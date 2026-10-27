@@ -26,8 +26,9 @@ export default function RequirementModal({
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [category, setCategory] = useState("Mechanical");
-  const [priority, setPriority] =
-    useState<"Required" | "Preferred">("Required");
+  const [priority, setPriority] = useState<"Required" | "Preferred">(
+    "Required",
+  );
   const [description, setDescription] = useState("");
 
   const editing = Boolean(requirement);
@@ -106,9 +107,7 @@ export default function RequirementModal({
 
         <form onSubmit={handleSubmit} className="space-y-5 p-6">
           <div>
-            <label className="mb-2 block text-sm text-white/60">
-              Name
-            </label>
+            <label className="mb-2 block text-sm text-white/60">Name</label>
 
             <input
               value={name}
@@ -163,9 +162,7 @@ export default function RequirementModal({
               <select
                 value={priority}
                 onChange={(event) =>
-                  setPriority(
-                    event.target.value as "Required" | "Preferred"
-                  )
+                  setPriority(event.target.value as "Required" | "Preferred")
                 }
                 className="w-full rounded-lg border border-white/10 bg-[#0b0d10] px-3 py-2.5 text-sm text-white outline-none focus:border-white/30"
               >

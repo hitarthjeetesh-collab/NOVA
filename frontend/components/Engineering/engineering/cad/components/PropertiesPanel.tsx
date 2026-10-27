@@ -57,13 +57,7 @@ export default function PropertiesPanel({ selectedObject }: Props) {
   );
 }
 
-function Property({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function Property({ label, value }: { label: string; value: string }) {
   return (
     <div className="mb-2 flex items-center justify-between gap-3 last:mb-0">
       <span className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">

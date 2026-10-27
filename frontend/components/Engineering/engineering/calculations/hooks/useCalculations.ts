@@ -4,10 +4,7 @@ import { useMemo, useState } from "react";
 
 import { INITIAL_CALCULATIONS } from "../constants";
 
-import type {
-  Calculation,
-  CalculationCategory,
-} from "../types/calculations";
+import type { Calculation, CalculationCategory } from "../types/calculations";
 
 import {
   cloneCalculation,
@@ -24,9 +21,7 @@ export function useCalculations() {
 
   const [search, setSearch] = useState("");
 
-  const [category, setCategory] = useState<
-    "All" | CalculationCategory
-  >("All");
+  const [category, setCategory] = useState<"All" | CalculationCategory>("All");
 
   const selectedCalculation = calculations.find(
     (calculation) => calculation.id === selectedId,
@@ -49,11 +44,7 @@ export function useCalculations() {
     });
   }, [calculations, search, category]);
 
-  function updateInput(
-    calculationId: string,
-    inputId: string,
-    value: number,
-  ) {
+  function updateInput(calculationId: string, inputId: string, value: number) {
     setCalculations((current) =>
       current.map((calculation) => {
         if (calculation.id !== calculationId) {
@@ -61,9 +52,7 @@ export function useCalculations() {
         }
 
         const inputs = calculation.inputs.map((input) =>
-          input.id === inputId
-            ? { ...input, value }
-            : input,
+          input.id === inputId ? { ...input, value } : input,
         );
 
         return {
@@ -96,9 +85,7 @@ export function useCalculations() {
 
   function removeCalculation(id: string) {
     setCalculations((current) => {
-      const remaining = current.filter(
-        (calculation) => calculation.id !== id,
-      );
+      const remaining = current.filter((calculation) => calculation.id !== id);
 
       if (id === selectedId) {
         setSelectedId(remaining[0]?.id ?? "");

@@ -11,39 +11,22 @@ export interface ApproachModalProps {
   onSave: (approach: Approach) => void;
 }
 
-export function ApproachModal({  approach,
+export function ApproachModal({
+  approach,
   onClose,
   onSave,
 }: ApproachModalProps) {
-  const [name, setName] =
-    useState(
-      approach?.name ?? ""
-    );
+  const [name, setName] = useState(approach?.name ?? "");
 
-  const [reason, setReason] =
-    useState(
-      approach?.reason ?? ""
-    );
+  const [reason, setReason] = useState(approach?.reason ?? "");
 
-  const [pros, setPros] =
-    useState(
-      approach?.pros.join(
-        "\n"
-      ) ?? ""
-    );
+  const [pros, setPros] = useState(approach?.pros.join("\n") ?? "");
 
-  const [cons, setCons] =
-    useState(
-      approach?.cons.join(
-        "\n"
-      ) ?? ""
-    );
+  const [cons, setCons] = useState(approach?.cons.join("\n") ?? "");
 
-  const [status, setStatus] =
-    useState<ApproachStatus>(
-      approach?.status ??
-        "Idea"
-    );
+  const [status, setStatus] = useState<ApproachStatus>(
+    approach?.status ?? "Idea",
+  );
 
   function submit() {
     if (!name.trim()) {
@@ -51,29 +34,20 @@ export function ApproachModal({  approach,
     }
 
     onSave({
-      id:
-        approach?.id ??
-        crypto.randomUUID(),
+      id: approach?.id ?? crypto.randomUUID(),
 
       name: name.trim(),
 
-      reason:
-        reason.trim(),
+      reason: reason.trim(),
 
       pros: pros
         .split("\n")
-        .map(
-          (item) =>
-            item.trim()
-        )
+        .map((item) => item.trim())
         .filter(Boolean),
 
       cons: cons
         .split("\n")
-        .map(
-          (item) =>
-            item.trim()
-        )
+        .map((item) => item.trim())
         .filter(Boolean),
 
       status,
@@ -82,11 +56,7 @@ export function ApproachModal({  approach,
 
   return (
     <Modal
-      title={
-        approach
-          ? "Edit Approach"
-          : "Add Approach"
-      }
+      title={approach ? "Edit Approach" : "Add Approach"}
       onClose={onClose}
       wide
     >
@@ -94,11 +64,7 @@ export function ApproachModal({  approach,
         <input
           autoFocus
           value={name}
-          onChange={(event) =>
-            setName(
-              event.target.value
-            )
-          }
+          onChange={(event) => setName(event.target.value)}
           className={controlClassName}
           placeholder="Differential Drive"
         />
@@ -107,44 +73,25 @@ export function ApproachModal({  approach,
       <Field label="Status">
         <select
           value={status}
-          onChange={(event) =>
-            setStatus(
-              event.target
-                .value as ApproachStatus
-            )
-          }
+          onChange={(event) => setStatus(event.target.value as ApproachStatus)}
           className={controlClassName}
         >
-          <option>
-            Idea
-          </option>
+          <option>Idea</option>
 
-          <option>
-            Candidate
-          </option>
+          <option>Candidate</option>
 
-          <option>
-            Preferred
-          </option>
+          <option>Preferred</option>
 
-          <option>
-            Rejected
-          </option>
+          <option>Rejected</option>
 
-          <option>
-            Needs Investigation
-          </option>
+          <option>Needs Investigation</option>
         </select>
       </Field>
 
       <Field label="Reason">
         <textarea
           value={reason}
-          onChange={(event) =>
-            setReason(
-              event.target.value
-            )
-          }
+          onChange={(event) => setReason(event.target.value)}
           rows={4}
           className={controlClassName}
           placeholder="Why is this approach worth considering?"
@@ -155,52 +102,32 @@ export function ApproachModal({  approach,
         <Field label="Pros">
           <textarea
             value={pros}
-            onChange={(event) =>
-              setPros(
-                event.target.value
-              )
-            }
+            onChange={(event) => setPros(event.target.value)}
             rows={6}
             className={controlClassName}
-            placeholder={
-              "Simple\nLow cost\nReliable"
-            }
+            placeholder={"Simple\nLow cost\nReliable"}
           />
 
-          <p className="mt-2 text-[11px] text-white/25">
-            One item per line.
-          </p>
+          <p className="mt-2 text-[11px] text-white/25">One item per line.</p>
         </Field>
 
         <Field label="Cons">
           <textarea
             value={cons}
-            onChange={(event) =>
-              setCons(
-                event.target.value
-              )
-            }
+            onChange={(event) => setCons(event.target.value)}
             rows={6}
             className={controlClassName}
-            placeholder={
-              "Limited mobility\nHigher mass"
-            }
+            placeholder={"Limited mobility\nHigher mass"}
           />
 
-          <p className="mt-2 text-[11px] text-white/25">
-            One item per line.
-          </p>
+          <p className="mt-2 text-[11px] text-white/25">One item per line.</p>
         </Field>
       </div>
 
       <ModalActions
         onClose={onClose}
         onSave={submit}
-        saveLabel={
-          approach
-            ? "Save Changes"
-            : "Add Approach"
-        }
+        saveLabel={approach ? "Save Changes" : "Add Approach"}
       />
     </Modal>
   );

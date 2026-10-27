@@ -1,12 +1,6 @@
-import type {
-  Calculation,
-  CalculationCategory,
-} from "./types/calculations";
+import type { Calculation, CalculationCategory } from "./types/calculations";
 
-export const CALCULATION_CATEGORIES: (
-  | "All"
-  | CalculationCategory
-)[] = [
+export const CALCULATION_CATEGORIES: ("All" | CalculationCategory)[] = [
   "All",
   "Mechanical",
   "Electrical",
@@ -79,8 +73,7 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
     id: "ohms-law",
     name: "Ohm's Law",
     category: "Electrical",
-    description:
-      "Calculate electrical current from voltage and resistance.",
+    description: "Calculate electrical current from voltage and resistance.",
     equation: "I = V / R",
     inputs: [
       {
@@ -105,8 +98,7 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
       unit: "A",
       label: "Current",
       status: "valid",
-      explanation:
-        "Current is calculated by dividing voltage by resistance.",
+      explanation: "Current is calculated by dividing voltage by resistance.",
     },
     assumptions: [
       "Resistance is constant.",
@@ -132,8 +124,7 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
     id: "electrical-power",
     name: "Electrical Power",
     category: "Electrical",
-    description:
-      "Calculate electrical power from voltage and current.",
+    description: "Calculate electrical power from voltage and current.",
     equation: "P = V × I",
     inputs: [
       {
@@ -158,8 +149,7 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
       unit: "W",
       label: "Power",
       status: "valid",
-      explanation:
-        "Electrical power is the product of voltage and current.",
+      explanation: "Electrical power is the product of voltage and current.",
     },
     assumptions: [
       "DC electrical system.",
@@ -211,8 +201,7 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
       unit: "N",
       label: "Force",
       status: "valid",
-      explanation:
-        "Force is calculated by multiplying mass by acceleration.",
+      explanation: "Force is calculated by multiplying mass by acceleration.",
     },
     assumptions: [
       "Mass is constant.",
@@ -291,8 +280,7 @@ export const INITIAL_CALCULATIONS: Calculation[] = [
     id: "mass-from-volume",
     name: "Mass from Volume",
     category: "Geometry",
-    description:
-      "Calculate mass from material density and object volume.",
+    description: "Calculate mass from material density and object volume.",
     equation: "m = ρ × V",
     inputs: [
       {

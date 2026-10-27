@@ -30,8 +30,7 @@ const initialRequirements: Requirement[] = [
     value: "≥ 5 m/s",
     category: "Performance",
     priority: "Required",
-    description:
-      "The system must be capable of reaching at least 5 m/s.",
+    description: "The system must be capable of reaching at least 5 m/s.",
   },
   {
     id: "3",
@@ -49,8 +48,9 @@ export default function Requirements() {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [editingRequirement, setEditingRequirement] =
-    useState<Requirement | undefined>();
+  const [editingRequirement, setEditingRequirement] = useState<
+    Requirement | undefined
+  >();
 
   function openAddModal() {
     setEditingRequirement(undefined);
@@ -103,9 +103,7 @@ export default function Requirements() {
       <div className="mx-auto max-w-4xl p-8">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <h2 className="text-2xl font-semibold">
-              Requirements
-            </h2>
+            <h2 className="text-2xl font-semibold">Requirements</h2>
 
             <p className="mt-2 text-sm text-white/40">
               Define the constraints and goals for your system.
@@ -134,9 +132,7 @@ export default function Requirements() {
 
         {requirements.length === 0 && (
           <div className="mt-8 rounded-xl border border-dashed border-white/10 p-12 text-center">
-            <p className="text-sm text-white/40">
-              No requirements yet.
-            </p>
+            <p className="text-sm text-white/40">No requirements yet.</p>
 
             <button
               type="button"

@@ -10,14 +10,10 @@ export interface PriorityModalProps {
   onSave: (priority: Priority) => void;
 }
 
-export function PriorityModal({  onClose,
-  onSave,
-}: PriorityModalProps) {
-  const [name, setName] =
-    useState("");
+export function PriorityModal({ onClose, onSave }: PriorityModalProps) {
+  const [name, setName] = useState("");
 
-  const [description, setDescription] =
-    useState("");
+  const [description, setDescription] = useState("");
 
   function submit() {
     if (!name.trim()) {
@@ -27,27 +23,18 @@ export function PriorityModal({  onClose,
     onSave({
       id: crypto.randomUUID(),
       name: name.trim(),
-      description:
-        description.trim() ||
-        "Custom design priority",
+      description: description.trim() || "Custom design priority",
       weight: 10,
     });
   }
 
   return (
-    <Modal
-      title="Add Priority"
-      onClose={onClose}
-    >
+    <Modal title="Add Priority" onClose={onClose}>
       <Field label="Priority">
         <input
           autoFocus
           value={name}
-          onChange={(event) =>
-            setName(
-              event.target.value
-            )
-          }
+          onChange={(event) => setName(event.target.value)}
           className={controlClassName}
           placeholder="Payload capacity"
         />
@@ -56,11 +43,7 @@ export function PriorityModal({  onClose,
       <Field label="Description">
         <textarea
           value={description}
-          onChange={(event) =>
-            setDescription(
-              event.target.value
-            )
-          }
+          onChange={(event) => setDescription(event.target.value)}
           rows={3}
           className={controlClassName}
           placeholder="How important is this factor?"

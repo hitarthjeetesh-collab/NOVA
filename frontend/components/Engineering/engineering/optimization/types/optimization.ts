@@ -1,14 +1,7 @@
-export type OptimizationMethod =
-  | "topology"
-  | "shape"
-  | "parameter";
+export type OptimizationMethod = "topology" | "shape" | "parameter";
 
 export type OptimizationStatus =
-  | "ready"
-  | "running"
-  | "completed"
-  | "stopped"
-  | "error";
+  "ready" | "running" | "completed" | "stopped" | "error";
 
 export type ObjectiveType =
   | "minimize-mass"

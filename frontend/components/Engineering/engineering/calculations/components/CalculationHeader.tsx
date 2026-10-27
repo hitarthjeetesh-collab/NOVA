@@ -17,9 +17,7 @@ export default function CalculationHeader({
             {calculation.category}
           </span>
 
-          <span className="text-xs text-emerald-400">
-            Ready
-          </span>
+          <span className="text-xs text-emerald-400">Ready</span>
         </div>
 
         <h1 className="mt-3 text-xl font-semibold tracking-tight">

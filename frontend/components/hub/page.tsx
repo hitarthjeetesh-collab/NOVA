@@ -5,29 +5,25 @@ import { useRouter } from "next/navigation";
 const apps = [
   {
     name: "Engineering",
-    description:
-      "Design and develop products from requirements to testing.",
+    description: "Design and develop products from requirements to testing.",
     status: "Available",
     route: "/engineering",
   },
   {
     name: "Robotics",
-    description:
-      "Build, program, and develop intelligent robotic systems.",
+    description: "Build, program, and develop intelligent robotic systems.",
     status: "Coming soon",
     route: "#",
   },
   {
     name: "ORION",
-    description:
-      "Develop advanced wearable and human-machine systems.",
+    description: "Develop advanced wearable and human-machine systems.",
     status: "Coming soon",
     route: "#",
   },
   {
     name: "AI Lab",
-    description:
-      "Experiment with models, agents, and intelligent systems.",
+    description: "Experiment with models, agents, and intelligent systems.",
     status: "Coming soon",
     route: "#",
   },
@@ -88,9 +84,7 @@ export default function Home() {
             </div>
           </div>
 
-          <span className="text-sm font-semibold tracking-wide">
-            NOVA
-          </span>
+          <span className="text-sm font-semibold tracking-wide">NOVA</span>
 
           <span className="hidden text-[var(--aevra-text-faint)] sm:inline">
             /
@@ -144,8 +138,8 @@ export default function Home() {
           </h1>
 
           <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--aevra-text-tertiary)] sm:text-base">
-            Your workspace for engineering, robotics, intelligent
-            systems, and the products you create with them.
+            Your workspace for engineering, robotics, intelligent systems, and
+            the products you create with them.
           </p>
         </section>
 
@@ -215,9 +209,7 @@ export default function Home() {
                   </div>
 
                   <div className="relative">
-                    <h3 className="mt-7 text-base font-medium">
-                      {app.name}
-                    </h3>
+                    <h3 className="mt-7 text-base font-medium">{app.name}</h3>
 
                     <p className="mt-2 max-w-md text-xs leading-5 text-[var(--aevra-text-subtle)]">
                       {app.description}
@@ -298,9 +290,7 @@ export default function Home() {
               BUILD WHAT&apos;S NEXT.
             </p>
 
-            <p className="text-[var(--aevra-text-faint)]">
-              NOVA Workspace
-            </p>
+            <p className="text-[var(--aevra-text-faint)]">NOVA Workspace</p>
           </div>
         </footer>
       </div>

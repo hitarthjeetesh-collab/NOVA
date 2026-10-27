@@ -1,16 +1,9 @@
 "use client";
 
-import type {
-  ButtonHTMLAttributes,
-} from "react";
+import type { ButtonHTMLAttributes } from "react";
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "default"
-    | "primary"
-    | "danger"
-    | "ghost";
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "default" | "primary" | "danger" | "ghost";
 }
 
 export default function Button({

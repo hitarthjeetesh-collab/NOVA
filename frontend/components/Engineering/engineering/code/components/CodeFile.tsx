@@ -10,11 +10,7 @@ type Props = {
   onClick: () => void;
 };
 
-export default function CodeFile({
-  file,
-  active,
-  onClick,
-}: Props) {
+export default function CodeFile({ file, active, onClick }: Props) {
   return (
     <button
       type="button"
@@ -29,9 +25,7 @@ export default function CodeFile({
         {getLanguageLabel(file.language).slice(0, 2)}
       </span>
 
-      <span className="min-w-0 flex-1 truncate">
-        {file.name}
-      </span>
+      <span className="min-w-0 flex-1 truncate">{file.name}</span>
 
       {file.modified && (
         <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />

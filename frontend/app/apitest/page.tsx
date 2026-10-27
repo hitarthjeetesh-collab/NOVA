@@ -23,36 +23,24 @@ type UploadedFile = {
   status: string;
 };
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "http://127.0.0.1:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 export default function ApiTestPage() {
   const [apiStatus, setApiStatus] = useState<string | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  const [projectName, setProjectName] =
-    useState("AEVRA Test Project");
-  const [project, setProject] =
-    useState<Project | null>(null);
-  const [projectError, setProjectError] =
-    useState<string | null>(null);
+  const [projectName, setProjectName] = useState("AEVRA Test Project");
+  const [project, setProject] = useState<Project | null>(null);
+  const [projectError, setProjectError] = useState<string | null>(null);
 
-  const [selectedFile, setSelectedFile] =
-    useState<File | null>(null);
-  const [category, setCategory] =
-    useState("documents");
-  const [uploading, setUploading] =
-    useState(false);
-  const [uploadResult, setUploadResult] =
-    useState<UploadedFile | null>(null);
-  const [uploadError, setUploadError] =
-    useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [category, setCategory] = useState("documents");
+  const [uploading, setUploading] = useState(false);
+  const [uploadResult, setUploadResult] = useState<UploadedFile | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const [projectFiles, setProjectFiles] =
-    useState<UploadedFile[]>([]);
-  const [filesError, setFilesError] =
-    useState<string | null>(null);
+  const [projectFiles, setProjectFiles] = useState<UploadedFile[]>([]);
+  const [filesError, setFilesError] = useState<string | null>(null);
 
   // ---------------------------------------------------------------
   // API status
@@ -63,26 +51,18 @@ export default function ApiTestPage() {
     setApiError(null);
 
     try {
-      const response = await fetch(
-        `${API_URL}/health`,
-      );
+      const response = await fetch(`${API_URL}/health`);
 
       if (!response.ok) {
-        throw new Error(
-          `${response.status} ${response.statusText}`,
-        );
+        throw new Error(`${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
 
-      setApiStatus(
-        JSON.stringify(result, null, 2),
-      );
+      setApiStatus(JSON.stringify(result, null, 2));
     } catch (error) {
       setApiError(
-        error instanceof Error
-          ? error.message
-          : "API request failed",
+        error instanceof Error ? error.message : "API request failed",
       );
     }
   }
@@ -96,38 +76,31 @@ export default function ApiTestPage() {
     setProjectError(null);
 
     try {
-      const response = await fetch(
-        `${API_URL}/api/projects`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: projectName,
-          }),
+      const response = await fetch(`${API_URL}/api/projects`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          name: projectName,
+        }),
+      });
 
       if (!response.ok) {
-        const errorText =
-          await response.text();
+        const errorText = await response.text();
 
         throw new Error(
           `${response.status} ${response.statusText}: ${errorText}`,
         );
       }
 
-      const result: Project =
-        await response.json();
+      const result: Project = await response.json();
 
       setProject(result);
       setProjectFiles([]);
     } catch (error) {
       setProjectError(
-        error instanceof Error
-          ? error.message
-          : "Project creation failed",
+        error instanceof Error ? error.message : "Project creation failed",
       );
     }
   }
@@ -148,17 +121,12 @@ export default function ApiTestPage() {
     try {
       const formData = new FormData();
 
-      formData.append(
-        "file",
-        selectedFile,
-      );
+      formData.append("file", selectedFile);
 
       const response = await fetch(
         `${API_URL}/api/files/upload?project_id=${encodeURIComponent(
           project.id,
-        )}&category=${encodeURIComponent(
-          category,
-        )}`,
+        )}&category=${encodeURIComponent(category)}`,
         {
           method: "POST",
           body: formData,
@@ -166,16 +134,14 @@ export default function ApiTestPage() {
       );
 
       if (!response.ok) {
-        const errorText =
-          await response.text();
+        const errorText = await response.text();
 
         throw new Error(
           `${response.status} ${response.statusText}: ${errorText}`,
         );
       }
 
-      const result: UploadedFile =
-        await response.json();
+      const result: UploadedFile = await response.json();
 
       setUploadResult(result);
       setSelectedFile(null);
@@ -183,9 +149,7 @@ export default function ApiTestPage() {
       await loadProjectFiles(project.id);
     } catch (error) {
       setUploadError(
-        error instanceof Error
-          ? error.message
-          : "File upload failed",
+        error instanceof Error ? error.message : "File upload failed",
       );
     } finally {
       setUploading(false);
@@ -196,21 +160,16 @@ export default function ApiTestPage() {
   // Load project files
   // ---------------------------------------------------------------
 
-  async function loadProjectFiles(
-    projectId: string,
-  ) {
+  async function loadProjectFiles(projectId: string) {
     setFilesError(null);
 
     try {
       const response = await fetch(
-        `${API_URL}/api/projects/${encodeURIComponent(
-          projectId,
-        )}/files`,
+        `${API_URL}/api/projects/${encodeURIComponent(projectId)}/files`,
       );
 
       if (!response.ok) {
-        const errorText =
-          await response.text();
+        const errorText = await response.text();
 
         throw new Error(
           `${response.status} ${response.statusText}: ${errorText}`,
@@ -219,14 +178,10 @@ export default function ApiTestPage() {
 
       const result = await response.json();
 
-      setProjectFiles(
-        result.files || [],
-      );
+      setProjectFiles(result.files || []);
     } catch (error) {
       setFilesError(
-        error instanceof Error
-          ? error.message
-          : "Could not load project files",
+        error instanceof Error ? error.message : "Could not load project files",
       );
     }
   }
@@ -239,13 +194,10 @@ export default function ApiTestPage() {
         {/* ------------------------------------------------------- */}
 
         <div>
-          <h1 className="text-2xl font-semibold">
-            AEVRA API Test
-          </h1>
+          <h1 className="text-2xl font-semibold">AEVRA API Test</h1>
 
           <p className="mt-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-            Test the AEVRA backend, Firestore,
-            and Filebase integration.
+            Test the AEVRA backend, Firestore, and Filebase integration.
           </p>
         </div>
 
@@ -254,9 +206,7 @@ export default function ApiTestPage() {
         {/* ------------------------------------------------------- */}
 
         <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] p-6">
-          <h2 className="text-lg font-medium">
-            API Status
-          </h2>
+          <h2 className="text-lg font-medium">API Status</h2>
 
           <button
             type="button"
@@ -284,23 +234,16 @@ export default function ApiTestPage() {
         {/* ------------------------------------------------------- */}
 
         <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] p-6">
-          <h2 className="text-lg font-medium">
-            Firestore Project
-          </h2>
+          <h2 className="text-lg font-medium">Firestore Project</h2>
 
           <p className="mt-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-            Create a project in Firestore to
-            associate uploaded files with.
+            Create a project in Firestore to associate uploaded files with.
           </p>
 
           <div className="mt-4 flex gap-3">
             <input
               value={projectName}
-              onChange={(event) =>
-                setProjectName(
-                  event.target.value,
-                )
-              }
+              onChange={(event) => setProjectName(event.target.value)}
               className="flex-1 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-background)_70%,transparent)] px-4 py-2 text-sm text-[var(--aevra-text)] outline-none focus:border-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]"
               placeholder="Project name"
             />
@@ -320,9 +263,7 @@ export default function ApiTestPage() {
                 Project created
               </p>
 
-              <p className="mt-1 font-medium">
-                {project.name}
-              </p>
+              <p className="mt-1 font-medium">{project.name}</p>
 
               <p className="mt-2 break-all text-xs text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
                 ID: {project.id}
@@ -342,13 +283,11 @@ export default function ApiTestPage() {
         {/* ------------------------------------------------------- */}
 
         <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] p-6">
-          <h2 className="text-lg font-medium">
-            Filebase + Firestore Upload
-          </h2>
+          <h2 className="text-lg font-medium">Filebase + Firestore Upload</h2>
 
           <p className="mt-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-            The actual file goes to Filebase.
-            Its metadata is stored in Firestore.
+            The actual file goes to Filebase. Its metadata is stored in
+            Firestore.
           </p>
 
           {!project && (
@@ -367,10 +306,7 @@ export default function ApiTestPage() {
                 type="file"
                 disabled={!project || uploading}
                 onChange={(event) =>
-                  setSelectedFile(
-                    event.target.files?.[0] ||
-                      null,
-                  )
+                  setSelectedFile(event.target.files?.[0] || null)
                 }
                 className="block w-full text-sm text-[color-mix(in_srgb,var(--aevra-text)_60%,transparent)] file:mr-4 file:rounded-lg file:border-0 file:bg-[var(--aevra-text)] file:px-4 file:py-2 file:text-sm file:font-medium file:text-[var(--aevra-background)]"
               />
@@ -383,45 +319,25 @@ export default function ApiTestPage() {
 
               <select
                 value={category}
-                onChange={(event) =>
-                  setCategory(
-                    event.target.value,
-                  )
-                }
+                onChange={(event) => setCategory(event.target.value)}
                 disabled={!project || uploading}
                 className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-background)_70%,transparent)] px-4 py-2 text-sm text-[var(--aevra-text)] outline-none"
               >
-                <option value="cad">
-                  CAD
-                </option>
-                <option value="documents">
-                  Documents
-                </option>
-                <option value="images">
-                  Images
-                </option>
-                <option value="exports">
-                  Exports
-                </option>
-                <option value="other">
-                  Other
-                </option>
+                <option value="cad">CAD</option>
+                <option value="documents">Documents</option>
+                <option value="images">Images</option>
+                <option value="exports">Exports</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
             <button
               type="button"
               onClick={uploadFile}
-              disabled={
-                !project ||
-                !selectedFile ||
-                uploading
-              }
+              disabled={!project || !selectedFile || uploading}
               className="rounded-lg bg-[var(--aevra-text)] px-4 py-2 text-sm font-medium text-[var(--aevra-background)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_90%,transparent)] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              {uploading
-                ? "Uploading..."
-                : "Upload File"}
+              {uploading ? "Uploading..." : "Upload File"}
             </button>
           </div>
 
@@ -432,31 +348,17 @@ export default function ApiTestPage() {
               </p>
 
               <div className="mt-3 space-y-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
-                <p>
-                  File:{" "}
-                  {uploadResult.filename}
-                </p>
+                <p>File: {uploadResult.filename}</p>
 
-                <p>
-                  Size:{" "}
-                  {uploadResult.size.toLocaleString()}{" "}
-                  bytes
-                </p>
+                <p>Size: {uploadResult.size.toLocaleString()} bytes</p>
 
-                <p>
-                  Category:{" "}
-                  {uploadResult.category}
-                </p>
+                <p>Category: {uploadResult.category}</p>
 
                 <p className="break-all">
-                  Filebase key:{" "}
-                  {uploadResult.storage_key}
+                  Filebase key: {uploadResult.storage_key}
                 </p>
 
-                <p className="break-all">
-                  Firestore ID:{" "}
-                  {uploadResult.id}
-                </p>
+                <p className="break-all">Firestore ID: {uploadResult.id}</p>
               </div>
             </div>
           )}
@@ -476,23 +378,16 @@ export default function ApiTestPage() {
           <section className="rounded-xl border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-medium">
-                  Project Files
-                </h2>
+                <h2 className="text-lg font-medium">Project Files</h2>
 
                 <p className="mt-1 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-                  Files recorded in Firestore for
-                  this project.
+                  Files recorded in Firestore for this project.
                 </p>
               </div>
 
               <button
                 type="button"
-                onClick={() =>
-                  loadProjectFiles(
-                    project.id,
-                  )
-                }
+                onClick={() => loadProjectFiles(project.id)}
                 className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 py-2 text-sm text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)] hover:bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)]"
               >
                 Refresh
@@ -510,31 +405,16 @@ export default function ApiTestPage() {
                     key={file.id}
                     className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] bg-[color-mix(in_srgb,var(--aevra-background)_50%,transparent)] p-4"
                   >
-                    <p className="font-medium">
-                      {file.filename}
-                    </p>
+                    <p className="font-medium">{file.filename}</p>
 
                     <div className="mt-2 space-y-1 text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-                      <p>
-                        Category:{" "}
-                        {file.category}
-                      </p>
+                      <p>Category: {file.category}</p>
 
-                      <p>
-                        Size:{" "}
-                        {file.size.toLocaleString()}{" "}
-                        bytes
-                      </p>
+                      <p>Size: {file.size.toLocaleString()} bytes</p>
 
-                      <p className="break-all">
-                        Filebase:{" "}
-                        {file.storage_key}
-                      </p>
+                      <p className="break-all">Filebase: {file.storage_key}</p>
 
-                      <p className="break-all">
-                        Firestore ID:{" "}
-                        {file.id}
-                      </p>
+                      <p className="break-all">Firestore ID: {file.id}</p>
                     </div>
                   </div>
                 ))}

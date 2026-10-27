@@ -105,17 +105,11 @@ export default function Optimization() {
 
       <div className="flex h-8 shrink-0 items-center border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] px-3 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
         <div className="flex items-center gap-4">
-          <span>
-            Variables: {state.variables.length}
-          </span>
+          <span>Variables: {state.variables.length}</span>
 
-          <span>
-            Objectives: {state.objectives.length}
-          </span>
+          <span>Objectives: {state.objectives.length}</span>
 
-          <span>
-            Constraints: {state.constraints.length}
-          </span>
+          <span>Constraints: {state.constraints.length}</span>
 
           <span className="hidden sm:inline">
             Max iterations: {state.settings.maxIterations}

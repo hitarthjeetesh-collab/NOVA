@@ -19,10 +19,7 @@ interface SimulationSetupProps {
   onMaterialChange: (value: MaterialType) => void;
   onMeshChange: (value: Partial<MeshSettings>) => void;
   onAddLoad: () => void;
-  onUpdateLoad: (
-    id: string,
-    updates: Partial<SimulationLoad>,
-  ) => void;
+  onUpdateLoad: (id: string, updates: Partial<SimulationLoad>) => void;
   onRemoveLoad: (id: string) => void;
   onAddConstraint: () => void;
   onUpdateConstraint: (
@@ -79,15 +76,11 @@ export default function SimulationSetup({
           <select
             value={analysisType}
             onChange={(event) =>
-              onAnalysisTypeChange(
-                event.target.value as AnalysisType,
-              )
+              onAnalysisTypeChange(event.target.value as AnalysisType)
             }
             className={selectClass}
           >
-            <option value="static-structural">
-              Static Structural
-            </option>
+            <option value="static-structural">Static Structural</option>
             <option value="thermal">Thermal</option>
             <option value="modal">Modal</option>
             <option value="transient">Transient</option>
@@ -107,17 +100,13 @@ export default function SimulationSetup({
           <select
             value={material}
             onChange={(event) =>
-              onMaterialChange(
-                event.target.value as MaterialType,
-              )
+              onMaterialChange(event.target.value as MaterialType)
             }
             className={selectClass}
           >
             <option value="aluminum">Aluminum 6061-T6</option>
             <option value="steel">Carbon Steel</option>
-            <option value="stainless-steel">
-              Stainless Steel 304
-            </option>
+            <option value="stainless-steel">Stainless Steel 304</option>
             <option value="titanium">Titanium Ti-6Al-4V</option>
             <option value="carbon-fiber">Carbon Fiber</option>
           </select>
@@ -162,8 +151,7 @@ export default function SimulationSetup({
               value={mesh.quality}
               onChange={(event) =>
                 onMeshChange({
-                  quality:
-                    event.target.value as MeshSettings["quality"],
+                  quality: event.target.value as MeshSettings["quality"],
                 })
               }
               className={selectClass}
@@ -263,8 +251,8 @@ export default function SimulationSetup({
                   value={load.direction}
                   onChange={(event) =>
                     onUpdateLoad(load.id, {
-                      direction:
-                        event.target.value as SimulationLoad["direction"],
+                      direction: event.target
+                        .value as SimulationLoad["direction"],
                     })
                   }
                   className={selectClass}
@@ -306,9 +294,7 @@ export default function SimulationSetup({
 
                   <button
                     type="button"
-                    onClick={() =>
-                      onRemoveConstraint(constraint.id)
-                    }
+                    onClick={() => onRemoveConstraint(constraint.id)}
                     className="text-[11px] text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] hover:text-[color-mix(in_srgb,var(--aevra-text)_70%,transparent)]"
                   >
                     ×

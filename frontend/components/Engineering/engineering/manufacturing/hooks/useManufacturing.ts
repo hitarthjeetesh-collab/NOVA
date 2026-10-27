@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useRef, useState } from "react";
 
 import type {
   ManufacturingProcess,
@@ -32,31 +28,26 @@ const defaultResults: ManufacturingResults = {
     {
       id: "clearance",
       severity: "warning",
-      message:
-        "Check tool clearance around internal features.",
+      message: "Check tool clearance around internal features.",
     },
     {
       id: "tolerance",
       severity: "warning",
-      message:
-        "Some features are close to the selected tolerance.",
+      message: "Some features are close to the selected tolerance.",
     },
   ],
 };
 
 export function useManufacturing() {
-  const [state, setState] =
-    useState<ManufacturingState>({
-      settings: defaultSettings,
-      status: "ready",
-      progress: 0,
-      results: defaultResults,
-      error: null,
-    });
+  const [state, setState] = useState<ManufacturingState>({
+    settings: defaultSettings,
+    status: "ready",
+    progress: 0,
+    results: defaultResults,
+    error: null,
+  });
 
-  const timerRef = useRef<
-    ReturnType<typeof setInterval> | null
-  >(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const updateSettings = useCallback(
     (updates: Partial<ManufacturingSettings>) => {
@@ -73,9 +64,7 @@ export function useManufacturing() {
   );
 
   const prepare = useCallback(() => {
-    const errors = validateManufacturingSettings(
-      state.settings,
-    );
+    const errors = validateManufacturingSettings(state.settings);
 
     if (errors.length > 0) {
       setState((current) => ({
@@ -113,9 +102,7 @@ export function useManufacturing() {
           ...current,
           status: "completed",
           progress: 100,
-          results: createMockResults(
-            current.settings,
-          ),
+          results: createMockResults(current.settings),
         }));
 
         return;
@@ -154,28 +141,18 @@ export function useManufacturing() {
 function createMockResults(
   settings: ManufacturingSettings,
 ): ManufacturingResults {
-  const processMultiplier: Record<
-    ManufacturingProcess,
-    number
-  > = {
+  const processMultiplier: Record<ManufacturingProcess, number> = {
     cnc: 1,
     "3d-printing": 0.7,
     "sheet-metal": 0.85,
   };
 
-  const multiplier =
-    processMultiplier[settings.process];
+  const multiplier = processMultiplier[settings.process];
 
   return {
-    estimatedTime: Number(
-      (4.53 * multiplier).toFixed(2),
-    ),
-    materialUsage: Number(
-      (1.82 * multiplier).toFixed(2),
-    ),
-    estimatedCost: Number(
-      (86.4 * multiplier).toFixed(2),
-    ),
+    estimatedTime: Number((4.53 * multiplier).toFixed(2)),
+    materialUsage: Number((1.82 * multiplier).toFixed(2)),
+    estimatedCost: Number((86.4 * multiplier).toFixed(2)),
     toolpaths:
       settings.process === "cnc"
         ? 14

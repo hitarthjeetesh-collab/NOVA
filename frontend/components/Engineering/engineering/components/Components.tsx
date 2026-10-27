@@ -8,11 +8,7 @@ import ComponentCard from "./ComponentCard";
 import ComponentModal from "./ComponentModal";
 
 export type ComponentStatus =
-  | "Concept"
-  | "Selected"
-  | "Ordered"
-  | "Received"
-  | "Installed";
+  "Concept" | "Selected" | "Ordered" | "Received" | "Installed";
 
 export type ComponentCategory =
   | "Computing"
@@ -155,9 +151,7 @@ function getSubsystemPath(
   let parentId = node.data.parentId ?? null;
 
   while (parentId) {
-    const parent = nodes.find(
-      (item) => item.id === parentId,
-    );
+    const parent = nodes.find((item) => item.id === parentId);
 
     if (!parent) {
       break;
@@ -170,26 +164,27 @@ function getSubsystemPath(
   return `ORION / ${parts.join(" / ")}`;
 }
 
-export default function Components({
-  architectureNodes,
-}: ComponentsProps) {
+export default function Components({ architectureNodes }: ComponentsProps) {
   const [components, setComponents] =
     useState<EngineeringComponent[]>(initialComponents);
 
   const [search, setSearch] = useState("");
 
-  const [categoryFilter, setCategoryFilter] =
-    useState<"All" | ComponentCategory>("All");
+  const [categoryFilter, setCategoryFilter] = useState<
+    "All" | ComponentCategory
+  >("All");
 
-  const [statusFilter, setStatusFilter] =
-    useState<"All" | ComponentStatus>("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | ComponentStatus>(
+    "All",
+  );
 
   const [view, setView] = useState<"grid" | "list">("grid");
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [editingComponent, setEditingComponent] =
-    useState<EngineeringComponent | undefined>();
+  const [editingComponent, setEditingComponent] = useState<
+    EngineeringComponent | undefined
+  >();
 
   const subsystemOptions = useMemo(() => {
     return architectureNodes
@@ -197,9 +192,7 @@ export default function Components({
         id: node.id,
         label: getSubsystemPath(node, architectureNodes),
       }))
-      .sort((a, b) =>
-        a.label.localeCompare(b.label),
-      );
+      .sort((a, b) => a.label.localeCompare(b.label));
   }, [architectureNodes]);
 
   const filteredComponents = useMemo(() => {
@@ -213,63 +206,42 @@ export default function Components({
           component.manufacturer,
           component.partNumber,
           component.category,
-        ].some((value) =>
-          value.toLowerCase().includes(normalizedSearch),
-        );
+        ].some((value) => value.toLowerCase().includes(normalizedSearch));
 
       const matchesCategory =
-        categoryFilter === "All" ||
-        component.category === categoryFilter;
+        categoryFilter === "All" || component.category === categoryFilter;
 
       const matchesStatus =
-        statusFilter === "All" ||
-        component.status === statusFilter;
+        statusFilter === "All" || component.status === statusFilter;
 
-      return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesStatus
-      );
+      return matchesSearch && matchesCategory && matchesStatus;
     });
-  }, [
-    components,
-    search,
-    categoryFilter,
-    statusFilter,
-  ]);
+  }, [components, search, categoryFilter, statusFilter]);
 
   function handleAddComponent() {
     setEditingComponent(undefined);
     setModalOpen(true);
   }
 
-  function handleEditComponent(
-    component: EngineeringComponent,
-  ) {
+  function handleEditComponent(component: EngineeringComponent) {
     setEditingComponent(component);
     setModalOpen(true);
   }
 
   function handleDeleteComponent(id: string) {
-    const component = components.find(
-      (item) => item.id === id,
-    );
+    const component = components.find((item) => item.id === id);
 
     if (!component) {
       return;
     }
 
-    const confirmed = window.confirm(
-      `Delete "${component.name}"?`,
-    );
+    const confirmed = window.confirm(`Delete "${component.name}"?`);
 
     if (!confirmed) {
       return;
     }
 
-    setComponents((current) =>
-      current.filter((item) => item.id !== id),
-    );
+    setComponents((current) => current.filter((item) => item.id !== id));
   }
 
   function handleModalClose() {
@@ -277,18 +249,12 @@ export default function Components({
     setEditingComponent(undefined);
   }
 
-  function handleComponentSubmit(
-    data: EngineeringComponent,
-  ) {
+  function handleComponentSubmit(data: EngineeringComponent) {
     setComponents((current) => {
-      const exists = current.some(
-        (item) => item.id === data.id,
-      );
+      const exists = current.some((item) => item.id === data.id);
 
       if (exists) {
-        return current.map((item) =>
-          item.id === data.id ? data : item,
-        );
+        return current.map((item) => (item.id === data.id ? data : item));
       }
 
       return [...current, data];
@@ -308,13 +274,11 @@ export default function Components({
       <div className="mx-auto max-w-[1600px] p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="text-xl font-semibold">
-              Components
-            </h2>
+            <h2 className="text-xl font-semibold">Components</h2>
 
             <p className="mt-1 text-sm text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-              Manage physical components and parts used by
-              the engineering system.
+              Manage physical components and parts used by the engineering
+              system.
             </p>
           </div>
 
@@ -330,9 +294,7 @@ export default function Components({
         <div className="mt-6 flex flex-col gap-3 xl:flex-row">
           <input
             value={search}
-            onChange={(event) =>
-              setSearch(event.target.value)
-            }
+            onChange={(event) => setSearch(event.target.value)}
             placeholder="Search components..."
             className="min-w-0 flex-1 rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none placeholder:text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)] focus:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)]"
           />
@@ -340,22 +302,13 @@ export default function Components({
           <select
             value={categoryFilter}
             onChange={(event) =>
-              setCategoryFilter(
-                event.target.value as
-                  | "All"
-                  | ComponentCategory,
-              )
+              setCategoryFilter(event.target.value as "All" | ComponentCategory)
             }
             className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none"
           >
             {categories.map((category) => (
-              <option
-                key={category}
-                value={category}
-              >
-                {category === "All"
-                  ? "All Categories"
-                  : category}
+              <option key={category} value={category}>
+                {category === "All" ? "All Categories" : category}
               </option>
             ))}
           </select>
@@ -363,22 +316,13 @@ export default function Components({
           <select
             value={statusFilter}
             onChange={(event) =>
-              setStatusFilter(
-                event.target.value as
-                  | "All"
-                  | ComponentStatus,
-              )
+              setStatusFilter(event.target.value as "All" | ComponentStatus)
             }
             className="rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[var(--aevra-surface)] px-3 py-2 text-sm text-[var(--aevra-text)] outline-none"
           >
             {statuses.map((status) => (
-              <option
-                key={status}
-                value={status}
-              >
-                {status === "All"
-                  ? "All Statuses"
-                  : status}
+              <option key={status} value={status}>
+                {status === "All" ? "All Statuses" : status}
               </option>
             ))}
           </select>
@@ -412,13 +356,11 @@ export default function Components({
 
         <div className="mt-4 flex items-center justify-between">
           <p className="text-xs text-[color-mix(in_srgb,var(--aevra-text)_40%,transparent)]">
-            Showing {filteredComponents.length} of{" "}
-            {components.length} components
+            Showing {filteredComponents.length} of {components.length}{" "}
+            components
           </p>
 
-          {(search ||
-            categoryFilter !== "All" ||
-            statusFilter !== "All") && (
+          {(search || categoryFilter !== "All" || statusFilter !== "All") && (
             <button
               type="button"
               onClick={clearFilters}
@@ -453,24 +395,17 @@ export default function Components({
           >
             {filteredComponents.map((component) => {
               const subsystem = subsystemOptions.find(
-                (item) =>
-                  item.id === component.subsystemId,
+                (item) => item.id === component.subsystemId,
               );
 
               return (
                 <ComponentCard
                   key={component.id}
                   component={component}
-                  subsystemLabel={
-                    subsystem ? subsystem.label : undefined
-                  }
+                  subsystemLabel={subsystem ? subsystem.label : undefined}
                   view={view}
-                  onEdit={() =>
-                    handleEditComponent(component)
-                  }
-                  onDelete={() =>
-                    handleDeleteComponent(component.id)
-                  }
+                  onEdit={() => handleEditComponent(component)}
+                  onDelete={() => handleDeleteComponent(component.id)}
                 />
               );
             })}

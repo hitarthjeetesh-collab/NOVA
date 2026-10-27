@@ -63,8 +63,7 @@ function createInitialState(): SimulationState {
 }
 
 export function useSimulation() {
-  const [state, setState] =
-    useState<SimulationState>(createInitialState);
+  const [state, setState] = useState<SimulationState>(createInitialState);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -111,23 +110,20 @@ export function useSimulation() {
     }));
   }, []);
 
-  const addLoad = useCallback(
-    (load: Omit<SimulationLoad, "id">) => {
-      setState((current) => ({
-        ...current,
-        loads: [
-          ...current.loads,
-          {
-            ...load,
-            id: `load-${Date.now()}`,
-          },
-        ],
-        results: null,
-        error: null,
-      }));
-    },
-    [],
-  );
+  const addLoad = useCallback((load: Omit<SimulationLoad, "id">) => {
+    setState((current) => ({
+      ...current,
+      loads: [
+        ...current.loads,
+        {
+          ...load,
+          id: `load-${Date.now()}`,
+        },
+      ],
+      results: null,
+      error: null,
+    }));
+  }, []);
 
   const updateLoad = useCallback(
     (id: string, updates: Partial<SimulationLoad>) => {
@@ -284,10 +280,7 @@ export function useSimulation() {
 
     setState((current) => ({
       ...current,
-      status:
-        current.status === "running"
-          ? "stopped"
-          : current.status,
+      status: current.status === "running" ? "stopped" : current.status,
     }));
   }, [clearSimulationTimer]);
 

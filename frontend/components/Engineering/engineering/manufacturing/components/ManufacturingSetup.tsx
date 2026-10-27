@@ -8,9 +8,7 @@ import type {
 
 interface ManufacturingSetupProps {
   settings: ManufacturingSettings;
-  onChange: (
-    updates: Partial<ManufacturingSettings>,
-  ) => void;
+  onChange: (updates: Partial<ManufacturingSettings>) => void;
 }
 
 const materials: {
@@ -57,8 +55,7 @@ export default function ManufacturingSetup({
           value={settings.process}
           onChange={(event) =>
             onChange({
-              process:
-                event.target.value as ManufacturingProcess,
+              process: event.target.value as ManufacturingProcess,
             })
           }
           className="w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-3 py-2 text-xs text-[var(--aevra-text)] outline-none"
@@ -84,8 +81,7 @@ export default function ManufacturingSetup({
           value={settings.material}
           onChange={(event) =>
             onChange({
-              material:
-                event.target.value as ManufacturingMaterial,
+              material: event.target.value as ManufacturingMaterial,
             })
           }
           className="w-full rounded-md border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_5%,transparent)] px-3 py-2 text-xs text-[var(--aevra-text)] outline-none"
@@ -113,9 +109,7 @@ export default function ManufacturingSetup({
             value={settings.tolerance}
             unit="mm"
             step={0.01}
-            onChange={(value) =>
-              onChange({ tolerance: value })
-            }
+            onChange={(value) => onChange({ tolerance: value })}
           />
 
           <NumberField
@@ -123,9 +117,7 @@ export default function ManufacturingSetup({
             value={settings.thickness}
             unit="mm"
             step={0.1}
-            onChange={(value) =>
-              onChange({ thickness: value })
-            }
+            onChange={(value) => onChange({ thickness: value })}
           />
 
           <NumberField
@@ -133,9 +125,7 @@ export default function ManufacturingSetup({
             value={settings.resolution}
             unit="mm"
             step={0.05}
-            onChange={(value) =>
-              onChange({ resolution: value })
-            }
+            onChange={(value) => onChange({ resolution: value })}
           />
         </div>
       </section>
@@ -151,13 +141,7 @@ interface NumberFieldProps {
   onChange: (value: number) => void;
 }
 
-function NumberField({
-  label,
-  value,
-  unit,
-  step,
-  onChange,
-}: NumberFieldProps) {
+function NumberField({ label, value, unit, step, onChange }: NumberFieldProps) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-xs text-[color-mix(in_srgb,var(--aevra-text)_50%,transparent)]">
@@ -170,9 +154,7 @@ function NumberField({
           value={value}
           step={step}
           min={0}
-          onChange={(event) =>
-            onChange(Number(event.target.value))
-          }
+          onChange={(event) => onChange(Number(event.target.value))}
           className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-[var(--aevra-text)] outline-none"
         />
 

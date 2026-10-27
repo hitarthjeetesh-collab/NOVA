@@ -6,9 +6,7 @@ interface ChatInputProps {
   onSend: (message: string) => void;
 }
 
-export default function ChatInput({
-  onSend,
-}: ChatInputProps) {
+export default function ChatInput({ onSend }: ChatInputProps) {
   const [value, setValue] = useState("");
 
   function handleSubmit(event: FormEvent) {

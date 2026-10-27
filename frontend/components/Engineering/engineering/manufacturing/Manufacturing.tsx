@@ -8,21 +8,14 @@ import ManufacturingViewport from "./components/ManufacturingViewport";
 import { useManufacturing } from "./hooks/useManufacturing";
 
 export default function Manufacturing() {
-  const {
-    state,
-    updateSettings,
-    prepare,
-    reset,
-  } = useManufacturing();
+  const { state, updateSettings, prepare, reset } = useManufacturing();
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[var(--aevra-background)] text-[var(--aevra-text)]">
       <ManufacturingToolbar
         process={state.settings.process}
         status={state.status}
-        onProcessChange={(process) =>
-          updateSettings({ process })
-        }
+        onProcessChange={(process) => updateSettings({ process })}
         onPrepare={prepare}
         onReset={reset}
       />
@@ -48,21 +41,13 @@ export default function Manufacturing() {
 
       <div className="flex h-8 shrink-0 items-center justify-between border-t border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] px-4 text-[10px] text-[color-mix(in_srgb,var(--aevra-text)_30%,transparent)]">
         <div className="flex items-center gap-5">
-          <span>
-            Process:{" "}
-            {getProcessLabel(state.settings.process)}
-          </span>
+          <span>Process: {getProcessLabel(state.settings.process)}</span>
 
-          <span>
-            Toolpaths:{" "}
-            {state.results?.toolpaths ?? "—"}
-          </span>
+          <span>Toolpaths: {state.results?.toolpaths ?? "—"}</span>
 
           <span>
             Estimated Cost:{" "}
-            {state.results
-              ? `$${state.results.estimatedCost.toFixed(2)}`
-              : "—"}
+            {state.results ? `$${state.results.estimatedCost.toFixed(2)}` : "—"}
           </span>
         </div>
 
@@ -76,9 +61,7 @@ export default function Manufacturing() {
   );
 }
 
-function getProcessLabel(
-  process: "cnc" | "3d-printing" | "sheet-metal",
-) {
+function getProcessLabel(process: "cnc" | "3d-printing" | "sheet-metal") {
   switch (process) {
     case "cnc":
       return "CNC";

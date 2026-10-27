@@ -12,14 +12,12 @@ interface MessageData {
 const initialMessages: MessageData[] = [
   {
     role: "assistant",
-    content:
-      "I'm ready to help design, analyze, and engineer your project.",
+    content: "I'm ready to help design, analyze, and engineer your project.",
   },
 ];
 
 export default function Chat() {
-  const [messages, setMessages] =
-    useState<MessageData[]>(initialMessages);
+  const [messages, setMessages] = useState<MessageData[]>(initialMessages);
 
   function handleSend(message: string) {
     setMessages((current) => [

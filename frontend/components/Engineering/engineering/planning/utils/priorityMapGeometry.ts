@@ -101,10 +101,7 @@ export function clampToPolygon(
   return closest;
 }
 
-export function calculateWeights(
-  point: Point2D,
-  points: MapPoint[],
-): number[] {
+export function calculateWeights(point: Point2D, points: MapPoint[]): number[] {
   const count = points.length;
 
   if (count === 0) return [];
@@ -150,10 +147,8 @@ export function calculateWeights(
     const previousLength = lengths[previousIndex];
     const nextLength = lengths[nextIndex];
 
-    let previousCos =
-      dot(previous, current) / (previousLength * currentLength);
-    let nextCos =
-      dot(current, next) / (currentLength * nextLength);
+    let previousCos = dot(previous, current) / (previousLength * currentLength);
+    let nextCos = dot(current, next) / (currentLength * nextLength);
 
     previousCos = Math.max(-1, Math.min(1, previousCos));
     nextCos = Math.max(-1, Math.min(1, nextCos));
@@ -164,8 +159,7 @@ export function calculateWeights(
     const previousHalfTangent = Math.tan(previousAngle / 2);
     const nextHalfTangent = Math.tan(nextAngle / 2);
 
-    rawWeights[i] =
-      (previousHalfTangent + nextHalfTangent) / currentLength;
+    rawWeights[i] = (previousHalfTangent + nextHalfTangent) / currentLength;
   }
 
   const total = rawWeights.reduce((sum, value) => sum + value, 0);

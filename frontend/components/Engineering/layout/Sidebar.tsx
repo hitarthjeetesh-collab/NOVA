@@ -8,11 +8,7 @@ interface SidebarProps {
   onProjectChange: (project: string) => void;
 }
 
-const projects = [
-  "ORION",
-  "Autonomous Rover",
-  "Drone",
-];
+const projects = ["ORION", "Autonomous Rover", "Drone"];
 
 export default function Sidebar({
   open,

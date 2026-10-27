@@ -2,10 +2,7 @@
 
 import { CALCULATION_CATEGORIES } from "../constants";
 
-import type {
-  Calculation,
-  CalculationCategory,
-} from "../types/calculations";
+import type { Calculation, CalculationCategory } from "../types/calculations";
 
 import CalculationCard from "./CalculationCard";
 
@@ -15,9 +12,7 @@ interface CalculationListProps {
   search: string;
   category: "All" | CalculationCategory;
   onSearchChange: (value: string) => void;
-  onCategoryChange: (
-    value: "All" | CalculationCategory,
-  ) => void;
+  onCategoryChange: (value: "All" | CalculationCategory) => void;
   onSelect: (id: string) => void;
   onNewCalculation: () => void;
 }
@@ -59,9 +54,7 @@ export default function CalculationList({
         <div className="mt-4">
           <input
             value={search}
-            onChange={(event) =>
-              onSearchChange(event.target.value)
-            }
+            onChange={(event) => onSearchChange(event.target.value)}
             placeholder="Search calculations..."
             className="h-9 w-full rounded-lg border border-[color-mix(in_srgb,var(--aevra-text)_10%,transparent)] bg-[color-mix(in_srgb,var(--aevra-text)_3%,transparent)] px-3 text-xs text-[var(--aevra-text)] outline-none placeholder:text-[color-mix(in_srgb,var(--aevra-text)_25%,transparent)] focus:border-[color-mix(in_srgb,var(--aevra-text)_20%,transparent)]"
           />
@@ -76,9 +69,7 @@ export default function CalculationList({
                 key={item}
                 type="button"
                 onClick={() =>
-                  onCategoryChange(
-                    item as "All" | CalculationCategory,
-                  )
+                  onCategoryChange(item as "All" | CalculationCategory)
                 }
                 className={`whitespace-nowrap rounded-md px-2.5 py-1.5 text-[11px] transition ${
                   active

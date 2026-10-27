@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  Handle,
-  Position,
-  type NodeProps,
-} from "@xyflow/react";
+import { Handle, Position, type NodeProps } from "@xyflow/react";
 
-export type InterfaceDirection =
-  | "input"
-  | "output"
-  | "bidirectional";
+export type InterfaceDirection = "input" | "output" | "bidirectional";
 
 export type InterfaceType =
   | "power"
@@ -48,16 +41,11 @@ export interface SystemParameter {
   unit?: string;
 }
 
-export interface SystemNodeData
-  extends Record<string, unknown> {
+export interface SystemNodeData extends Record<string, unknown> {
   label: string;
   category: string;
   description: string;
-  status:
-    | "Concept"
-    | "Designed"
-    | "Validated"
-    | "Manufacturing";
+  status: "Concept" | "Designed" | "Validated" | "Manufacturing";
   parameters: SystemParameter[];
   interfaces: SystemInterface[];
   parentId?: string | null;
@@ -104,13 +92,9 @@ export default function SystemNode({
 }: NodeProps & {
   data: SystemNodeData;
 }) {
-  const parameters = Array.isArray(data.parameters)
-    ? data.parameters
-    : [];
+  const parameters = Array.isArray(data.parameters) ? data.parameters : [];
 
-  const interfaces = Array.isArray(data.interfaces)
-    ? data.interfaces
-    : [];
+  const interfaces = Array.isArray(data.interfaces) ? data.interfaces : [];
 
   return (
     <div className="min-w-[280px] max-w-[340px] overflow-hidden rounded-xl border border-white/15 bg-[var(--aevra-surface-light)] shadow-xl">
@@ -197,9 +181,7 @@ export default function SystemNode({
 
                     <div className="mt-0.5 truncate text-[10px] text-[var(--aevra-text-muted)]">
                       {getInterfaceTypeLabel(item.type)}
-                      {item.standard
-                        ? ` · ${item.standard}`
-                        : ""}
+                      {item.standard ? ` · ${item.standard}` : ""}
                     </div>
                   </div>
 
@@ -222,10 +204,7 @@ export default function SystemNode({
           <div className="space-y-1.5">
             {parameters.slice(0, 4).map((parameter, index) => (
               <div
-                key={
-                  parameter.id ??
-                  `${parameter.name}-${index}`
-                }
+                key={parameter.id ?? `${parameter.name}-${index}`}
                 className="flex justify-between gap-4 text-xs"
               >
                 <span className="text-[var(--aevra-text-muted)]">
@@ -234,9 +213,7 @@ export default function SystemNode({
 
                 <span className="text-right text-[var(--aevra-text)]">
                   {parameter.value}
-                  {parameter.unit
-                    ? ` ${parameter.unit}`
-                    : ""}
+                  {parameter.unit ? ` ${parameter.unit}` : ""}
                 </span>
               </div>
             ))}

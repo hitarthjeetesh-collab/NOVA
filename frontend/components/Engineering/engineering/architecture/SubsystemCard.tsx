@@ -61,16 +61,14 @@ export default function SubsystemCard({
           </p>
 
           <div className="flex flex-wrap gap-2">
-            {subsystem.elements.map(
-              (element) => (
-                <span
-                  key={element}
-                  className="rounded-md bg-[var(--aevra-surface-light)] px-2 py-1 text-xs text-[var(--aevra-text-muted)]"
-                >
-                  {element}
-                </span>
-              )
-            )}
+            {subsystem.elements.map((element) => (
+              <span
+                key={element}
+                className="rounded-md bg-[var(--aevra-surface-light)] px-2 py-1 text-xs text-[var(--aevra-text-muted)]"
+              >
+                {element}
+              </span>
+            ))}
           </div>
         </div>
       )}

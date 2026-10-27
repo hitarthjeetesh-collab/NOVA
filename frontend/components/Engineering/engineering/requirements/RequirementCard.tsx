@@ -24,9 +24,7 @@ export default function RequirementCard({
         <div>
           <h3 className="font-medium">{requirement.name}</h3>
 
-          <p className="mt-1 text-sm text-white/40">
-            {requirement.category}
-          </p>
+          <p className="mt-1 text-sm text-white/40">{requirement.category}</p>
         </div>
 
         <div className="flex gap-1 opacity-0 transition group-hover:opacity-100">
@@ -47,9 +45,7 @@ export default function RequirementCard({
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-4">
-        <span className="text-lg font-semibold">
-          {requirement.value}
-        </span>
+        <span className="text-lg font-semibold">{requirement.value}</span>
 
         <span
           className={`rounded-full px-2 py-1 text-xs ${

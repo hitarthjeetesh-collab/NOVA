@@ -1,9 +1,5 @@
 export type CodeLanguage =
-  | "python"
-  | "cpp"
-  | "typescript"
-  | "javascript"
-  | "rust";
+  "python" | "cpp" | "typescript" | "javascript" | "rust";
 
 export type CodeFile = {
   id: string;
@@ -19,11 +15,7 @@ export type CodeProject = {
   activeFileId: string;
 };
 
-export type CodeSuggestionType =
-  | "generate"
-  | "explain"
-  | "fix"
-  | "optimize";
+export type CodeSuggestionType = "generate" | "explain" | "fix" | "optimize";
 
 export type CodeSuggestion = {
   id: string;
